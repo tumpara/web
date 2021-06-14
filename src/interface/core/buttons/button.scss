@@ -1,0 +1,80 @@
+@use '../../lib/colors';
+@use '../../lib/layout';
+@use '../../lib/motion';
+
+.button {
+  display: inline-block;
+  @include layout.input-margin;
+  padding: 0 layout.$small-gap;
+  height: layout.$widget-height;
+  border: 1px solid var(--widget-border-color);
+  border-radius: layout.$widget-rounding;
+  box-shadow: layout.$widget-shadow;
+  font-family: inherit;
+  line-height: #{layout.$widget-height - layout.$tiny-gap};
+  background-color: var(--widget-bg-color);
+  color: var(--widget-fg-color);
+  cursor: default;
+  transition: background-color motion.$subtle, color motion.$subtle;
+  user-select: none;
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--widget-hover-bg-color);
+  }
+
+  &:focus-visible {
+    z-index: 2;
+    border-radius: 0;
+    outline: layout.$focus-outline-size solid var(--focus-color);
+  }
+
+  > svg {
+    position: relative;
+    top: 0.1rem;
+  }
+}
+
+.button:active,
+.details[open] > summary.button {
+  background-color: var(--widget-press-bg-color);
+}
+
+.button--selected,
+.button--primary {
+  --widget-border-color: var(--primary-widget-border-color);
+  --widget-bg-color: var(--primary-widget-bg-color);
+  --widget-hover-bg-color: var(--primary-widget-hover-bg-color);
+  --widget-press-bg-color: var(--primary-widget-press-bg-color);
+  --widget-fg-color: var(--primary-widget-fg-color);
+}
+
+.button--light {
+  margin: layout.$small-gap layout.$normal-gap;
+  padding: 0;
+  border: none;
+  line-height: 0;
+  font-size: inherit;
+  background: none;
+  color: inherit;
+
+  &:focus-visible {
+    outline: layout.$focus-outline-size solid var(--focus-color);
+  }
+}
+
+.button--small {
+  height: layout.$small-widget-height;
+  line-height: layout.$small-widget-height;
+}
+
+.button--disabled {
+  color: var(--hinted-fg-color);
+  box-shadow: none;
+
+  &:hover,
+  &:focus-visible,
+  &:active {
+    background-color: var(--widget-bg-color);
+  }
+}

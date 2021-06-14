@@ -1,0 +1,52 @@
+@use '../../lib/layout';
+
+.button-group {
+  display: inline-block;
+  @include layout.input-margin;
+  border-radius: layout.$widget-rounding;
+  box-shadow: layout.$widget-shadow;
+
+  > .button,
+  > .details > summary.button {
+    box-shadow: none;
+  }
+
+  > .button:not(:first-child),
+  > .details:not(:first-child) > summary.button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  > .button:not(:last-child),
+  > .details:not(:last-child) {
+    margin-right: 0;
+  }
+
+  > .button:not(:last-child),
+  > .details:not(:last-child) > summary.button {
+    &:not(.button--selected) {
+      border-right: none;
+    }
+
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  > .button--selected + .button {
+    border-left: none;
+  }
+}
+
+.button-group--stretch {
+  display: flex;
+
+  > .button,
+  > .details {
+    flex: 50% 1;
+  }
+
+  > .details > summary.button {
+    width: 100%;
+    text-align: center;
+  }
+}

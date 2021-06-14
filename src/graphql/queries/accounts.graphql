@@ -1,0 +1,71 @@
+fragment Usernames on User {
+  firstName
+  lastName
+  username
+}
+
+query CurrentUserInformation {
+  me {
+    id
+    ...Usernames
+  }
+}
+
+query UserMembershipSearch($query: String!, $hostId: ID!) {
+  users(first: 100, filters: { search: $query }) {
+    edges {
+      node {
+        id
+        ...Usernames
+        membershipInfo(hostId: $hostId) {
+          isOwner
+        }
+      }
+    }
+  }
+}
+
+fragment MemberUsersInfo on MembershipHost {
+  ... on Node {
+    id
+  }
+
+  memberUsers(first: 100) {
+    edges {
+      info {
+        isOwner
+      }
+      node {
+        id
+        ...Usernames
+      }
+    }
+  }
+}
+
+query MemberUsers($hostId: ID!) {
+  node(id: $hostId) {
+    id
+    ... on MembershipHost {
+      ...MemberUsersInfo
+    }
+  }
+}
+
+mutation SetMembership($hostId: ID!, $subjectId: ID!, $owner: Boolean!) {
+  setMembership(
+    input: { hostId: $hostId, subjectId: $subjectId, owner: $owner }
+  ) {
+    host {
+      ...MemberUsersInfo
+    }
+  }
+}
+
+mutation RemoveMembership($hostId: ID!, $subjectId: ID!) {
+  removeMembership(input: { hostId: $hostId, subjectId: $subjectId }) {
+    host {
+      ...MemberUsersInfo
+    }
+  }
+}

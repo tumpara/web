@@ -1,0 +1,35 @@
+@use '../../lib/layout';
+
+.subview {
+  overflow: auto;
+
+  > * {
+    max-width: 60rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: layout.$small-gap;
+    padding-right: layout.$small-gap;
+  }
+}
+
+.subview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: layout.$normal-gap auto;
+  border-bottom: 1px solid var(--guideline-color);
+
+  > h1 {
+    margin: layout.$small-gap 0;
+    border: 0;
+  }
+}
+
+.subview-header-toolbar {
+  display: flex;
+  align-items: center;
+}
+
+.subview-content {
+  margin: layout.$normal-gap auto;
+}

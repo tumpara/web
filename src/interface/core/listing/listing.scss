@@ -1,0 +1,42 @@
+@use '../../lib/layout';
+
+.listing {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: stretch;
+  gap: layout.$normal-gap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  > li {
+    flex-basis: 100%;
+
+    > .card {
+      display: block;
+      width: 100%;
+      margin: 0;
+    }
+  }
+}
+
+$block-size: clamp(8rem, 15vw, 12rem);
+
+.listing--center {
+  > li {
+    > .card {
+      text-align: center;
+    }
+  }
+}
+
+.listing--blocks {
+  > li {
+    display: inline-block;
+    flex: clamp(7rem, 15vw, 10rem) 1;
+
+    > .card {
+      min-height: clamp(6rem, 15vh, 8rem);
+    }
+  }
+}

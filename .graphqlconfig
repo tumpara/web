@@ -1,0 +1,12 @@
+{
+  "name": "Tumpara",
+  "schemaPath": "./src/graphql/schema.graphql",
+  "extensions": {
+    "endpoints": {
+      "Local Development Server": {
+        "url": "http://localhost:8000/api/graphql",
+        "introspect": true
+      }
+    }
+  }
+}

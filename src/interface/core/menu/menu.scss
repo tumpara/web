@@ -1,0 +1,63 @@
+@use '../../lib/colors';
+@use '../../lib/layout';
+@use '../../lib/motion';
+
+.menu {
+  margin: 0;
+  list-style: none;
+
+  > li {
+    &:not(:last-child) > .menu-item {
+      border-bottom: 1px solid var(--guideline-color);
+    }
+
+    &:first-child > .menu-item {
+      border-top-left-radius: layout.$widget-rounding;
+      border-top-right-radius: layout.$widget-rounding;
+    }
+
+    &:last-child > .menu-item {
+      border-bottom-left-radius: layout.$widget-rounding;
+      border-bottom-right-radius: layout.$widget-rounding;
+    }
+  }
+}
+
+.menu-item {
+  display: block;
+  padding: layout.$small-gap layout.$normal-gap;
+  width: 100%;
+  color: var(--widget-fg-color);
+  background-color: transparent;
+
+  & button {
+    width: 100%;
+    outline: none;
+  }
+
+  > svg {
+    position: relative;
+    top: 0.1rem;
+  }
+}
+
+.menu-item--clickable {
+  border: none;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--widget-fg-color);
+    background-color: var(--widget-hover-bg-color);
+  }
+}
+
+.menu-item--active {
+  background-color: var(--primary-widget-bg-color);
+  color: var(--primary-widget-fg-color);
+
+  &:hover {
+    background-color: var(--primary-widget-hover-bg-color);
+  }
+}

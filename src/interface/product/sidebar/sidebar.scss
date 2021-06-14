@@ -1,0 +1,44 @@
+@use '../../lib/colors';
+@use '../../lib/layout';
+@use '../../lib/motion';
+@use '../../lib/typography';
+
+.sidebar {
+  @include colors.theme-aside;
+  width: clamp(18rem, 20vw, 25rem);
+  border-right: 1px solid var(--guideline-color);
+  background-color: var(--main-bg-color);
+
+  h2 {
+    margin: 0 #{layout.$small-gap + layout.$tiny-gap};
+    line-height: 1;
+    font-size: typography.$ui-size;
+    font-variant: all-small-caps;
+    text-transform: uppercase;
+    color: var(--hinted-fg-color);
+    transition: opacity motion.$subtle;
+
+    + .sidebar-group {
+      margin-top: layout.$small-gap;
+    }
+  }
+}
+
+.sidebar--collapsed {
+  width: #{2.5rem + 2 * layout.$small-gap};
+  transition: width motion.$subtle;
+
+  h2 {
+    opacity: 0;
+  }
+
+  .sidebar-link-icon {
+    border-radius: layout.$widget-rounding;
+  }
+}
+
+.sidebar-group {
+  margin: layout.$normal-gap 0;
+  padding: 0 layout.$small-gap;
+  list-style: none;
+}

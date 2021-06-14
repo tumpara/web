@@ -1,0 +1,46 @@
+@use '../../lib/layout';
+@use '../../lib/motion';
+@use '../../lib/typography';
+
+$size: 1.4rem;
+$gap: layout.$small-gap;
+
+.checkbox-container {
+  display: inline-flex;
+  @include layout.input-margin;
+
+  .checkbox-mark:hover,
+  input:focus + .checkbox-mark {
+    background-color: var(--widget-hover-bg-color);
+  }
+
+  input:focus + .checkbox-mark {
+    outline: layout.$focus-outline-size solid var(--focus-color);
+  }
+
+  input:checked + .checkbox-mark {
+    background-color: var(--primary-widget-border-color);
+    color: var(--primary-widget-fg-color);
+  }
+}
+
+.checkbox-mark {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: $size;
+  height: $size;
+  border: 1px solid var(--widget-border-color);
+  box-shadow: layout.$widget-shadow;
+  background-color: var(--widget-bg-color);
+  color: transparent;
+  transition: border-color motion.$subtle, background-color motion.$subtle,
+    color motion.$subtle;
+}
+
+.checkbox-label {
+  flex-grow: 1;
+  align-self: stretch;
+  margin-left: $gap;
+  line-height: $size;
+}

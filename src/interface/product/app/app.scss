@@ -1,0 +1,82 @@
+@use '../../lib/colors';
+@use '../../lib/layout';
+
+.app {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100vh;
+  background: linear-gradient(
+      90deg,
+      #2c2827 0%,
+      #514d59 38.54%,
+      #333a42 70.83%,
+      #21293d 100%
+    ),
+    #2c2827;
+}
+
+.app-header {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: layout.$normal-gap;
+  align-items: center;
+  padding: 0 layout.$normal-gap;
+  height: layout.$header-height;
+
+  h2 {
+    margin: 0;
+    line-height: layout.$header-height;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    font-variant: all-small-caps;
+  }
+}
+
+.app-header-section {
+  > span {
+    color: var(--inverse-fg-color);
+  }
+}
+
+.app-header-section--left {
+  justify-self: left;
+}
+
+.app-header-section--right {
+  justify-self: right;
+}
+
+.app-modals {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 200;
+  color: var(--main-fg-color);
+  pointer-events: none;
+
+  > * {
+    pointer-events: auto;
+  }
+}
+
+.app-toasts {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  position: absolute;
+  top: layout.$normal-gap;
+  right: layout.$normal-gap;
+  bottom: layout.$normal-gap;
+  left: layout.$normal-gap;
+  z-index: 600;
+  overflow-y: hidden;
+  pointer-events: none;
+
+  .toast {
+    max-width: clamp(20rem, 25vw, 35rem);
+    pointer-events: auto;
+  }
+}

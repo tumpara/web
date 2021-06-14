@@ -1,0 +1,7 @@
+module.exports = {
+  arrowParens: 'always',
+  printWidth: 80,
+  proseWrap: 'always',
+  singleQuote: true,
+  trailingComma: 'es5',
+};

@@ -1,0 +1,28 @@
+fragment TimelineDisplayBase on Node {
+  id
+  ... on TimelineEntry {
+    timestamp
+    createdAt
+    location
+  }
+  ... on File {
+    filePath
+  }
+}
+
+query TimelineDisplayPhoto($id: ID!) {
+  node(id: $id) {
+    ...TimelineDisplayBase
+    ... on Photo {
+      width
+      height
+      megapixels
+      apertureSize
+      exposureTimeFraction
+      focalLength
+      isoValue
+      cameraName
+      imagePreviewUrl(width: 2560, height: 1440)
+    }
+  }
+}

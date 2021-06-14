@@ -1,0 +1,47 @@
+@use '../../lib/colors';
+@use '../../lib/layout';
+@use '../../lib/typography';
+
+.toolbar {
+  grid-area: toolbar;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 layout.$normal-gap;
+  height: 3rem;
+  border-bottom: 1px solid var(--guideline-color);
+  background-color: var(--focus-bg-color);
+}
+
+.toolbar--primary {
+  background-color: var(--primary-light-color);
+}
+
+.toolbar-section {
+  > *:not(:last-child) {
+    margin-right: layout.$small-gap;
+  }
+
+  > h1 {
+    @include typography.heading;
+  }
+
+  > h1,
+  > h2 {
+    display: inline-block;
+    margin: 0;
+    line-height: 3rem;
+  }
+
+  > .button,
+  > .button-group,
+  > .details {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.toolbar-status {
+  line-height: 3rem;
+  font-size: typography.$hinted-size;
+  color: var(--hinted-fg-color);
+}

@@ -1,0 +1,32 @@
+mutation OrganizeArchive($archiveIds: [ID], $unarchiveIds: [ID]) {
+  organizeArchive(
+    input: { archiveIds: $archiveIds, unarchiveIds: $unarchiveIds }
+  ) {
+    affectedItems {
+      archived
+      ... on Node {
+        id
+      }
+    }
+  }
+}
+
+mutation OrganizeCollection(
+  $collectionId: ID!
+  $addItemIds: [ID]
+  $removeItemIds: [ID]
+) {
+  organizeCollection(
+    input: {
+      collectionId: $collectionId
+      addItemIds: $addItemIds
+      removeItemIds: $removeItemIds
+    }
+  ) {
+    collection {
+      ... on Node {
+        id
+      }
+    }
+  }
+}

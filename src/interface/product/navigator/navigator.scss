@@ -1,0 +1,87 @@
+@use 'sass:list';
+
+@use '../../lib/colors';
+@use '../../lib/layout';
+@use '../../lib/typography';
+
+.navigator-activator:hover,
+.details[open] > .navigator-activator {
+  color: var(--widget-fg-color);
+}
+
+.navigator-activator {
+  display: flex;
+  align-items: center;
+  gap: layout.$small-gap;
+  padding-left: layout.$normal-gap;
+  padding-right: layout.$normal-gap;
+  @include typography.heading;
+  font-variation-settings: 'CASL' 1;
+  background-color: transparent;
+  color: var(--inverse-fg-color);
+  border-color: transparent;
+
+  > svg {
+    top: 0;
+  }
+}
+
+.navigator {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: layout.$huge-gap layout.$normal-gap;
+  padding: layout.$normal-gap layout.$large-gap;
+
+  > hr {
+    grid-column: 1 / span 2;
+    width: 100%;
+    height: 1px;
+    margin: 0;
+    border: none;
+    background-color: var(--guideline-color);
+  }
+}
+
+.details-popup > .navigator {
+  width: 20rem;
+  box-shadow: 0 0 32rem 4rem rgba(0, 0, 0, 0.5),
+    1rem 1rem 2rem rgba(0, 0, 0, 0.2);
+}
+
+.navigator-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: layout.$tiny-gap;
+  font-size: 1rem;
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+
+  &:hover {
+    text-decoration: underline;
+    color: inherit;
+  }
+}
+
+@each $name, $palette in colors.$palettes {
+  .navigator-item--#{$name} {
+    > svg {
+      @if $name == 'gray' {
+        color: list.nth($palette, 10);
+      } @else {
+        color: list.nth($palette, 8);
+      }
+    }
+
+    &:hover,
+    &:hover > svg {
+      @if $name == 'gray' {
+        color: list.nth($palette, 8);
+      } @else {
+        color: list.nth($palette, 6);
+      }
+    }
+  }
+}

@@ -1,0 +1,417 @@
+{
+  "+5ibWN": {
+    "defaultMessage": "Create",
+    "description": "create timeline album button",
+    "originalMessage": "Create"
+  },
+  "+WmmMy": {
+    "defaultMessage": "Selected {selectedCount, plural, =0 {nothing} one {an item} other { {selectedCount} items} }",
+    "description": "timeline selected count",
+    "originalMessage": "Selected {selectedCount, plural, =0 {nothing} one {an item} other { {selectedCount} items} }"
+  },
+  "/Ccbel": {
+    "defaultMessage": "All Albums",
+    "description": "timeline album manager title",
+    "originalMessage": "All Albums"
+  },
+  "0//F0N": {
+    "defaultMessage": "Albums",
+    "description": "timeline sidebar albums heading",
+    "originalMessage": "Albums"
+  },
+  "1ejvpW": {
+    "defaultMessage": "For now, please use the <link>Django admin interface</link> for managing users, as this functionality is not implemented yet.",
+    "description": "settings django link text",
+    "originalMessage": "For now, please use the <link>Django admin interface</link> for managing users, as this functionality is not implemented yet."
+  },
+  "1kNgHs": {
+    "defaultMessage": "Preview for a photo",
+    "description": "timeline display photo alt text",
+    "originalMessage": "Preview for a photo"
+  },
+  "3K02xt": {
+    "defaultMessage": "Show archived",
+    "description": "show archived timeline albums toggle",
+    "originalMessage": "Show archived"
+  },
+  "3sL63b": {
+    "defaultMessage": "Users",
+    "description": "user management settings navigation",
+    "originalMessage": "Users"
+  },
+  "47woS7": {
+    "defaultMessage": "Close this dialog",
+    "description": "close dialog button aria label",
+    "originalMessage": "Close this dialog"
+  },
+  "4T5fK6": {
+    "defaultMessage": "Search in timeline",
+    "description": "timeline search heading",
+    "originalMessage": "Search in timeline"
+  },
+  "5hda18": {
+    "defaultMessage": "Add to album",
+    "description": "add to timeline album button",
+    "originalMessage": "Add to album"
+  },
+  "8G64lK": {
+    "defaultMessage": "Archive",
+    "description": "timeline archive navigation",
+    "originalMessage": "Archive"
+  },
+  "9NGOVZ": {
+    "defaultMessage": "Compact",
+    "description": "compact view size button",
+    "originalMessage": "Compact"
+  },
+  "9nwxZz": {
+    "defaultMessage": "Something went wrong while updating the album.",
+    "description": "timeline album update error",
+    "originalMessage": "Something went wrong while updating the album."
+  },
+  "BN8jE1": {
+    "defaultMessage": "Show more…",
+    "description": "timeline album manager navigation",
+    "originalMessage": "Show more…"
+  },
+  "C0h/Zs": {
+    "defaultMessage": "Remove from this album",
+    "description": "remove from timeline album button",
+    "originalMessage": "Remove from this album"
+  },
+  "FV4SsD": {
+    "defaultMessage": "Libraries",
+    "description": "library management settings navigation",
+    "originalMessage": "Libraries"
+  },
+  "FeLpxL": {
+    "defaultMessage": "Read only",
+    "description": "membership status label for members",
+    "originalMessage": "Read only"
+  },
+  "IJRkHA": {
+    "defaultMessage": "Tumpara",
+    "description": "app header title",
+    "originalMessage": "Tumpara"
+  },
+  "IgV3t6": {
+    "defaultMessage": "Add to an existing album",
+    "description": "timeline album add dialog title",
+    "originalMessage": "Add to an existing album"
+  },
+  "IrY/YR": {
+    "defaultMessage": "Set visibility",
+    "description": "set timeline visibility button",
+    "originalMessage": "Set visibility"
+  },
+  "Jk4s82": {
+    "defaultMessage": "Public",
+    "description": "library content visibility badge - public",
+    "originalMessage": "Public"
+  },
+  "JrKK8x": {
+    "defaultMessage": "Successfully updated information on the album.",
+    "description": "timeline album update success",
+    "originalMessage": "Successfully updated information on the album."
+  },
+  "LOuM1K": {
+    "defaultMessage": "Large",
+    "description": "large view size button",
+    "originalMessage": "Large"
+  },
+  "LtXgy3": {
+    "defaultMessage": "Archive",
+    "description": "archive button",
+    "originalMessage": "Archive"
+  },
+  "M5Rzsi": {
+    "defaultMessage": "Read only",
+    "description": "sharing status label for members",
+    "originalMessage": "Read only"
+  },
+  "NYjgAJ": {
+    "defaultMessage": "Sign out",
+    "description": "sign out link",
+    "originalMessage": "Sign out"
+  },
+  "NtFLBz": {
+    "defaultMessage": "User profile settings",
+    "description": "profile title",
+    "originalMessage": "User profile settings"
+  },
+  "P5WhL1": {
+    "defaultMessage": "Location",
+    "description": "viewer sidebar location header",
+    "originalMessage": "Location"
+  },
+  "R5IY4o": {
+    "defaultMessage": "Manage members",
+    "description": "membership management button text",
+    "originalMessage": "Manage members"
+  },
+  "RuI6b5": {
+    "defaultMessage": "Share",
+    "description": "share button text",
+    "originalMessage": "Share"
+  },
+  "S1vhMM": {
+    "defaultMessage": "Something went wrong while getting the album details.",
+    "description": "timeline album details query error",
+    "originalMessage": "Something went wrong while getting the album details."
+  },
+  "SKiP1Z": {
+    "defaultMessage": "Not logged in",
+    "description": "unauthenticated message",
+    "originalMessage": "Not logged in"
+  },
+  "Tj+nps": {
+    "defaultMessage": "Unnamed album",
+    "description": "default timeline album name",
+    "originalMessage": "Unnamed album"
+  },
+  "Tp4Vok": {
+    "defaultMessage": "Previous",
+    "description": "timeline view previous button",
+    "originalMessage": "Previous"
+  },
+  "Uo8yR4": {
+    "defaultMessage": "My Account",
+    "description": "user account settings navigation",
+    "originalMessage": "My Account"
+  },
+  "V9dc0o": {
+    "defaultMessage": "Full access",
+    "description": "membership status label for owners",
+    "originalMessage": "Full access"
+  },
+  "VLf2Mb": {
+    "defaultMessage": "Timeline",
+    "description": "viewer sidebar timeline header",
+    "originalMessage": "Timeline"
+  },
+  "Xkj2Bt": {
+    "defaultMessage": "Cannot display this item because this client does not support it's type. Probably the server has a non-default plugin installed. Contact your administrator for details.",
+    "description": "unknown timeline entry type fallback message",
+    "originalMessage": "Cannot display this item because this client does not support it's type. Probably the server has a non-default plugin installed. Contact your administrator for details."
+  },
+  "ZkXnzh": {
+    "defaultMessage": "Public",
+    "description": "timeline visibility choice - public",
+    "originalMessage": "Public"
+  },
+  "bFnyAv": {
+    "defaultMessage": "File",
+    "description": "viewer sidebar file header",
+    "originalMessage": "File"
+  },
+  "bOis/N": {
+    "defaultMessage": "Administration",
+    "description": "admin navigator item",
+    "originalMessage": "Administration"
+  },
+  "baCqWF": {
+    "defaultMessage": "Membership settings",
+    "description": "membership management dialog title",
+    "originalMessage": "Membership settings"
+  },
+  "bdTMNG": {
+    "defaultMessage": "Logged-in users",
+    "description": "library content visibility badge - internal",
+    "originalMessage": "Logged-in users"
+  },
+  "bjcihk": {
+    "defaultMessage": "Settings",
+    "description": "settings navigator item",
+    "originalMessage": "Settings"
+  },
+  "cAY9RT": {
+    "defaultMessage": "Members",
+    "description": "library content visibility badge - members",
+    "originalMessage": "Members"
+  },
+  "cdlx/P": {
+    "defaultMessage": "Only owners of the library",
+    "description": "timeline visibility choice - owners",
+    "originalMessage": "Only owners of the library"
+  },
+  "dI1pAS": {
+    "defaultMessage": "Empty values are not allowed here.",
+    "description": "empty input validation message",
+    "originalMessage": "Empty values are not allowed here."
+  },
+  "dOzzfH": {
+    "defaultMessage": "This album is archived. It will not show up unless you have the exact link or you explicitly search for archived albums.",
+    "description": "archived timeline album hint",
+    "originalMessage": "This album is archived. It will not show up unless you have the exact link or you explicitly search for archived albums."
+  },
+  "e7C+k8": {
+    "defaultMessage": "Show details",
+    "description": "timeline display show details button",
+    "originalMessage": "Show details"
+  },
+  "eGXs7W": {
+    "defaultMessage": "Sign in",
+    "description": "sign in link",
+    "originalMessage": "Sign in"
+  },
+  "ef1yTi": {
+    "defaultMessage": "Full access",
+    "description": "sharing status label for owners",
+    "originalMessage": "Full access"
+  },
+  "fS9iQ+": {
+    "defaultMessage": "Search for a user",
+    "description": "membership dialog user search label",
+    "originalMessage": "Search for a user"
+  },
+  "hvfmSU": {
+    "defaultMessage": "Something went wrong while updating the user's membership status.",
+    "description": "membership update error",
+    "originalMessage": "Something went wrong while updating the user's membership status."
+  },
+  "iHsT8U": {
+    "defaultMessage": "Members of the item's library",
+    "description": "timeline visibility choice - members",
+    "originalMessage": "Members of the item's library"
+  },
+  "jKzmbE": {
+    "defaultMessage": "Management",
+    "description": "settings sidebar management heading",
+    "originalMessage": "Management"
+  },
+  "jLroEC": {
+    "defaultMessage": "All logged-in users on this server",
+    "description": "timeline visibility choice - internal",
+    "originalMessage": "All logged-in users on this server"
+  },
+  "jQofy7": {
+    "defaultMessage": "Photo",
+    "description": "viewer sidebar photo header",
+    "originalMessage": "Photo"
+  },
+  "jz9euS": {
+    "defaultMessage": "An album cannot have an empty name.",
+    "description": "empty timeline album name error",
+    "originalMessage": "An album cannot have an empty name."
+  },
+  "kSJLpT": {
+    "defaultMessage": "Owners",
+    "description": "library content visibility badge - owners",
+    "originalMessage": "Owners"
+  },
+  "lvvsjH": {
+    "defaultMessage": "You are currently not logged in and can therefore only see public items. If you have an account on this server, sign in to view your content.",
+    "description": "unauthenticated details text",
+    "originalMessage": "You are currently not logged in and can therefore only see public items. If you have an account on this server, sign in to view your content."
+  },
+  "mC14SH": {
+    "defaultMessage": "API",
+    "description": "api navigator item",
+    "originalMessage": "API"
+  },
+  "mDbzGJ": {
+    "defaultMessage": "Timeline",
+    "description": "timeline main navigation",
+    "originalMessage": "Timeline"
+  },
+  "mrOB2B": {
+    "defaultMessage": "Uploaded {timestamp,date,::dMMMMyyyy}",
+    "description": "viewer sidebar upload timestamp",
+    "originalMessage": "Uploaded {timestamp,date,::dMMMMyyyy}"
+  },
+  "n8psn+": {
+    "defaultMessage": "Loading…",
+    "description": "loading indicator",
+    "originalMessage": "Loading…"
+  },
+  "p3Y66+": {
+    "defaultMessage": "Something went wrong while creating a new album.",
+    "description": "timeline album create error",
+    "originalMessage": "Something went wrong while creating a new album."
+  },
+  "pbLL7S": {
+    "defaultMessage": "Sharing settings",
+    "description": "share dialog title",
+    "originalMessage": "Sharing settings"
+  },
+  "q9WTNR": {
+    "defaultMessage": "Remove",
+    "description": "membership remove button",
+    "originalMessage": "Remove"
+  },
+  "qBShdh": {
+    "defaultMessage": "This shows who can see the item, depending on whether they have an account on this server and if they are a member in the library the item is contained in.",
+    "description": "library content visibility tooltip",
+    "originalMessage": "This shows who can see the item, depending on whether they have an account on this server and if they are a member in the library the item is contained in."
+  },
+  "qX3j+J": {
+    "defaultMessage": "ID: { unmaskedId }",
+    "description": "viewer sidebar id",
+    "originalMessage": "ID: { unmaskedId }"
+  },
+  "rSRGzd": {
+    "defaultMessage": "Timeline",
+    "description": "timeline navigator item",
+    "originalMessage": "Timeline"
+  },
+  "rfJ9m4": {
+    "defaultMessage": "Add",
+    "description": "membership add button",
+    "originalMessage": "Add"
+  },
+  "sSvUoG": {
+    "defaultMessage": "Unarchive",
+    "description": "unarchive button",
+    "originalMessage": "Unarchive"
+  },
+  "slUfap": {
+    "defaultMessage": "Clear selection",
+    "description": "clear selection button",
+    "originalMessage": "Clear selection"
+  },
+  "t+QRVX": {
+    "defaultMessage": "{totalCount, plural, =0 {No items found} one {Showing one item} other {Showing about {totalCount, number, ::KK} items} }",
+    "description": "timeline total count",
+    "originalMessage": "{totalCount, plural, =0 {No items found} one {Showing one item} other {Showing about {totalCount, number, ::KK} items} }"
+  },
+  "tqnza4": {
+    "defaultMessage": "Manage Libraries",
+    "description": "library settings title",
+    "originalMessage": "Manage Libraries"
+  },
+  "u52imI": {
+    "defaultMessage": "Next",
+    "description": "timeline view next button",
+    "originalMessage": "Next"
+  },
+  "ukdGG4": {
+    "defaultMessage": "Please try again or check your connection to the server.",
+    "description": "network error toast suffix",
+    "originalMessage": "Please try again or check your connection to the server."
+  },
+  "v0QFkN": {
+    "defaultMessage": "Search…",
+    "description": "membership dialog user search placeholder",
+    "originalMessage": "Search…"
+  },
+  "vhgEty": {
+    "defaultMessage": "Hide details",
+    "description": "timeline display hide details button",
+    "originalMessage": "Hide details"
+  },
+  "wz3TTR": {
+    "defaultMessage": "Close",
+    "description": "timeline view close button",
+    "originalMessage": "Close"
+  },
+  "yzHVF4": {
+    "defaultMessage": "Home",
+    "description": "home navigator item",
+    "originalMessage": "Home"
+  },
+  "zMuswY": {
+    "defaultMessage": "Normal",
+    "description": "normal view size button",
+    "originalMessage": "Normal"
+  }
+}

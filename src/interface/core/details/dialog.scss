@@ -1,0 +1,35 @@
+@use '../../lib/colors';
+@use '../../lib/layout';
+@use '../../lib/motion';
+
+.details[open] {
+  > .dialog {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-50%);
+    transition: opacity motion.$subtle, transform motion.$subtle;
+  }
+}
+
+.dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  min-width: 25rem;
+  max-height: 80vh;
+  max-width: 80vw;
+  background-color: var(--main-bg-color);
+  opacity: 1;
+  transform: translateX(-50%) translateY(-50%) scale(0.9);
+
+  > .card-header {
+    background-color: var(--primary-widget-bg-color);
+    color: var(--primary-widget-fg-color);
+    border: none;
+
+    .button--light {
+      &:hover {
+        color: var(--primary-light-color);
+      }
+    }
+  }
+}

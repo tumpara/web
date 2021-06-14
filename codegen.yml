@@ -1,0 +1,35 @@
+schema:
+  - ./src/graphql/schema.graphql
+  - ./local-schema.graphql
+
+overwrite: true
+
+documents:
+  - ./src/graphql/queries/**/*.graphql
+
+generates:
+  ./src/graphql/fragmentTypes.json:
+    plugins:
+      - fragment-matcher
+    config:
+      apolloClientVersion: 3
+
+  ./src/graphql/types.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-vue-apollo
+    config:
+      # Typescript
+      field: true
+      inputValue: true
+      object: true
+      defaultValue: true
+      nonOptionalTypename: true
+      # Vue Apollo
+      withCompositionFunctions: true
+      vueCompositionApiImportFrom: vue
+
+hooks:
+  afterAllFileWrite:
+    - prettier --write

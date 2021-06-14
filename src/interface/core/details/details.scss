@@ -1,0 +1,53 @@
+@use '../../lib/layout';
+@use '../../lib/motion';
+
+.details--overlay {
+  display: inline-block;
+  position: relative;
+  @include layout.input-margin;
+
+  > summary {
+    &.button:not(:last-child) {
+      margin-right: 0;
+    }
+
+    &::before {
+      content: '';
+      display: block;
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 50;
+      list-style: none;
+      pointer-events: none;
+    }
+  }
+
+  > *:not(summary) {
+    z-index: 100;
+  }
+}
+
+.details--overlay[open] {
+  > summary::before {
+    pointer-events: auto;
+  }
+}
+
+.details--overlay {
+  > summary::before {
+    transition: background-color motion.$subtle;
+  }
+}
+
+.details--darken[open] {
+  > summary::before {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  > .card {
+    border: none;
+  }
+}

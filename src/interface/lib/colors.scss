@@ -1,0 +1,120 @@
+@use "sass:list";
+
+/**
+ * Color palette definition.
+ *
+ * See this pen to see the entire color set: https://codepen.io/yrd/pen/yLMvaed
+ */
+
+$gray: [];
+$green: [];
+$blue: [];
+
+@for $i from 0 through 10 {
+  $gray: list.append(
+    $gray,
+    hsl(
+      45,
+      round(-1.6 * $i * $i + 1.8 * $i) * 1%,
+      round(-0.6 * $i * $i - 2.7 * $i + 100) * 1%
+    )
+  );
+
+  $saturation: round(-1.2 * $i * $i + 9.5 * $i + 32) * 1%;
+  $lightness: round(0.63 * $i * $i - 13.75 * $i + 93) * 1%;
+
+  $green: list.append($green, hsl(164, $saturation, $lightness));
+  $blue: list.append($blue, hsl(210, $saturation, $lightness));
+}
+
+$palettes: (
+  'gray': $gray,
+  'green': $green,
+  'blue': $blue,
+);
+
+/**
+ * Individual mixins for applying colors.
+ */
+
+@mixin theme-default {
+  --main-bg-color: #{list.nth($gray, 1)};
+  --inverse-bg-color: #{list.nth($gray, 11)};
+  --focus-bg-color: #{list.nth($gray, 2)};
+
+  --main-fg-color: #{list.nth($gray, 11)};
+  --inverse-fg-color: #{list.nth($gray, 2)};
+  --hinted-fg-color: #{list.nth($gray, 7)};
+
+  --widget-border-color: #{list.nth($gray, 5)};
+  --widget-bg-color: #{list.nth($gray, 2)};
+  --widget-hover-bg-color: #{list.nth($gray, 4)};
+  --widget-press-bg-color: #{list.nth($gray, 5)};
+  --widget-disabled-bg-color: #{list.nth($gray, 3)};
+  --widget-fg-color: #{list.nth($gray, 11)};
+
+  --guideline-color: #{list.nth($gray, 5)};
+}
+
+@mixin theme-aside {
+  --main-bg-color: #{list.nth($gray, 4)};
+  --widget-bg-color: transparent;
+  --widget-hover-bg-color: #{list.nth($gray, 5)};
+  --widget-press-bg-color: #{list.nth($gray, 11)};
+}
+
+@mixin theme-invert-fg {
+  --main-fg-color: #{list.nth($gray, 2)};
+  --inverse-fg-color: #{list.nth($gray, 10)};
+  --hinted-fg-color: #{list.nth($gray, 4)};
+}
+
+@mixin theme-invert {
+  @include theme-invert-fg;
+
+  --main-bg-color: #{list.nth($gray, 10)};
+  --focus-bg-color: #{list.nth($gray, 9)};
+
+  --widget-border-color: #{list.nth($gray, 8)};
+  --widget-bg-color: #{list.nth($gray, 9)};
+  --widget-hover-bg-color: #{list.nth($gray, 8)};
+  --widget-press-bg-color: #{list.nth($gray, 7)};
+  --widget-fg-color: #{list.nth($gray, 2)};
+
+  --guideline-color: #{list.nth($gray, 6)};
+}
+
+@mixin theme-root {
+  @include theme-default;
+
+  --shadow-color: rgba(0, 0, 0, 0.2);
+  --weak-shadow-color: rgba(0, 0, 0, 0.08);
+}
+
+@mixin primary($pallete) {
+  --primary-widget-border-color: #{list.nth($pallete, 6)};
+  --primary-widget-bg-color: #{list.nth($pallete, 6)};
+  --primary-widget-hover-bg-color: #{list.nth($pallete, 7)};
+  --primary-widget-press-bg-color: #{list.nth($pallete, 8)};
+  --primary-light-color: #{list.nth($pallete, 2)};
+  --primary-widget-fg-color: #{list.nth($gray, 2)};
+  --primary-fg-color: #{list.nth($pallete, 6)};
+  --primary-hinted-color: #{list.nth($pallete, 4)};
+  --focus-color: #{transparentize(list.nth($pallete, 4), 0.5)};
+}
+
+@mixin theme-green {
+  @include primary($green);
+}
+
+@mixin theme-blue {
+  @include primary($blue);
+}
+
+@mixin bg {
+  background-color: var(--main-bg-color);
+}
+
+@mixin text {
+  color: var(--main-fg-color);
+}

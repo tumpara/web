@@ -1,0 +1,22 @@
+*
+
+!locale/
+!public/
+!src/
+!support/
+!.browserslistrc
+!.eslint*
+!.prettierrc.js
+!babel.config.js
+!codegen.yml
+!extract-messages.mjs
+!package.json
+!package-lock.json
+!tsconfig.json
+!vue.config.js
+
+src/graphql/fragmentTypes.json
+# Explicitly not ignoring src/graphql/schema.graphql because we need it to run
+# the codegen step.
+src/graphql/types.ts
+src/intl/locale/

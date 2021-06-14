@@ -1,0 +1,31 @@
+# Build output
+/dist
+
+# GraphQL codegen
+/src/graphql/schema.graphql
+/src/graphql/fragmentTypes.json
+/src/graphql/types.ts
+# Compiled language files
+/src/intl/locale
+
+# Package managers
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Local environments
+.env
+.env.local
+.env.*.local
+
+# Editor / system directories and files
+.DS_Store
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

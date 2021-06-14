@@ -1,0 +1,69 @@
+@use '../../lib/layout';
+@use '../../lib/motion';
+
+$item-size: 2.5rem;
+
+.sidebar-link-container {
+  &:not(:first-child) {
+    margin-top: layout.$tiny-gap;
+  }
+}
+
+.sidebar-link {
+  display: block;
+  padding: 0 layout.$small-gap;
+  height: $item-size;
+  line-height: $item-size;
+  border-radius: layout.$widget-rounding;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: background-color motion.$subtle, color motion.$subtle;
+
+  &:hover {
+    background-color: var(--widget-hover-bg-color);
+    color: inherit;
+  }
+
+  &:focus-visible {
+    border-radius: 0;
+    outline: layout.$focus-outline-size solid var(--focus-color);
+
+    .sidebar-link-icon {
+      border-radius: 0;
+    }
+  }
+}
+
+.sidebar-link--active {
+  background-color: var(--primary-widget-bg-color);
+  color: var(--primary-widget-fg-color);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+
+  &:hover,
+  .sidebar-link-icon {
+    background-color: var(--primary-widget-hover-bg-color);
+    color: var(--primary-widget-fg-color);
+  }
+}
+
+.sidebar-link--hinted:not(.sidebar-link--active) {
+  .sidebar-link-label {
+    color: var(--hinted-fg-color);
+  }
+}
+
+.sidebar-link-icon {
+  display: inline-block;
+  margin-left: #{-1 * layout.$small-gap};
+  margin-right: layout.$small-gap;
+  text-align: center;
+  width: $item-size;
+  border-radius: layout.$widget-rounding 0 0 layout.$widget-rounding;
+  transition: background-color motion.$subtle;
+
+  > svg {
+    position: relative;
+    top: 0.2rem;
+  }
+}

@@ -1,0 +1,64 @@
+@use '../../lib/layout';
+@use '../../lib/motion';
+
+.card {
+  margin: layout.$normal-gap 0;
+  border: 1px solid var(--guideline-color);
+  border-radius: layout.$widget-rounding;
+  color: var(--main-fg-color);
+}
+
+.card--elevated {
+  box-shadow: layout.$subtle-shadow;
+}
+
+.card--clickable {
+  text-decoration: inherit;
+  background-color: inherit;
+  transition: background-color motion.$subtle, box-shadow motion.$subtle;
+
+  &:focus-visible {
+    outline: layout.$focus-outline-size solid var(--focus-color);
+  }
+
+  &:hover {
+    box-shadow: layout.$subtle-shadow;
+  }
+
+  &:active {
+    background-color: var(--widget-press-bg-color);
+  }
+}
+
+.card--disabled {
+  background-color: var(--widget-disabled-bg-color);
+}
+
+.card--focused {
+  background-color: var(--focus-bg-color);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: layout.$widget-rounding layout.$widget-rounding 0 0;
+
+  h2 {
+    margin: 0 layout.$normal-gap;
+    line-height: 3rem;
+    color: inherit;
+  }
+}
+
+.card-content {
+  padding: layout.$normal-gap;
+
+  > *:first-child {
+    margin-top: 0;
+  }
+
+  > *:last-child {
+    margin-bottom: 0;
+  }
+}

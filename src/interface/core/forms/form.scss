@@ -1,0 +1,58 @@
+@use '../../lib/layout';
+@use '../../lib/typography';
+
+.form {
+  margin: layout.$normal-gap 0;
+
+  > .input-container {
+    &:not(:last-child) {
+      margin-right: 0;
+    }
+
+    > .input-control {
+      width: 100%;
+    }
+  }
+}
+
+.form:not(.form--grid) {
+  > .input-label {
+    display: block;
+    margin: layout.$normal-gap 0 layout.$small-gap 0;
+    font-weight: typography.$heading-weight;
+
+    + .input-container {
+      margin-top: layout.$small-gap;
+    }
+  }
+
+  > .input-container {
+    display: block;
+    margin: layout.$normal-gap 0;
+  }
+
+  > .checkbox-container {
+    display: flex;
+    margin: layout.$normal-gap 0;
+  }
+}
+
+.form--grid {
+  display: grid;
+  grid-template-columns: clamp(1rem, auto, 40%) minmax(1rem, 1fr);
+  gap: layout.$normal-gap;
+
+  > .input-label {
+    grid-column: 1;
+    line-height: layout.$widget-height;
+  }
+
+  > .input-container,
+  > .checkbox-container {
+    grid-column: 2;
+  }
+
+  > .button {
+    grid-column: 1 / span 2;
+  }
+}

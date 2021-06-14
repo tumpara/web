@@ -1,0 +1,33 @@
+$fonts: -apple-system, BlinkMacSystemFont, 'Segoe UI', Ubuntu, Roboto,
+  'Helvetica Neue', Arial, sans-serif;
+$fonts-variable: 'Recursive Variable', $fonts;
+
+$normal-weight: normal;
+$heading-weight: bold;
+
+$ui-size: 0.875rem; // 14px
+$hinted-size: 0.75rem; // 12px
+
+@mixin title {
+  line-height: 2rem;
+  font-size: 1.8rem;
+  font-weight: $heading-weight;
+  font-variation-settings: 'CASL' 0.8;
+}
+
+@mixin heading {
+  line-height: 2rem;
+  font-size: 1.125rem; // 18px
+  font-weight: $heading-weight;
+  font-variation-settings: 'CASL' 0.4;
+}
+
+@mixin subheading {
+  line-height: inherit;
+  font-size: 1rem;
+  font-weight: $heading-weight;
+}
+
+@mixin hinted {
+  font-size: $hinted-size;
+}

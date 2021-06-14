@@ -1,0 +1,65 @@
+@use '../../lib/layout';
+@use '../../lib/motion';
+@use '../../lib/typography';
+
+.input-container {
+  display: inline-block;
+  @include layout.input-margin;
+}
+
+.input-container--spread {
+  display: block;
+
+  &:not(:last-child) {
+    margin-right: 0;
+  }
+
+  > .input-control {
+    padding: 0 layout.$normal-gap;
+    height: layout.$large-widget-height;
+    width: 100%;
+  }
+}
+
+.input-control {
+  padding: 0 layout.$small-gap;
+  height: layout.$widget-height;
+  border: 1px solid var(--widget-border-color);
+  box-shadow: layout.$widget-shadow;
+  background-color: var(--widget-bg-color);
+  color: inherit;
+  transition: border-color motion.$subtle, background-color motion.$subtle;
+
+  &:focus {
+    border-color: var(--primary-widget-border-color);
+    outline: layout.$focus-outline-size solid var(--focus-color);
+    background-color: var(--main-bg-color);
+  }
+}
+
+// Make inputs inside cards (for example search boxes) stand out less, because
+// cards have hidden overflow.
+.card:not(.card-content) > .input-container {
+  > .input-control {
+    background-color: transparent;
+    box-shadow: none;
+
+    &:not(:focus-visible) {
+      border-top-color: transparent;
+      border-left-color: transparent;
+      border-right-color: transparent;
+    }
+  }
+}
+
+.input-control--invalid {
+  // TODO Change these colors
+  background-color: lightpink;
+  border-color: red;
+}
+
+.input-validation {
+  margin-top: layout.$tiny-gap;
+  font-size: typography.$hinted-size;
+  color: red;
+}

@@ -1,0 +1,100 @@
+fragment TimelineEntryConnectionEdges on TimelineEntryConnection {
+  edges {
+    index
+    node {
+      __typename
+      id
+      timestamp
+      visibility
+      stackSize
+      ... on ImagePreviewable {
+        blurhash
+        imagePreviewUrl(width: 800, height: 800)
+      }
+    }
+  }
+}
+
+fragment TimelineViewInitial on TimelineView {
+  entries(first: 100, offset: 0) {
+    ...TimelineEntryConnectionEdges
+  }
+  yearDistribution {
+    year
+    totalEntryCount
+    monthDistribution {
+      month
+      totalEntryCount
+    }
+  }
+}
+
+fragment TimelineViewEntries on TimelineView {
+  entries(first: 100, offset: $offset) {
+    ...TimelineEntryConnectionEdges
+  }
+}
+
+query Timeline($filters: TimelineEntryFilterSet) {
+  timeline(filters: $filters, reverse: true) {
+    ...TimelineViewInitial
+  }
+}
+
+query AdditionalTimelineEntries(
+  $filters: TimelineEntryFilterSet
+  $offset: Int!
+) {
+  timeline(filters: $filters, reverse: true) {
+    ...TimelineViewEntries
+  }
+}
+
+fragment TimelineAlbumData on TimelineAlbum {
+  id
+  name
+  archived
+}
+
+query TimelineAlbums($cursor: String, $includeArchived: Boolean) {
+  timelineAlbums(
+    after: $cursor
+    first: 50
+    filters: { includeArchived: $includeArchived }
+  ) {
+    edges {
+      node {
+        ...TimelineAlbumData
+      }
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
+
+mutation CreateTimelineAlbum($input: CreateTimelineAlbumInput!) {
+  createTimelineAlbum(input: $input) {
+    album {
+      ...TimelineAlbumData
+    }
+  }
+}
+
+mutation UpdateTimelineAlbum($input: UpdateTimelineAlbumInput!) {
+  updateTimelineAlbum(input: $input) {
+    album {
+      ...TimelineAlbumData
+    }
+  }
+}
+
+query TimelineAlbumDetails($id: ID!) {
+  node(id: $id) {
+    id
+    ... on TimelineAlbum {
+      ...TimelineAlbumData
+    }
+  }
+}

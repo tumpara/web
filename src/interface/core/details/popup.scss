@@ -1,0 +1,43 @@
+@use '../../lib/layout';
+@use '../../lib/motion';
+
+.details[open] {
+  > .details-popup {
+    opacity: 1;
+    transform: none;
+    transition: opacity motion.$fast, transform motion.$fast;
+  }
+}
+
+.details-popup {
+  position: absolute;
+  opacity: 0;
+  transform: translateY(-1rem);
+
+  > .card {
+    margin: 0;
+    width: clamp(12rem, 15vw, 20rem);
+    box-shadow: layout.$subtle-shadow;
+    background-color: var(--main-bg-color);
+  }
+}
+
+.details-popup--nw {
+  bottom: calc(100% + #{layout.$tiny-gap});
+  right: 0;
+}
+
+.details-popup--ne {
+  bottom: calc(100% + #{layout.$tiny-gap});
+  left: 0;
+}
+
+.details-popup--sw {
+  top: calc(100% + #{layout.$tiny-gap});
+  right: 0;
+}
+
+.details-popup--se {
+  top: calc(100% + #{layout.$tiny-gap});
+  left: 0;
+}

@@ -1,0 +1,26 @@
+$tiny-gap: 0.25rem; // 4px
+$small-gap: 0.5rem; // 8px
+$normal-gap: 1rem; // 16px
+$large-gap: 1.5rem; // 24px
+$huge-gap: 2rem; // 32px
+
+$normal-widget-height: 2rem; // 32px
+$large-widget-height: 2.5rem; // 40px
+
+$header-height: 3rem;
+
+$small-widget-height: 1.6rem;
+$widget-height: 2rem;
+$large-widget-height: 3rem;
+$widget-rounding: 0.4rem;
+
+$widget-shadow: 0 0.1rem 0.1rem var(--weak-shadow-color);
+$subtle-shadow: 0 0.2rem 0.5rem var(--shadow-color);
+
+$focus-outline-size: 0.2rem;
+
+@mixin input-margin {
+  &:not(:last-child) {
+    margin-right: $normal-gap;
+  }
+}

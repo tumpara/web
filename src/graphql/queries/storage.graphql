@@ -1,0 +1,23 @@
+query Libraries {
+  libraries(first: 100) {
+    edges {
+      node {
+        id
+        context
+        source
+      }
+    }
+  }
+}
+
+mutation SetLibraryContentVisiblity(
+  $ids: [ID!]!
+  $visibility: LibraryContentVisibility!
+) {
+  organizeLibraryContent(input: { ids: $ids, visibility: $visibility }) {
+    nodes {
+      id
+      visibility
+    }
+  }
+}

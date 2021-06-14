@@ -1,0 +1,99 @@
+@use '../lib/colors';
+@use '../lib/layout';
+@use '../lib/typography';
+
+@use 'fonts';
+
+:root {
+  font-size: 100%;
+  font-family: typography.$fonts;
+  line-height: 1.5;
+  @include colors.theme-root;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  @supports (font-variation-settings: normal) {
+    font-family: typography.$fonts-variable;
+    font-variation-settings: 'MONO' 0, 'CASL' 0, 'SLNT' 0;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-size: typography.$ui-size;
+}
+
+.aria-only {
+  position: fixed;
+  top: -100%;
+  left: -100%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+h1 {
+  margin: layout.$large-gap 0;
+  @include typography.title;
+  color: inherit;
+}
+
+h2 {
+  margin: layout.$normal-gap 0;
+  @include typography.heading;
+  color: inherit;
+
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+h3 {
+  margin: layout.$normal-gap 0;
+  @include typography.subheading;
+  color: inherit;
+}
+
+h4,
+h5,
+h6 {
+  margin: layout.$small-gap 0;
+  line-height: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+}
+
+p {
+  margin: layout.$normal-gap 0;
+}
+
+a {
+  color: var(--primary-fg-color);
+
+  &:hover {
+    color: var(--primary-hinted-color);
+  }
+}
+
+select,
+textarea,
+button {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+ul,
+ol {
+  padding: 0;
+}
+
+.hint {
+  font-size: typography.$hinted-size;
+  color: var(--hinted-fg-color);
+}
