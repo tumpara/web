@@ -89,11 +89,6 @@
     "description": "membership status label for members",
     "originalMessage": "Read only"
   },
-  "IJRkHA": {
-    "defaultMessage": "Tumpara",
-    "description": "app header title",
-    "originalMessage": "Tumpara"
-  },
   "IgV3t6": {
     "defaultMessage": "Zu einem bestehenden Album hinzufügen",
     "description": "timeline album add dialog title",
@@ -298,6 +293,11 @@
     "defaultMessage": "Besitzer",
     "description": "library content visibility badge - owners",
     "originalMessage": "Owners"
+  },
+  "lCIAVo": {
+    "defaultMessage": "Tumpara-Logo",
+    "description": "app wordmark aria label",
+    "originalMessage": "Tumpara logo"
   },
   "lvvsjH": {
     "defaultMessage": "Du bist gerade nicht angemeldet und siehst deshalb nur Öffentliche Elemente. Falls Du einen Account auf diesem Server hast, musst Du dich anmelden um deine Inhalte zu sehen.",
