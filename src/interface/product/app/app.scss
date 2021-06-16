@@ -1,5 +1,6 @@
 @use '../../lib/colors';
 @use '../../lib/layout';
+@use '../../lib/motion';
 
 .app {
   display: grid;
@@ -15,13 +16,27 @@
     #2c2827;
 }
 
+@keyframes app-header-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(-3rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 .app-header {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   gap: layout.$normal-gap;
   align-items: center;
+  z-index: 10;
   padding: 0 layout.$normal-gap;
   height: layout.$header-height;
+  animation: motion.$welcome 1s 1 normal both running app-header-enter;
 
   h2 {
     margin: 0;
