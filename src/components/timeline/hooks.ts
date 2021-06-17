@@ -56,7 +56,6 @@ const TimelineDistribution: InjectionKey<
   >
 > = Symbol();
 const TimelineTotalCount: InjectionKey<Ref<Readonly<number>>> = Symbol();
-const TimelineLoading: InjectionKey<Ref<Readonly<boolean>>> = Symbol();
 // These injections are not intended to be directly consumed by child
 // components. Instead, clients should use the `useTimelineSlice` hook that
 // automatically takes care of pagination.
@@ -70,15 +69,13 @@ const FetchMoreTimelineEntries: InjectionKey<
 interface UseTimelineReturn {
   distribution: InjectionKeyType<typeof TimelineDistribution>;
   totalCount: InjectionKeyType<typeof TimelineTotalCount>;
-  loading: InjectionKeyType<typeof TimelineLoading>;
 }
 
 export function useTimeline(): UseTimelineReturn {
   const distribution = inject(TimelineDistribution, readonly(ref([])));
   const totalCount = inject(TimelineTotalCount, readonly(ref(0)));
-  const loading = inject(TimelineLoading, readonly(ref(false)));
 
-  return { distribution, totalCount, loading };
+  return { distribution, totalCount };
 }
 
 export function useTimelineSlice(
@@ -208,7 +205,6 @@ export function provideFullTimeline(
   filters: TimelineEntryFilterSet | Ref<TimelineEntryFilterSet> | undefined = {}
 ): void {
   const query = useTimelineQuery(computed(() => ({ filters: unref(filters) })));
-  provide(TimelineLoading, readonly(query.loading));
 
   provideTimelineMetadata(
     useResult(query.result, null, (data) => data.timeline?.yearDistribution)

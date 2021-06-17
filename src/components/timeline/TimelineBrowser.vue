@@ -43,7 +43,6 @@
 </template>
 
 <script lang="ts">
-import { useApolloClient } from '@vue/apollo-composable';
 import {
   computed,
   defineComponent,
@@ -97,8 +96,6 @@ export default defineComponent({
   },
 
   setup(props, { emit }) {
-    const { resolveClient } = useApolloClient();
-
     const entriesContainer = ref<HTMLElement>();
 
     onMounted(() => {
@@ -232,8 +229,7 @@ export default defineComponent({
       startIndex: 0,
       endIndex: 10,
     } as TimelineSlice);
-    let nextSlice: TimelineSlice | undefined = undefined;
-    let nextSliceApplyHandle: number | undefined = undefined;
+    const nextSlice = ref<TimelineSlice | null>(null);
     watchEffect(() => {
       if (visibleArea.value === undefined || gridInfo.value === undefined) {
         return;
@@ -267,32 +263,41 @@ export default defineComponent({
           5 ||
         Math.abs(requestedSlice.value.endIndex - sliceCandidate.endIndex) > 5
       ) {
-        if (nextSlice !== undefined) {
-          if (
-            nextSlice.startIndex === sliceCandidate.startIndex &&
-            nextSlice.endIndex === sliceCandidate.endIndex
-          ) {
-            // If the candidate has no new information, we can keep the active
-            // setter function.
-            return;
-          }
-        }
-
-        if (nextSliceApplyHandle !== undefined) {
-          window.clearTimeout(nextSliceApplyHandle);
-        }
-
-        nextSlice = sliceCandidate;
-        // Defer applying the slice so that we can scroll through half the
-        // library without fetching everything.
-        nextSliceApplyHandle = window.setTimeout(() => {
-          if (nextSlice !== undefined) {
-            requestedSlice.value = nextSlice;
-          }
-          nextSlice = undefined;
-          nextSliceApplyHandle = undefined;
-        }, 200);
+        nextSlice.value = sliceCandidate;
       }
+    });
+    const nextSliceApplyable = ref(true);
+    // Apply the next slice, while also trying not to update too often.
+    watchEffect(() => {
+      if (nextSlice.value === null) {
+        return;
+      }
+
+      // If the current timeline is not yet fully loaded, wait until that
+      // happens.
+      const requestedSize =
+        Math.min(totalCount.value - 1, requestedSlice.value.endIndex) -
+        Math.max(0, requestedSlice.value.startIndex);
+      if (
+        timeline.value.length < requestedSize ||
+        timeline.value[0]?.index < requestedSlice.value.startIndex ||
+        timeline.value[timeline.value.length - 1]?.index >
+          requestedSlice.value.endIndex
+      ) {
+        return;
+      }
+
+      // If the timeout for applying new timeline slices has not yet passed,
+      // wait until it has.
+      if (nextSliceApplyable.value === false) {
+        return;
+      }
+
+      console.log('Applying the slice', { ...nextSlice.value });
+      requestedSlice.value = nextSlice.value;
+      nextSlice.value = null;
+      nextSliceApplyable.value = false;
+      window.setTimeout(() => (nextSliceApplyable.value = true), 200);
     });
     const timeline = useTimelineSlice(readonly(requestedSlice));
 
