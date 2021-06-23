@@ -48,10 +48,10 @@ import { computed, defineComponent, PropType, ref, watchEffect } from 'vue';
 import { useIntl } from 'vue-intl';
 
 import {
-  ExtractArrayMaybe,
   LibraryContentVisibility,
   TimelineEntryConnectionEdgesFragment,
 } from '@/graphql';
+import { ExtractArrayMaybe } from '@/utils';
 import { useItemSelection, useSelection } from '@/utils/selection';
 
 type EntryNode = NonNullable<

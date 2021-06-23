@@ -15,7 +15,6 @@ import {
 import {
   AdditionalTimelineEntriesDocument,
   AdditionalTimelineEntriesQueryVariables,
-  ExtractArrayMaybe,
   TimelineEntryConnectionEdgesFragment,
   TimelineEntryFilterSet,
   TimelineViewInitialFragment,
@@ -23,6 +22,7 @@ import {
   TimelineViewYearBucket,
   useTimelineQuery,
 } from '@/graphql';
+import { ExtractArrayMaybe } from '@/utils';
 
 export interface TimelineSlice {
   startIndex: number;

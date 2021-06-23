@@ -293,7 +293,6 @@ export default defineComponent({
         return;
       }
 
-      console.log('Applying the slice', { ...nextSlice.value });
       requestedSlice.value = nextSlice.value;
       nextSlice.value = null;
       nextSliceApplyable.value = false;

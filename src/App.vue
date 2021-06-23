@@ -13,13 +13,15 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue';
+import { IntlShape } from '@formatjs/intl';
+import { defineComponent, inject } from 'vue';
+import { provideIntl } from 'vue-intl';
 
 import AppHeaderTitle from '@/components/AppHeaderTitle.vue';
 import AppHeaderUserInfo from '@/components/AppHeaderUserInfo.vue';
 import { VApp } from '@/interface';
 
-import { initializeIntl } from './intl';
+import { IntlInitialized } from './intl';
 
 export default defineComponent({
   name: 'App',
@@ -27,9 +29,15 @@ export default defineComponent({
   components: { VApp, AppHeaderTitle, AppHeaderUserInfo },
 
   setup() {
-    const { loadedLocale } = initializeIntl();
+    const ready = inject(IntlInitialized);
 
-    const ready = computed(() => loadedLocale.value !== undefined);
+    // TODO This little workaround will no longer be necessary once we upgrade
+    // to a version of FormatJS with this commit merged:
+    // https://github.com/formatjs/formatjs/commit/0eb9dc6c60e9256db9b1bd1f00dafb000c087ac0
+    const intl = inject<IntlShape>('intl');
+    if (intl !== undefined) {
+      provideIntl(intl);
+    }
 
     return { ready };
   },
