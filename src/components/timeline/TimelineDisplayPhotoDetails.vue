@@ -4,7 +4,7 @@
 
     <h3>
       {{
-        formatMessage({
+        $formatMessage({
           description: 'viewer sidebar photo header',
           defaultMessage: 'Photo',
         })
@@ -25,7 +25,7 @@
         {{ node.exposureTimeFraction[1] }} s
       </li>
       <li v-if="node.focalLength">
-        {{ formatNumber(node.focalLength, { maximumFractionDigits: 2 }) }} mm
+        {{ $formatNumber(node.focalLength, { maximumFractionDigits: 2 }) }} mm
       </li>
       <li v-if="node.isoValue">ISO {{ node.isoValue }}</li>
     </ul>
@@ -34,7 +34,6 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { useIntl } from 'vue-intl';
 
 import TimelineDisplayGenericDetails from './TimelineDisplayGenericDetails.vue';
 import { useNode } from './TimelineDisplayPhoto.vue';
@@ -50,11 +49,9 @@ export default defineComponent({
   },
 
   setup(props) {
-    const { formatMessage, formatNumber } = useIntl();
-
     const node = useNode(props);
 
-    return { formatMessage, formatNumber, node };
+    return { node };
   },
 });
 </script>

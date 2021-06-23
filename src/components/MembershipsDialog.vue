@@ -46,7 +46,7 @@
                 </template>
                 <template v-else>
                   {{
-                    formatMessage({
+                    $formatMessage({
                       description: 'membership add button',
                       defaultMessage: 'Add',
                     })
@@ -73,7 +73,7 @@
                   @click="removeMembership(item.id)"
                 >
                   {{
-                    formatMessage({
+                    $formatMessage({
                       description: 'membership remove button',
                       defaultMessage: 'Remove',
                     })
@@ -298,7 +298,6 @@ export default defineComponent({
     }
 
     return {
-      formatMessage,
       userSearchLabel,
       userSearchPlaceholder,
       copy,

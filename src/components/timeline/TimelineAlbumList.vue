@@ -27,7 +27,7 @@
 
     <li v-if="loading || pageable" :class="$style.status">
       {{
-        formatMessage({
+        $formatMessage({
           description: 'loading indicator',
           defaultMessage: 'Loading…',
         })
@@ -39,7 +39,6 @@
 <script lang="ts">
 import { useResult } from '@vue/apollo-composable';
 import { defineComponent, PropType, watchEffect } from 'vue';
-import { useIntl } from 'vue-intl';
 
 import { useTimelineAlbumsQuery } from '@/graphql';
 import { VListing, VListingCard } from '@/interface';
@@ -77,8 +76,6 @@ export default defineComponent({
   },
 
   setup(props) {
-    const { formatMessage } = useIntl();
-
     const { result, loading, fetchMore, variables } = useTimelineAlbumsQuery(
       () => ({
         includeArchived: props.showArchived,
@@ -112,7 +109,6 @@ export default defineComponent({
     });
 
     return {
-      formatMessage,
       loading,
       albums,
       pageable,

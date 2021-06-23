@@ -2,7 +2,7 @@
   <div :class="$style.container">
     <h2>
       {{
-        formatMessage({
+        $formatMessage({
           description: 'timeline search heading',
           defaultMessage: 'Search in timeline',
         })
@@ -15,7 +15,6 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { useIntl } from 'vue-intl';
 
 import {
   provideFullTimeline,
@@ -32,15 +31,9 @@ export default defineComponent({
   },
 
   setup() {
-    const { formatMessage } = useIntl();
-
     provideFullTimeline();
     provideTimelineSettings();
     provideSelection();
-
-    return {
-      formatMessage,
-    };
   },
 });
 </script>

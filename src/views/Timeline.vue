@@ -15,7 +15,7 @@
             >
               <template #icon><PhCompass /></template>
               {{
-                formatMessage({
+                $formatMessage({
                   description: 'timeline main navigation',
                   defaultMessage: 'Timeline',
                 })
@@ -31,7 +31,7 @@
             <VSidebarLink :active="isActive" :href="href" @click="navigate">
               <template #icon><PhArchive /></template>
               {{
-                formatMessage({
+                $formatMessage({
                   description: 'timeline archive navigation',
                   defaultMessage: 'Archive',
                 })
@@ -47,7 +47,7 @@
             <VSidebarLink :active="isActive" :href="href" @click="navigate">
               <template #icon><PhMagnifyingGlass /></template>
               {{
-                formatMessage({
+                $formatMessage({
                   description: 'timeline search navigation',
                   defaultMessage: 'Search',
                 })
@@ -83,7 +83,7 @@
             >
               <template #icon><PhDotsThree /></template>
               {{
-                formatMessage({
+                $formatMessage({
                   description: 'timeline album manager navigation',
                   defaultMessage: 'Show more…',
                 })
@@ -191,7 +191,7 @@ export default defineComponent({
         : albumSample.value
     );
 
-    return { formatMessage, albumsSidebarHeading, albums };
+    return { albumsSidebarHeading, albums };
   },
 });
 </script>

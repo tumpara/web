@@ -15,7 +15,7 @@
             >
               <template #icon><PhUserCircle /></template>
               {{
-                formatMessage({
+                $formatMessage({
                   description: 'user account settings navigation',
                   defaultMessage: 'My Account',
                 })
@@ -37,7 +37,7 @@
             >
               <template #icon><PhStackSimple /></template>
               {{
-                formatMessage({
+                $formatMessage({
                   description: 'library management settings navigation',
                   defaultMessage: 'Libraries',
                 })
@@ -57,7 +57,7 @@
             >
               <template #icon><PhUsers /></template>
               {{
-                formatMessage({
+                $formatMessage({
                   description: 'user management settings navigation',
                   defaultMessage: 'Users',
                 })
@@ -100,7 +100,7 @@ export default defineComponent({
       defaultMessage: 'Management',
     });
 
-    return { formatMessage, managementSidebarHeading };
+    return { managementSidebarHeading };
   },
 });
 </script>

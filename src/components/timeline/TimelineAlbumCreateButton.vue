@@ -2,7 +2,7 @@
   <VButton :disabled="loading" @click="mutate">
     <PhPlusCircle />
     {{
-      formatMessage({
+      $formatMessage({
         description: 'create timeline album button',
         defaultMessage: 'Create',
       })
@@ -61,7 +61,6 @@ export default defineComponent({
     );
 
     return {
-      formatMessage,
       loading: mutation.loading,
       mutate: mutation.mutate,
     };

@@ -49,7 +49,7 @@ export default defineComponent({
           .filter((node) => node ?? false) as Library[]
     );
 
-    return { formatMessage, subviewTitle, libraries };
+    return { subviewTitle, libraries };
   },
 });
 </script>

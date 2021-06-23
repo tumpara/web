@@ -34,7 +34,7 @@ export default defineComponent({
       }
     );
 
-    return { formatMessage, subviewTitle, text };
+    return { subviewTitle, text };
   },
 });
 </script>

@@ -11,11 +11,11 @@
         v-if="currentTimestamp !== null"
         :class="{ 'toolbar-status': !!title }"
       >
-        {{ formatDate(currentTimestamp, { year: 'numeric', month: 'long' }) }}
+        {{ $formatDate(currentTimestamp, { year: 'numeric', month: 'long' }) }}
       </component>
       <span class="toolbar-status">
         {{
-          formatMessage(
+          $formatMessage(
             {
               description: 'timeline total count',
               defaultMessage: `{totalCount, plural,
@@ -49,8 +49,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, inject, provide, ref, watch } from 'vue';
-import { useIntl } from 'vue-intl';
+import { computed, defineComponent, provide, ref, watch } from 'vue';
 
 import { useTimeline } from './hooks';
 import TimelineBrowser from './TimelineBrowser.vue';
@@ -73,8 +72,6 @@ export default defineComponent({
   },
 
   setup() {
-    const { formatDate, formatMessage } = useIntl();
-
     const { totalCount } = useTimeline();
     const currentTimestamp = ref<null | Date>(null);
 
@@ -119,8 +116,6 @@ export default defineComponent({
     });
 
     return {
-      formatDate,
-      formatMessage,
       displayedIndex,
       navigateDisplay,
       totalCount,

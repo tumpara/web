@@ -9,7 +9,7 @@
       </summary>
       <summary v-else :class="[$style.summary, $style.nameless]">
         {{
-          formatMessage({
+          $formatMessage({
             description: 'unauthenticated message',
             defaultMessage: 'Not logged in',
           })
@@ -27,7 +27,7 @@
           <VMenuLink :href="href" @click="navigate">
             <PhUserCircle />
             {{
-              formatMessage({
+              $formatMessage({
                 description: 'user account settings navigation',
                 defaultMessage: 'My Account',
               })
@@ -38,7 +38,7 @@
         <VMenuLink href="/admin/logout/?next=/">
           <PhSignOut />
           {{
-            formatMessage({
+            $formatMessage({
               description: 'sign out link',
               defaultMessage: 'Sign out',
             })
@@ -50,7 +50,7 @@
     <VCard v-else content>
       <p class="hint">
         {{
-          formatMessage({
+          $formatMessage({
             description: 'unauthenticated details text',
             defaultMessage:
               'You are currently not logged in and can therefore only see public items. If you have an account on this server, sign in to view your content.',
@@ -62,7 +62,7 @@
         <VMenuLink :href="loginUrl">
           <PhSignIn />
           {{
-            formatMessage({
+            $formatMessage({
               description: 'sign in link',
               defaultMessage: 'Sign in',
             })
@@ -77,7 +77,6 @@
 import { useResult } from '@vue/apollo-composable';
 import { PhSignIn, PhSignOut, PhUserCircle } from 'phosphor-vue';
 import { computed, defineComponent } from 'vue';
-import { useIntl } from 'vue-intl';
 import { useRoute } from 'vue-router';
 
 import { useCurrentUserInformationQuery } from '@/graphql';
@@ -97,8 +96,6 @@ export default defineComponent({
   },
 
   setup() {
-    const { formatMessage } = useIntl();
-
     const userInformationQuery = useCurrentUserInformationQuery();
     const user = useResult(
       userInformationQuery.result,
@@ -111,7 +108,7 @@ export default defineComponent({
       return `/admin/login/?next=${encodeURIComponent(route.fullPath)}`;
     });
 
-    return { formatMessage, user, loginUrl };
+    return { user, loginUrl };
   },
 });
 </script>

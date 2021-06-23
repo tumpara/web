@@ -3,7 +3,7 @@
     <div class="toolbar-section">
       <h2 v-if="selectedCount > 0 && displayMode === null" class="status">
         {{
-          formatMessage(
+          $formatMessage(
             {
               description: 'timeline selected count',
               defaultMessage: `Selected {selectedCount, plural,
@@ -31,7 +31,7 @@
             <VButton>
               <PhTray />
               {{
-                formatMessage({
+                $formatMessage({
                   description: 'add to timeline album button',
                   defaultMessage: 'Add to album',
                 })
@@ -54,7 +54,7 @@
         >
           <PhBackspace />
           {{
-            formatMessage({
+            $formatMessage({
               description: 'remove from timeline album button',
               defaultMessage: 'Remove from this album',
             })
@@ -66,7 +66,7 @@
             <VButton>
               <PhEye />
               {{
-                formatMessage({
+                $formatMessage({
                   description: 'set timeline visibility button',
                   defaultMessage: 'Set visibility',
                 })
@@ -77,7 +77,7 @@
             <VMenu>
               <VMenuButton @click="setSelectionVisibility(Visibility.Public)">
                 {{
-                  formatMessage({
+                  $formatMessage({
                     description: 'timeline visibility choice - public',
                     defaultMessage: 'Public',
                   })
@@ -85,7 +85,7 @@
               </VMenuButton>
               <VMenuButton @click="setSelectionVisibility(Visibility.Internal)">
                 {{
-                  formatMessage({
+                  $formatMessage({
                     description: 'timeline visibility choice - internal',
                     defaultMessage: 'All logged-in users on this server',
                   })
@@ -93,7 +93,7 @@
               </VMenuButton>
               <VMenuButton @click="setSelectionVisibility(Visibility.Members)">
                 {{
-                  formatMessage({
+                  $formatMessage({
                     description: 'timeline visibility choice - members',
                     defaultMessage: "Members of the item's library",
                   })
@@ -101,7 +101,7 @@
               </VMenuButton>
               <VMenuButton @click="setSelectionVisibility(Visibility.Owners)">
                 {{
-                  formatMessage({
+                  $formatMessage({
                     description: 'timeline visibility choice - owners',
                     defaultMessage: 'Only owners of the library',
                   })
@@ -133,7 +133,7 @@
         >
           <PhX />
           {{
-            formatMessage({
+            $formatMessage({
               description: 'clear selection button',
               defaultMessage: 'Clear selection',
             })
@@ -146,7 +146,7 @@
           <VButton :selected="gridSize === 150" @click="gridSize = 150">
             <PhDotsNine />
             {{
-              formatMessage({
+              $formatMessage({
                 description: 'compact view size button',
                 defaultMessage: 'Compact',
               })
@@ -155,7 +155,7 @@
           <VButton :selected="gridSize === 250" @click="gridSize = 250">
             <PhGridFour />
             {{
-              formatMessage({
+              $formatMessage({
                 description: 'normal view size button',
                 defaultMessage: 'Normal',
               })
@@ -164,7 +164,7 @@
           <VButton :selected="gridSize === 350" @click="gridSize = 350">
             <PhSquare />
             {{
-              formatMessage({
+              $formatMessage({
                 description: 'large view size button',
                 defaultMessage: 'Large',
               })
@@ -178,7 +178,7 @@
           <VButton v-if="displayMode & 1" @click="$emit('navigateDisplay', -1)">
             <PhArrowLeft />
             {{
-              formatMessage({
+              $formatMessage({
                 description: 'timeline view previous button',
                 defaultMessage: 'Previous',
               })
@@ -186,7 +186,7 @@
           </VButton>
           <VButton v-if="displayMode & 2" @click="$emit('navigateDisplay', 1)">
             {{
-              formatMessage({
+              $formatMessage({
                 description: 'timeline view next button',
                 defaultMessage: 'Next',
               })
@@ -216,7 +216,7 @@
         <VButton @click="$emit('closeDisplay')">
           <PhX />
           {{
-            formatMessage({
+            $formatMessage({
               description: 'timeline view close button',
               defaultMessage: 'Close',
             })
@@ -429,7 +429,6 @@ export default defineComponent({
     const displayDetailsVisible = inject<Ref<boolean>>('displayDetailsVisible');
 
     return {
-      formatMessage,
       gridSize,
       selectedCount,
       clearSelection,

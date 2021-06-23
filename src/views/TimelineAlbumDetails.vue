@@ -6,7 +6,7 @@
 
     <p v-if="albumDetails?.archived" class="hint">
       {{
-        formatMessage({
+        $formatMessage({
           description: 'archived timeline album hint',
           defaultMessage:
             'This album is archived. It will not show up unless you have the exact link or you explicitly search for archived albums.',
@@ -160,7 +160,6 @@ export default defineComponent({
     provide('removeFromAlbumId', albumId);
 
     return {
-      formatMessage,
       albumId,
       albumDetails,
       handleNameBlur,

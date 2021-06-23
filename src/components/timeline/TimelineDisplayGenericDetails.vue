@@ -3,7 +3,7 @@
 
   <p class="hint">
     {{
-      formatMessage(
+      $formatMessage(
         {
           description: 'viewer sidebar id',
           defaultMessage: 'ID: { unmaskedId }',
@@ -18,7 +18,7 @@
 
     <h3>
       {{
-        formatMessage({
+        $formatMessage({
           description: 'viewer sidebar timeline header',
           defaultMessage: 'Timeline',
         })
@@ -26,7 +26,7 @@
     </h3>
     <p>
       {{
-        formatDate(node.timestamp, {
+        $formatDate(node.timestamp, {
           year: 'numeric',
           month: 'long',
           day: 'numeric',
@@ -37,7 +37,7 @@
     </p>
     <p class="hint">
       {{
-        formatMessage(
+        $formatMessage(
           {
             description: 'viewer sidebar upload timestamp',
             defaultMessage: 'Uploaded {timestamp,date,::dMMMMyyyy}',
@@ -53,7 +53,7 @@
 
     <h3>
       {{
-        formatMessage({
+        $formatMessage({
           description: 'viewer sidebar location header',
           defaultMessage: 'Location',
         })
@@ -72,7 +72,7 @@
 
     <h3>
       {{
-        formatMessage({
+        $formatMessage({
           description: 'viewer sidebar file header',
           defaultMessage: 'File',
         })
@@ -84,7 +84,6 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue';
-import { useIntl } from 'vue-intl';
 
 import { TimelineDisplayBaseFragment } from '@/graphql';
 
@@ -97,15 +96,13 @@ export default defineComponent({
   },
 
   setup(props) {
-    const { formatMessage, formatDate } = useIntl();
-
     const parseDate = (input: string) => new Date(input);
 
     const unmaskedId = computed(
       () => atob(props.node?.id || '').split(':')[1] || '?'
     );
 
-    return { formatMessage, formatDate, parseDate, unmaskedId };
+    return { parseDate, unmaskedId };
   },
 });
 </script>

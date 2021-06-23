@@ -54,7 +54,7 @@
       <VNavigatorItem :href="href" color="gray" @click="navigate">
         <PhHouse />
         {{
-          formatMessage({
+          $formatMessage({
             description: 'home navigator item',
             defaultMessage: 'Home',
           })
@@ -70,7 +70,7 @@
       <VNavigatorItem :href="href" color="green" @click="navigate">
         <PhCompass />
         {{
-          formatMessage({
+          $formatMessage({
             description: 'timeline navigator item',
             defaultMessage: 'Timeline',
           })
@@ -82,7 +82,7 @@
       <VNavigatorItem :href="href" color="blue" @click="navigate">
         <PhGearSix />
         {{
-          formatMessage({
+          $formatMessage({
             description: 'settings navigator item',
             defaultMessage: 'Settings',
           })
@@ -95,7 +95,7 @@
     <VNavigatorItem href="/api/graphql" color="gray">
       <PhPuzzlePiece />
       {{
-        formatMessage({
+        $formatMessage({
           description: 'api navigator item',
           defaultMessage: 'API',
         })
@@ -105,7 +105,7 @@
     <VNavigatorItem href="/admin" color="blue">
       <PhWrench />
       {{
-        formatMessage({
+        $formatMessage({
           description: 'admin navigator item',
           defaultMessage: 'Administration',
         })
@@ -148,7 +148,7 @@ export default defineComponent({
       defaultMessage: 'Tumpara logo',
     });
 
-    return { formatMessage, wordmarkAriaLabel };
+    return { wordmarkAriaLabel };
   },
 });
 </script>
