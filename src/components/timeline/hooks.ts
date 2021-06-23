@@ -22,7 +22,7 @@ import {
   TimelineViewYearBucket,
   useTimelineQuery,
 } from '@/graphql';
-import { ExtractArrayMaybe, ReadonlyRefInjectionKey } from "@/utils";
+import { ExtractArrayMaybe, ReadonlyRefInjectionKey } from '@/utils';
 
 export interface TimelineSlice {
   startIndex: number;
