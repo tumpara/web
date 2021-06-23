@@ -22,13 +22,14 @@ import {
   ref,
   UnwrapRef,
 } from 'vue';
+import { ReadonlyRefInjectionKey } from "@/utils";
 
 interface FormContext {
   validationVisible: true;
   useInput: (validity: Ref<Readonly<boolean>>) => void;
 }
 
-export const Form: InjectionKey<Readonly<UnwrapRef<FormContext>>> = Symbol();
+export const Form = ReadonlyRefInjectionKey<UnwrapRef<FormContext>>();
 
 export default defineComponent({
   name: 'VForm',

@@ -22,7 +22,7 @@ import {
   TimelineViewYearBucket,
   useTimelineQuery,
 } from '@/graphql';
-import { ExtractArrayMaybe } from '@/utils';
+import { ExtractArrayMaybe, ReadonlyRefInjectionKey } from "@/utils";
 
 export interface TimelineSlice {
   startIndex: number;
@@ -55,7 +55,7 @@ const TimelineDistribution: InjectionKey<
     >
   >
 > = Symbol();
-const TimelineTotalCount: InjectionKey<Ref<Readonly<number>>> = Symbol();
+const TimelineTotalCount = ReadonlyRefInjectionKey<number>();
 // These injections are not intended to be directly consumed by child
 // components. Instead, clients should use the `useTimelineSlice` hook that
 // automatically takes care of pagination.
