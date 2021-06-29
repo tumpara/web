@@ -98,3 +98,25 @@ query TimelineAlbumDetails($id: ID!) {
     }
   }
 }
+
+mutation StackTimelineEntries($ids: [ID!]!) {
+  stackTimelineEntries(input: {
+    ids: $ids
+  }) {
+    entries {
+      id
+      stackRepresentative
+    }
+  }
+}
+
+mutation ClearTimelineStack($id: ID!) {
+  unstackTimelineEntry(input: {
+    id: $id,
+    clear: true
+  }) {
+    entries {
+      id
+    }
+  }
+}
