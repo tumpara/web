@@ -8,6 +8,12 @@ module.exports = {
       lintGQL: true,
     },
   },
+  pages: {
+    index: {
+      entry: 'src/main.ts',
+      title: 'Tumpara',
+    },
+  },
   devServer: {
     proxy: {
       '^/(admin|api|static)': {
