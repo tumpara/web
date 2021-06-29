@@ -20,6 +20,25 @@
     </div>
 
     <div class="toolbar-section">
+      <VButton v-if="selectedCount > 1" @click="stackSelection">
+        <PhStack />
+        {{
+          $formatMessage({
+            description: 'timeline stack button',
+            defaultMessage: 'Stack',
+          })
+        }}
+      </VButton>
+      <VButton v-if="selectedCount === 1" @click="clearSelectionStack">
+        <PhStackSimple />
+        {{
+          $formatMessage({
+            description: 'timeline clear stack button',
+            defaultMessage: 'Clear stack',
+          })
+        }}
+      </VButton>
+
       <template v-if="selectedCount > 0">
         <VDialog
           v-if="enableAlbumAdding"
@@ -239,11 +258,14 @@ import {
   PhGridFour,
   PhInfo,
   PhSquare,
+  PhStack,
+  PhStackSimple,
   PhTray,
   PhX,
 } from 'phosphor-vue';
 import {
   ComponentPublicInstance,
+  computed,
   defineComponent,
   inject,
   Ref,
@@ -253,9 +275,11 @@ import { useIntl } from 'vue-intl';
 
 import {
   LibraryContentVisibility,
+  useClearTimelineStackMutation,
   useOrganizeArchiveMutation,
   useOrganizeCollectionMutation,
   useSetLibraryContentVisiblityMutation,
+  useStackTimelineEntriesMutation,
 } from '@/graphql';
 import {
   useToasts,
@@ -294,6 +318,8 @@ export default defineComponent({
     PhGridFour,
     PhInfo,
     PhSquare,
+    PhStack,
+    PhStackSimple,
     PhTray,
     PhX,
     VButton,
@@ -334,7 +360,15 @@ export default defineComponent({
       count: selectedCount,
       clear: clearSelection,
       items: selectedIds,
+      toggleItem: toggleItemSelection,
     } = useSelection();
+
+    function clearSelectionAndApolloCache() {
+      clearSelection();
+      // Reset the store after the mutation ran so that we make sure nothing
+      // gets left in cache.
+      resolveClient().resetStore();
+    }
 
     //
     // Archive
@@ -351,12 +385,7 @@ export default defineComponent({
           },
     }));
     archiveMutation.onError(() => showNetworkErrorToast());
-    archiveMutation.onDone(() => {
-      clearSelection();
-      // Reset the store after the mutation ran so that we make sure nothing
-      // gets left in cache.
-      resolveClient().resetStore();
-    });
+    archiveMutation.onDone(clearSelectionAndApolloCache);
 
     //
     // Albums
@@ -374,11 +403,8 @@ export default defineComponent({
     const collectionMutation = useOrganizeCollectionMutation({});
     collectionMutation.onError(() => showNetworkErrorToast());
     collectionMutation.onDone(() => {
-      clearSelection();
+      clearSelectionAndApolloCache();
       albumAddDialog.value?.close();
-      // Reset the store after the mutation ran so that we make sure nothing
-      // gets left in cache.
-      resolveClient().resetStore();
     });
 
     function addSelectionToAlbum(album: { id: string }) {
@@ -403,6 +429,51 @@ export default defineComponent({
         collectionId: removeFromAlbumId.value,
         removeItemIds: selectedIds.value as string[],
       });
+    }
+
+    //
+    // Stacking
+    //
+
+    const stackMutation = useStackTimelineEntriesMutation({});
+    collectionMutation.onError(() => showNetworkErrorToast());
+    stackMutation.onDone((result) => {
+      clearSelectionAndApolloCache();
+
+      // After creating / updating a stack, select the representative.
+      const representativeId = (
+        result.data?.stackTimelineEntries?.entries ?? []
+      ).find((entry) => entry?.stackRepresentative)?.id;
+      if (representativeId !== undefined) {
+        toggleItemSelection(representativeId);
+      }
+    });
+    function stackSelection() {
+      if (selectedCount.value <= 1) {
+        return;
+      }
+      stackMutation.mutate({ ids: selectedIds.value as string[] });
+    }
+
+    const clearStackMutation = useClearTimelineStackMutation({});
+    collectionMutation.onError(() => showNetworkErrorToast());
+    clearStackMutation.onDone((result) => {
+      clearSelectionAndApolloCache();
+
+      // After the stack has been cleared, select the entries again. This lets
+      // the user re-stack them after modifying the selection.
+      for (const entry of result.data?.unstackTimelineEntry?.entries ?? []) {
+        if (entry === null) {
+          continue;
+        }
+        toggleItemSelection(entry.id);
+      }
+    });
+    function clearSelectionStack() {
+      if (selectedCount.value !== 1) {
+        return;
+      }
+      clearStackMutation.mutate({ id: selectedIds.value[0] as string });
     }
 
     //
@@ -441,6 +512,9 @@ export default defineComponent({
       addSelectionToAlbum,
       removeFromAlbumId,
       removeSelectionFromAlbum,
+      // Stacking
+      stackSelection,
+      clearSelectionStack,
       // Visibility
       Visibility: LibraryContentVisibility,
       visibilityPopup,
