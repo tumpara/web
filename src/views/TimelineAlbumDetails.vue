@@ -20,11 +20,11 @@
           <PhArchive />
           {{
             albumDetails?.archived
-              ? formatMessage({
+              ? $formatMessage({
                   description: 'unarchive button',
                   defaultMessage: 'Unarchive',
                 })
-              : formatMessage({
+              : $formatMessage({
                   description: 'archive button',
                   defaultMessage: 'Archive',
                 })

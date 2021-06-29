@@ -134,11 +134,11 @@
           <PhArchive />
           {{
             showUnarchiveButton
-              ? formatMessage({
+              ? $formatMessage({
                   description: 'unarchive button',
                   defaultMessage: 'Unarchive',
                 })
-              : formatMessage({
+              : $formatMessage({
                   description: 'archive button',
                   defaultMessage: 'Archive',
                 })
@@ -221,11 +221,11 @@
           <PhInfo />
           {{
             displayDetailsVisible
-              ? formatMessage({
+              ? $formatMessage({
                   description: 'timeline display hide details button',
                   defaultMessage: 'Hide details',
                 })
-              : formatMessage({
+              : $formatMessage({
                   description: 'timeline display show details button',
                   defaultMessage: 'Show details',
                 })
