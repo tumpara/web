@@ -37,7 +37,10 @@ export default defineComponent({
   inheritAttrs: false,
 
   props: {
-    modelValue: { type: String },
+    modelValue: {
+      type: String,
+      default: '',
+    },
 
     name: {
       type: String,

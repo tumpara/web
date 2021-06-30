@@ -212,8 +212,10 @@ export default defineComponent({
 
     // Mapping to hold refs of the individual user popups so they can be closed
     // later when required.
-    let choicePopups: Record<string, ComponentPublicInstance<typeof VPopup>> =
-      {};
+    let choicePopups: Record<
+      string,
+      ComponentPublicInstance<typeof VPopup>
+    > = {};
     onBeforeUpdate(() => (choicePopups = {}));
     function registerChoicePopup(
       key: string,

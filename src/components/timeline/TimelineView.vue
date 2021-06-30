@@ -68,7 +68,10 @@ export default defineComponent({
   },
 
   props: {
-    title: String,
+    title: {
+      type: String,
+      default: undefined,
+    },
   },
 
   setup() {

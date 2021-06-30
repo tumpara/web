@@ -62,6 +62,7 @@ export default defineComponent({
 
     mode: {
       type: String as PropType<'link' | 'selection'>,
+      required: true,
       validator: (value: string) => ['link', 'selection'].includes(value),
     },
 

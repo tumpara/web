@@ -125,7 +125,7 @@ import * as gui from '@/interface';
 import { useToasts } from '@/interface/product/app/VApp.vue';
 
 export default defineComponent({
-  name: 'Ui.vue',
+  name: 'Ui',
 
   components: gui,
 

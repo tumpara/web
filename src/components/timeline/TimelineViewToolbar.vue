@@ -265,7 +265,6 @@ import {
 } from 'phosphor-vue';
 import {
   ComponentPublicInstance,
-  computed,
   defineComponent,
   inject,
   Ref,

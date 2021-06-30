@@ -14,7 +14,7 @@ export default defineComponent({
   props: {
     heading: {
       type: String,
-      required: false,
+      default: undefined,
     },
   },
 });

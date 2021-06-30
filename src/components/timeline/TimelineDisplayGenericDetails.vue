@@ -91,8 +91,10 @@ export default defineComponent({
   name: 'TimelineDisplayGenericDetails',
 
   props: {
-    node: Object as PropType<TimelineDisplayBaseFragment | null>,
-    default: null,
+    node: {
+      type: Object as PropType<TimelineDisplayBaseFragment | null>,
+      default: null,
+    },
   },
 
   setup(props) {

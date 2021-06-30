@@ -1,5 +1,6 @@
 <template>
   <VSubview :title="subviewTitle">
+    <!-- eslint-disable-next-line vue/no-v-html -->
     <p v-html="text" />
   </VSubview>
 </template>
