@@ -1,10 +1,22 @@
 <template>
-  <VSubview :title="subviewTitle">
+  <VSubview
+    :title="
+      $formatMessage({
+        description: 'timeline album manager title',
+        defaultMessage: 'All Albums',
+      })
+    "
+  >
     <template #header-extra>
       <VCheckbox
         v-model="showArchived"
         name="showArchived"
-        :label="showArchivedCheckboxLabel"
+        :label="
+          $formatMessage({
+            description: 'show archived timeline albums toggle',
+            defaultMessage: 'Show archived',
+          })
+        "
       />
       <TimelineAlbumCreateButton @album-id="navigateToAlbum" />
     </template>
@@ -15,7 +27,6 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import { useIntl } from 'vue-intl';
 import { useRouter } from 'vue-router';
 
 import {
@@ -35,19 +46,9 @@ export default defineComponent({
   },
 
   setup() {
-    const { formatMessage } = useIntl();
     const router = useRouter();
 
-    const subviewTitle = formatMessage({
-      description: 'timeline album manager title',
-      defaultMessage: 'All Albums',
-    });
-
     const showArchived = ref(false);
-    const showArchivedCheckboxLabel = formatMessage({
-      description: 'show archived timeline albums toggle',
-      defaultMessage: 'Show archived',
-    });
 
     function navigateToAlbum(id: string) {
       router.push({
@@ -57,9 +58,7 @@ export default defineComponent({
     }
 
     return {
-      subviewTitle,
       showArchived,
-      showArchivedCheckboxLabel,
       navigateToAlbum,
     };
   },

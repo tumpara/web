@@ -18,7 +18,12 @@
           <button
             ref="closeButton"
             class="button--light"
-            :aria-label="closeAria"
+            :aria-label="
+              $formatMessage({
+                description: 'close dialog button aria label',
+                defaultMessage: 'Close this dialog',
+              })
+            "
             @click="close"
           >
             <PhX />
@@ -36,7 +41,6 @@
 <script lang="ts">
 import { PhX } from 'phosphor-vue';
 import { ComponentPublicInstance, defineComponent, ref } from 'vue';
-import { useIntl } from 'vue-intl';
 
 import VCard from '../cards/VCard.vue';
 import VDetails from './VDetails.vue';
@@ -62,21 +66,15 @@ export default defineComponent({
   },
 
   setup() {
-    const { formatMessage } = useIntl();
-
     const details = ref<ComponentPublicInstance<typeof VDetails>>();
 
     const closeButton = ref<HTMLButtonElement>();
-    const closeAria = formatMessage({
-      description: 'close dialog button aria label',
-      defaultMessage: 'Close this dialog',
-    });
 
     function close() {
       details.value?.close();
     }
 
-    return { details, closeAria, closeButton, close };
+    return { details, closeButton, close };
   },
 });
 </script>

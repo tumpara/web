@@ -43,7 +43,12 @@
         <VDialog
           v-if="enableAlbumAdding"
           ref="albumAddDialog"
-          :title="albumAddDialogTitle"
+          :title="
+            $formatMessage({
+              description: 'timeline album add dialog title',
+              defaultMessage: 'Add to an existing album',
+            })
+          "
           darken
         >
           <template #activator>
@@ -392,12 +397,6 @@ export default defineComponent({
 
     const enableAlbumAdding = inject<boolean>('enableAlbumAdding', false);
     const albumAddDialog = ref<ComponentPublicInstance<typeof VDialog>>();
-    const albumAddDialogTitle = enableAlbumAdding
-      ? formatMessage({
-          description: 'timeline album add dialog title',
-          defaultMessage: 'Add to an existing album',
-        })
-      : '';
 
     const collectionMutation = useOrganizeCollectionMutation({});
     collectionMutation.onError(() => showNetworkErrorToast());
@@ -507,7 +506,6 @@ export default defineComponent({
       archive: archiveMutation.mutate,
       // Albums
       enableAlbumAdding,
-      albumAddDialogTitle,
       addSelectionToAlbum,
       removeFromAlbumId,
       removeSelectionFromAlbum,

@@ -1,5 +1,12 @@
 <template>
-  <VSubview :title="subviewTitle">
+  <VSubview
+    :title="
+      $formatMessage({
+        description: 'library settings title',
+        defaultMessage: 'Manage Libraries',
+      })
+    "
+  >
     <VListing>
       <VListingCard v-for="library in libraries" :key="library.id" content>
         <div>
@@ -14,7 +21,6 @@
 <script lang="ts">
 import { useResult } from '@vue/apollo-composable';
 import { defineComponent } from 'vue';
-import { useIntl } from 'vue-intl';
 
 import MembershipsDialog from '@/components/MembershipsDialog.vue';
 import { useLibrariesQuery } from '@/graphql';
@@ -32,13 +38,6 @@ export default defineComponent({
   components: { MembershipsDialog, VListing, VListingCard, VSubview },
 
   setup() {
-    const { formatMessage } = useIntl();
-
-    const subviewTitle = formatMessage({
-      description: 'library settings title',
-      defaultMessage: 'Manage Libraries',
-    });
-
     const query = useLibrariesQuery();
     const libraries = useResult(
       query.result,
@@ -49,7 +48,7 @@ export default defineComponent({
           .filter((node) => node ?? false) as Library[]
     );
 
-    return { subviewTitle, libraries };
+    return { libraries };
   },
 });
 </script>

@@ -1,5 +1,12 @@
 <template>
-  <VSubview :title="subviewTitle">
+  <VSubview
+    :title="
+      $formatMessage({
+        description: 'profile title',
+        defaultMessage: 'User profile settings',
+      })
+    "
+  >
     <!-- eslint-disable-next-line vue/no-v-html -->
     <p v-html="text" />
   </VSubview>
@@ -19,10 +26,6 @@ export default defineComponent({
   setup() {
     const { formatMessage } = useIntl();
 
-    const subviewTitle = formatMessage({
-      description: 'profile title',
-      defaultMessage: 'User profile settings',
-    });
     const text = formatMessage(
       {
         description: 'settings django link text',
@@ -35,7 +38,7 @@ export default defineComponent({
       }
     );
 
-    return { subviewTitle, text };
+    return { text };
   },
 });
 </script>

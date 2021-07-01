@@ -24,7 +24,14 @@
           </router-link>
         </VSidebarGroup>
 
-        <VSidebarGroup :heading="managementSidebarHeading">
+        <VSidebarGroup
+          :heading="
+            $formatMessage({
+              description: 'settings sidebar management heading',
+              defaultMessage: 'Management',
+            })
+          "
+        >
           <router-link
             v-slot="{ href, navigate, isExactActive }"
             :to="{ name: 'SettingsLibraries' }"
@@ -75,7 +82,6 @@
 <script lang="ts">
 import { PhStackSimple, PhUserCircle, PhUsers } from 'phosphor-vue';
 import { defineComponent } from 'vue';
-import { useIntl } from 'vue-intl';
 
 import { VSidebar, VSidebarGroup, VSidebarLink, VView } from '@/interface';
 
@@ -90,17 +96,6 @@ export default defineComponent({
     VSidebarGroup,
     VSidebarLink,
     VView,
-  },
-
-  setup() {
-    const { formatMessage } = useIntl();
-
-    const managementSidebarHeading = formatMessage({
-      description: 'settings sidebar management heading',
-      defaultMessage: 'Management',
-    });
-
-    return { managementSidebarHeading };
   },
 });
 </script>

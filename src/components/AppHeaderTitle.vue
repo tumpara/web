@@ -4,7 +4,12 @@
       <svg
         :class="$style.wordmark"
         viewBox="0 0 1832 400"
-        :aria-label="wordmarkAriaLabel"
+        :aria-label="
+          $formatMessage({
+            description: 'app wordmark aria label',
+            defaultMessage: 'Tumpara logo',
+          })
+        "
       >
         <g :class="$style.icon">
           <path
@@ -123,7 +128,6 @@ import {
   PhWrench,
 } from 'phosphor-vue';
 import { defineComponent } from 'vue';
-import { useIntl } from 'vue-intl';
 
 import { VNavigator, VNavigatorItem } from '@/interface';
 
@@ -138,17 +142,6 @@ export default defineComponent({
     PhWrench,
     VNavigator,
     VNavigatorItem,
-  },
-
-  setup() {
-    const { formatMessage } = useIntl();
-
-    const wordmarkAriaLabel = formatMessage({
-      description: 'app wordmark aria label',
-      defaultMessage: 'Tumpara logo',
-    });
-
-    return { wordmarkAriaLabel };
   },
 });
 </script>

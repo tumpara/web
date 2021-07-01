@@ -56,7 +56,14 @@
           </router-link-->
         </VSidebarGroup>
 
-        <VSidebarGroup :heading="albumsSidebarHeading">
+        <VSidebarGroup
+          :heading="
+            $formatMessage({
+              description: 'timeline sidebar albums heading',
+              defaultMessage: 'Albums',
+            })
+          "
+        >
           <router-link
             v-for="album in albums"
             :key="album.id"
@@ -108,7 +115,6 @@ import {
   // PhMagnifyingGlass,
 } from 'phosphor-vue';
 import { computed, defineComponent } from 'vue';
-import { useIntl } from 'vue-intl';
 import { useRoute } from 'vue-router';
 
 import {
@@ -138,13 +144,6 @@ export default defineComponent({
   },
 
   setup() {
-    const { formatMessage } = useIntl();
-
-    const albumsSidebarHeading = formatMessage({
-      description: 'timeline sidebar albums heading',
-      defaultMessage: 'Albums',
-    });
-
     const albumSampleQuery = useTimelineAlbumsQuery({ includeArchived: false });
     const albumSample = useResult(
       albumSampleQuery.result,
@@ -191,7 +190,7 @@ export default defineComponent({
         : albumSample.value
     );
 
-    return { albumsSidebarHeading, albums };
+    return { albums };
   },
 });
 </script>

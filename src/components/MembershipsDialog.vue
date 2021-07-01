@@ -1,10 +1,10 @@
 <template>
-  <VDialog :title="copy.dialogTitle" darken>
+  <VDialog :title="messages.dialogTitle" darken>
     <template #activator>
       <VButton>
         <PhShareNetwork v-if="copyStyle === 'sharing'" />
         <PhUserGear v-else-if="copyStyle === 'members'" />
-        {{ copy.buttonText }}
+        {{ messages.buttonText }}
       </VButton>
     </template>
 
@@ -12,8 +12,18 @@
       <VInput
         v-model="searchQuery"
         name="usersearch"
-        :label="userSearchLabel"
-        :placeholder="userSearchPlaceholder"
+        :label="
+          $formatMessage({
+            description: 'membership dialog user search label',
+            defaultMessage: 'Search for a user',
+          })
+        "
+        :placeholder="
+          $formatMessage({
+            description: 'membership dialog user search placeholder',
+            defaultMessage: 'Search…',
+          })
+        "
         spread
       />
 
@@ -41,8 +51,12 @@
                 <template
                   v-if="item.isOwner === true || item.isOwner === false"
                 >
-                  {{ item.isOwner === true ? copy.ownerLabel : copy.memberLabel
-                  }}<PhCaretDown class="button-chevron" />
+                  {{
+                    item.isOwner === true
+                      ? messages.ownerLabel
+                      : messages.memberLabel
+                  }}
+                  <PhCaretDown class="button-chevron" />
                 </template>
                 <template v-else>
                   {{
@@ -60,13 +74,13 @@
                   :active="item.isOwner === false"
                   @click="setMembership(item.id, false)"
                 >
-                  {{ copy.memberLabel }}
+                  {{ messages.memberLabel }}
                 </VMenuButton>
                 <VMenuButton
                   :active="item.isOwner === true"
                   @click="setMembership(item.id, true)"
                 >
-                  {{ copy.ownerLabel }}
+                  {{ messages.ownerLabel }}
                 </VMenuButton>
                 <VMenuButton
                   v-if="item.isOwner !== undefined"
@@ -156,16 +170,7 @@ export default defineComponent({
     const { showNetworkErrorToast } = useToasts();
     const { formatMessage } = useIntl();
 
-    const userSearchLabel = formatMessage({
-      description: 'membership dialog user search label',
-      defaultMessage: 'Search for a user',
-    });
-    const userSearchPlaceholder = formatMessage({
-      description: 'membership dialog user search placeholder',
-      defaultMessage: 'Search…',
-    });
-
-    const copy = computed(() => {
+    const messages = computed(() => {
       switch (props.copyStyle) {
         case 'sharing':
           return {
@@ -300,9 +305,7 @@ export default defineComponent({
     }
 
     return {
-      userSearchLabel,
-      userSearchPlaceholder,
-      copy,
+      messages,
       registerChoicePopup,
       searchQuery,
       users,
