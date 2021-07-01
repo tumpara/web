@@ -124,6 +124,11 @@
     "description": "sharing status label for members",
     "originalMessage": "Read only"
   },
+  "MXHt2x": {
+    "defaultMessage": "Stapel auflösen",
+    "description": "timeline clear stack button",
+    "originalMessage": "Clear stack"
+  },
   "NYjgAJ": {
     "defaultMessage": "Abmelden",
     "description": "sign out link",
@@ -238,6 +243,11 @@
     "defaultMessage": "Dieses Album ist archiviert. Es wird nicht angezeigt, es sei denn Du verfügst über den exakten Link oder Du suchst explizit nach archivierten Alben.",
     "description": "archived timeline album hint",
     "originalMessage": "This album is archived. It will not show up unless you have the exact link or you explicitly search for archived albums."
+  },
+  "dULkoH": {
+    "defaultMessage": "Stapeln",
+    "description": "timeline stack button",
+    "originalMessage": "Stack"
   },
   "e7C+k8": {
     "defaultMessage": "Details anzeigen",
