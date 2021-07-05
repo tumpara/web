@@ -4,7 +4,7 @@ WORKDIR /app
 COPY . /app
 
 RUN \
-  npm ci && \
+  npm clean-install && \
   npm run prep:codegen && \
   npm run prep:extract-messages && \
   npm run prep:compile-messages && \
