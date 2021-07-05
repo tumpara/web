@@ -275,7 +275,6 @@ import {
   Ref,
   ref,
 } from 'vue';
-import { useIntl } from 'vue-intl';
 
 import {
   LibraryContentVisibility,
@@ -356,7 +355,6 @@ export default defineComponent({
 
   setup() {
     const { showNetworkErrorToast } = useToasts();
-    const { formatMessage } = useIntl();
     const { resolveClient } = useApolloClient();
 
     const gridSize = inject(GridSize);
