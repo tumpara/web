@@ -100,7 +100,7 @@ export default defineComponent({
     const user = useResult(
       userInformationQuery.result,
       null,
-      (data) => data.me || null
+      (data) => data?.me || null
     );
 
     const route = useRoute();

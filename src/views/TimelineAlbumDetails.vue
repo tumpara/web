@@ -80,7 +80,7 @@ export default defineComponent({
 
     const query = useTimelineAlbumDetailsQuery(() => ({ id: albumId.value }));
     const albumDetails = useResult(query.result, null, (data) =>
-      data.node?.__typename === 'TimelineAlbum' ? data.node : null
+      data?.node?.__typename === 'TimelineAlbum' ? data.node : null
     );
     query.onError(() => {
       showNetworkErrorToast(

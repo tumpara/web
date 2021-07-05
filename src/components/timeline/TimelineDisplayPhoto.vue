@@ -24,10 +24,12 @@ export function useNode(props: {
   const { result } = useTimelineDisplayPhotoQuery(() => ({
     id: props.nodeId,
   }));
-  return useResult<TimelineDisplayPhotoQuery, null, NodeType | null>(
-    result,
+  return useResult<
+    TimelineDisplayPhotoQuery | undefined,
     null,
-    (data) => (data.node?.__typename === 'Photo' ? data.node : null)
+    NodeType | null
+  >(result, null, (data) =>
+    data?.node?.__typename === 'Photo' ? data.node : null
   );
 }
 

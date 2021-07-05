@@ -207,10 +207,14 @@ export function provideFullTimeline(
   const query = useTimelineQuery(computed(() => ({ filters: unref(filters) })));
 
   provideTimelineMetadata(
-    useResult(query.result, null, (data) => data.timeline?.yearDistribution)
+    useResult(query.result, null, (data) => data?.timeline?.yearDistribution)
   );
 
-  const entries = useResult(query.result, [], (data) => data.timeline?.entries);
+  const entries = useResult(
+    query.result,
+    [],
+    (data) => data?.timeline?.entries
+  );
   provide(TimelineEntryConnection, entries);
 
   async function fetchMoreEntries(offset: number) {

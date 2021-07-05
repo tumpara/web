@@ -87,14 +87,14 @@ export default defineComponent({
       result,
       [] as Album[],
       (data) =>
-        data.timelineAlbums?.edges
+        data?.timelineAlbums?.edges
           .map((edge) => edge?.node ?? null)
           .filter((node) => node ?? false) as Album[]
     );
     const pageable = useResult(
       result,
       false,
-      (data) => data.timelineAlbums?.pageInfo.hasNextPage ?? false
+      (data) => data?.timelineAlbums?.pageInfo.hasNextPage ?? false
     );
 
     // Load more albums until all are fetched.

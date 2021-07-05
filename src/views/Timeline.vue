@@ -149,7 +149,7 @@ export default defineComponent({
       albumSampleQuery.result,
       [] as Album[],
       (data) =>
-        data.timelineAlbums?.edges
+        data?.timelineAlbums?.edges
           .map((edge) => edge?.node ?? null)
           .filter((node) => node ?? false)
           .slice(0, 5) as Album[]
@@ -181,7 +181,7 @@ export default defineComponent({
     const openAlbum = useResult(
       openAlbumQuery.result,
       null,
-      (data) => data.node
+      (data) => data?.node
     );
 
     const albums = computed(() =>

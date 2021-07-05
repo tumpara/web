@@ -238,7 +238,9 @@ export default defineComponent({
       memberUsersResult,
       [] as UserMembershipInfo[],
       (data) =>
-        (data.node as MemberUsersInfoFragment | null)?.memberUsers?.edges
+        (
+          (data?.node ?? null) as MemberUsersInfoFragment | null
+        )?.memberUsers?.edges
           ?.filter((edge) => edge !== null && edge.node !== null)
           .map((edge) => ({
             ...edge?.info,
@@ -264,7 +266,7 @@ export default defineComponent({
       searchUsersResult,
       [] as UserMembershipInfo[],
       (data) =>
-        data.users?.edges
+        data?.users?.edges
           ?.filter((edge) => edge !== null && edge.node !== null)
           .map((edge) => ({
             ...edge?.node,

@@ -43,7 +43,7 @@ export default defineComponent({
       query.result,
       [] as Library[],
       (data) =>
-        data.libraries?.edges
+        data?.libraries?.edges
           .map((edge) => edge?.node ?? null)
           .filter((node) => node ?? false) as Library[]
     );
