@@ -3,7 +3,7 @@
 !locale/
 !public/
 !src/
-!support/
+!docker/
 !.browserslistrc
 !.eslint*
 !.prettierrc.js

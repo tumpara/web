@@ -1,0 +1,63 @@
+name: Continuous Integration
+
+on:
+  push:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    name: Linting
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Run ESLint
+        uses: actions/setup-python@v2
+        run: |
+          npm ci
+          npm run ci:lint
+
+  docker:
+    runs-on: ubuntu-latest
+    needs: lint
+    name: Docker container
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Login to registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      -
+        name: Start server container and get schema
+        run: |
+          docker run -d --name tumpara-server -p 127.0.0.1:8080:80 -e TUMPARA_SECRET=ci -e DJANGO_SETTINGS_MODULE=tumpara.settings.development ghcr.io/tumpara/server:main
+          npm ci
+          npm run prep:get-schema
+          docker kill tumpara-server
+          docker rm --volumes tumpara-server
+      -
+        name: Get image metadata
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: ghcr.io/${{ github.repository }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=tag
+            type=ref,event=pr
+            type=sha,prefix=
+      -
+        name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: docker/Dockerfile
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
