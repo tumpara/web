@@ -13,7 +13,6 @@ jobs:
         uses: actions/checkout@v2
       -
         name: Run ESLint
-        uses: actions/setup-python@v2
         run: |
           npm ci
           npm run ci:lint
