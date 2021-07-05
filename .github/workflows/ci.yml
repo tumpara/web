@@ -47,7 +47,7 @@ jobs:
       -
         name: Start server container and get schema
         run: |
-          docker run -d --name tumpara-server -p 127.0.0.1:8080:80 -e TUMPARA_SECRET=ci -e DJANGO_SETTINGS_MODULE=tumpara.settings.development ghcr.io/tumpara/server:main
+          docker run -d --name tumpara-server -p 127.0.0.1:8000:80 -e TUMPARA_SECRET=ci -e DJANGO_SETTINGS_MODULE=tumpara.settings.development ghcr.io/tumpara/server:main
           npm clean-install
           npm run prep:get-schema
           docker kill tumpara-server
