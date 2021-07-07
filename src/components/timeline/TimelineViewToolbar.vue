@@ -19,29 +19,31 @@
       <slot v-else name="info"></slot>
     </div>
 
-    <div class="toolbar-section">
-      <VButton v-if="selectedCount > 1" @click="stackSelection">
-        <PhStack />
-        {{
-          $formatMessage({
-            description: 'timeline stack button',
-            defaultMessage: 'Stack',
-          })
-        }}
-      </VButton>
-      <VButton v-if="selectedCount === 1" @click="clearSelectionStack">
-        <PhStackSimple />
-        {{
-          $formatMessage({
-            description: 'timeline clear stack button',
-            defaultMessage: 'Clear stack',
-          })
-        }}
-      </VButton>
+    <VToolbarDynamicSection>
+      <template #001-stacks>
+        <VButton v-if="selectedCount > 1" @click="stackSelection">
+          <PhStack />
+          {{
+            $formatMessage({
+              description: 'timeline stack button',
+              defaultMessage: 'Stack',
+            })
+          }}
+        </VButton>
+        <VButton v-if="selectedCount === 1" @click="clearSelectionStack">
+          <PhStackSimple />
+          {{
+            $formatMessage({
+              description: 'timeline clear stack button',
+              defaultMessage: 'Clear stack',
+            })
+          }}
+        </VButton>
+      </template>
 
-      <template v-if="selectedCount > 0">
+      <template #002-album-add>
         <VDialog
-          v-if="enableAlbumAdding"
+          v-if="selectedCount > 0 && enableAlbumAdding"
           ref="albumAddDialog"
           :title="
             $formatMessage({
@@ -71,9 +73,11 @@
             />
           </div>
         </VDialog>
+      </template>
 
+      <template #003-album-remove>
         <VButton
-          v-if="removeFromAlbumId !== undefined"
+          v-if="selectedCount > 0 && removeFromAlbumId !== undefined"
           @click="removeSelectionFromAlbum"
         >
           <PhBackspace />
@@ -84,8 +88,10 @@
             })
           }}
         </VButton>
+      </template>
 
-        <VPopup ref="visibilityPopup" direction="sw">
+      <template #004-visibility>
+        <VPopup v-if="selectedCount > 0" ref="visibilityPopup" direction="sw">
           <template #activator>
             <VButton>
               <PhEye />
@@ -134,8 +140,10 @@
             </VMenu>
           </VCard>
         </VPopup>
+      </template>
 
-        <VButton @click="archive">
+      <template #005-archive>
+        <VButton v-if="selectedCount > 0" @click="archive">
           <PhArchive />
           {{
             showUnarchiveButton
@@ -149,24 +157,10 @@
                 })
           }}
         </VButton>
-
-        <VButton
-          v-if="displayMode === null"
-          :class="$style['button-margin']"
-          @click="clearSelection"
-        >
-          <PhX />
-          {{
-            $formatMessage({
-              description: 'clear selection button',
-              defaultMessage: 'Clear selection',
-            })
-          }}
-        </VButton>
       </template>
 
-      <template v-if="displayMode === null && selectedCount === 0">
-        <VButtonGroup>
+      <template #010-size>
+        <VButtonGroup v-if="displayMode === null && selectedCount === 0">
           <VButton :selected="gridSize === 150" @click="gridSize = 150">
             <PhDotsNine />
             {{
@@ -197,8 +191,11 @@
         </VButtonGroup>
       </template>
 
-      <template v-if="displayMode !== null">
-        <VButtonGroup v-if="displayMode > 0" :class="$style['button-margin']">
+      <template #100-navigation>
+        <VButtonGroup
+          v-if="displayMode !== null && displayMode > 0"
+          :class="$style['button-margin']"
+        >
           <VButton v-if="displayMode & 1" @click="$emit('navigateDisplay', -1)">
             <PhArrowLeft />
             {{
@@ -218,8 +215,11 @@
             <PhArrowRight />
           </VButton>
         </VButtonGroup>
+      </template>
 
+      <template #050-details>
         <VButton
+          v-if="displayMode !== null"
           :class="$style['button-margin']"
           @click="displayDetailsVisible = !displayDetailsVisible"
         >
@@ -236,8 +236,10 @@
                 })
           }}
         </VButton>
+      </template>
 
-        <VButton @click="$emit('closeDisplay')">
+      <template #101-closing>
+        <VButton v-if="displayMode !== null" @click="$emit('closeDisplay')">
           <PhX />
           {{
             $formatMessage({
@@ -246,8 +248,21 @@
             })
           }}
         </VButton>
+        <VButton
+          v-else-if="selectedCount > 0"
+          :class="$style['button-margin']"
+          @click="clearSelection"
+        >
+          <PhX />
+          {{
+            $formatMessage({
+              description: 'clear selection button',
+              defaultMessage: 'Clear selection',
+            })
+          }}
+        </VButton>
       </template>
-    </div>
+    </VToolbarDynamicSection>
   </VToolbar>
 </template>
 
@@ -294,6 +309,7 @@ import {
   VMenuButton,
   VPopup,
   VToolbar,
+  VToolbarDynamicSection,
 } from '@/interface';
 import { useSelection } from '@/utils/selection';
 
@@ -333,6 +349,7 @@ export default defineComponent({
     VMenuButton,
     VPopup,
     VToolbar,
+    VToolbarDynamicSection,
     TimelineAlbumList,
   },
 
