@@ -1,18 +1,28 @@
 <template>
   <div ref="container" class="toolbar-section">
     <slot v-for="name in visibleSlots" :name="name"></slot>
+
+    <VDialog
+      v-if="hiddenSlots.length > 0"
+      :class="$style['offload-dialog']"
+      overlay
+    >
+      <template #activator>
+        <VButton><PhDotsThreeOutlineVertical weight="bold" /></VButton>
+      </template>
+
+      <div :class="$style.offload">
+        <slot v-for="name in hiddenSlots" :name="name"></slot>
+      </div>
+    </VDialog>
   </div>
 </template>
 
 <script lang="ts">
-import {
-  computed,
-  defineComponent,
-  onMounted,
-  onUpdated,
-  ref,
-  watchEffect,
-} from 'vue';
+import { PhDotsThreeOutlineVertical } from 'phosphor-vue';
+import { computed, defineComponent, onUpdated, ref, watchEffect } from 'vue';
+
+import { VButton, VDialog } from '../..';
 
 /**
  * A toolbar section that dynamically offloads content into a popup when no more
@@ -37,6 +47,12 @@ import {
  */
 export default defineComponent({
   name: 'VToolbarDynamicSection',
+
+  components: {
+    PhDotsThreeOutlineVertical,
+    VButton,
+    VDialog,
+  },
 
   setup(props, { slots }) {
     const container = ref<HTMLDivElement>();
@@ -109,8 +125,34 @@ export default defineComponent({
         .filter((slot) => slot.priority >= minimumPriority.value)
         .map((slot) => slot.name)
     );
+    const hiddenSlots = computed(() =>
+      slotData.value
+        .filter((slot) => slot.priority < minimumPriority.value)
+        .map((slot) => slot.name)
+    );
 
-    return { container, minimumPriority, visibleSlots };
+    return { container, minimumPriority, visibleSlots, hiddenSlots };
   },
 });
 </script>
+
+<style lang="scss" module>
+@use '../../lib/layout';
+
+.offload-dialog > div {
+  min-width: unset;
+}
+
+.offload {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: layout.$small-gap;
+
+  > *,
+  > *:not(:last-child),
+  > *:not(:first-child) {
+    margin-inline: 0;
+  }
+}
+</style>

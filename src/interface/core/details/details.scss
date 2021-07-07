@@ -1,6 +1,10 @@
 @use '../../lib/layout';
 @use '../../lib/motion';
 
+.details > summary.button {
+  width: 100%;
+}
+
 .details--overlay {
   display: inline-block;
   position: relative;

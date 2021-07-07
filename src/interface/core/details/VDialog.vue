@@ -11,7 +11,7 @@
       aria-modal="true"
       :aria-label="title"
     >
-      <header class="card-header">
+      <header v-if="title.length > 0" class="card-header">
         <h2>{{ title }}</h2>
         <div>
           <slot name="header"></slot>
@@ -53,7 +53,7 @@ export default defineComponent({
   props: {
     title: {
       type: String,
-      required: true,
+      default: '',
     },
     darken: {
       type: Boolean,

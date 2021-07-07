@@ -20,7 +20,7 @@
     </div>
 
     <VToolbarDynamicSection>
-      <template #001-stacks>
+      <template #002-stacks>
         <VButton v-if="selectedCount > 1" @click="stackSelection">
           <PhStack />
           {{
@@ -41,7 +41,7 @@
         </VButton>
       </template>
 
-      <template #002-album-add>
+      <template #010-album-add>
         <VDialog
           v-if="selectedCount > 0 && enableAlbumAdding"
           ref="albumAddDialog"
@@ -75,7 +75,7 @@
         </VDialog>
       </template>
 
-      <template #003-album-remove>
+      <template #011-album-remove>
         <VButton
           v-if="selectedCount > 0 && removeFromAlbumId !== undefined"
           @click="removeSelectionFromAlbum"
@@ -90,7 +90,7 @@
         </VButton>
       </template>
 
-      <template #004-visibility>
+      <template #001-visibility>
         <VPopup v-if="selectedCount > 0" ref="visibilityPopup" direction="sw">
           <template #activator>
             <VButton>
@@ -142,7 +142,7 @@
         </VPopup>
       </template>
 
-      <template #005-archive>
+      <template #004-archive>
         <VButton v-if="selectedCount > 0" @click="archive">
           <PhArchive />
           {{
@@ -159,7 +159,7 @@
         </VButton>
       </template>
 
-      <template #010-size>
+      <template #020-size>
         <VButtonGroup v-if="displayMode === null && selectedCount === 0">
           <VButton :selected="gridSize === 150" @click="gridSize = 150">
             <PhDotsNine />
