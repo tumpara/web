@@ -12,7 +12,8 @@ export { default as VListingCard } from './core/listing/VListingCard.vue';
 export { default as VMenu } from './core/menu/VMenu.vue';
 export { default as VMenuButton } from './core/menu/VMenuButton.vue';
 export { default as VMenuLink } from './core/menu/VMenuLink.vue';
-export { useToasts, default as VApp } from './product/app/VApp.vue';
+export { default as VApp } from './product/app/VApp.vue';
+export { useToasts } from './product/app/toasts';
 export { default as VNavigator } from './product/navigator/VNavigator.vue';
 export { default as VNavigatorItem } from './product/navigator/VNavigatorItem.vue';
 export {
