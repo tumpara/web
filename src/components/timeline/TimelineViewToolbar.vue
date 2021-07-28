@@ -91,7 +91,11 @@
       </template>
 
       <template #001-visibility>
-        <VPopup v-if="selectedCount > 0" ref="visibilityPopup" direction="sw">
+        <VPopup
+          v-if="selectedCount > 0"
+          v-model="visibilityPopupOpen"
+          direction="sw"
+        >
           <template #activator>
             <VButton>
               <PhEye />
@@ -493,11 +497,11 @@ export default defineComponent({
     // Visibility
     //
 
-    const visibilityPopup = ref<ComponentPublicInstance<typeof VPopup>>();
+    const visibilityPopupOpen = ref(false);
 
     const visibilityMutation = useSetLibraryContentVisiblityMutation({});
     visibilityMutation.onError(() => showNetworkErrorToast());
-    visibilityMutation.onDone(() => visibilityPopup.value?.close());
+    visibilityMutation.onDone(() => (visibilityPopupOpen.value = false));
 
     function setSelectionVisibility(visibility: LibraryContentVisibility) {
       visibilityMutation.mutate({
@@ -529,7 +533,7 @@ export default defineComponent({
       clearSelectionStack,
       // Visibility
       Visibility: LibraryContentVisibility,
-      visibilityPopup,
+      visibilityPopupOpen,
       setSelectionVisibility,
       // Other
       displayDetailsVisible,

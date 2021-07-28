@@ -1,5 +1,5 @@
 <template>
-  <VDetails ref="details" overlay>
+  <VDetails ref="details" overlay v-bind="$attrs">
     <template #activator>
       <slot name="activator"></slot>
     </template>
@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts">
-import { ComponentPublicInstance, defineComponent, PropType, ref } from 'vue';
+import { defineComponent, PropType } from 'vue';
 
 import VDetails from './VDetails.vue';
 
@@ -34,16 +34,6 @@ export default defineComponent({
       required: true,
       validator: (value: string) => ['nw', 'ne', 'sw', 'se'].includes(value),
     },
-  },
-
-  setup() {
-    const details = ref<ComponentPublicInstance<typeof VDetails>>();
-
-    function close() {
-      details.value?.close();
-    }
-
-    return { details, close };
   },
 });
 </script>

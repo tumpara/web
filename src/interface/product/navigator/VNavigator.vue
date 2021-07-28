@@ -1,5 +1,5 @@
 <template>
-  <VPopup ref="popup" direction="se">
+  <VPopup v-model="popupOpen" direction="se">
     <template #activator>
       <VButton class="navigator-activator">
         <slot name="activator"></slot>
@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-import { ComponentPublicInstance, defineComponent, ref, watch } from 'vue';
+import { defineComponent, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 
 import VButton from '../../core/buttons/VButton.vue';
@@ -26,14 +26,12 @@ export default defineComponent({
   components: { VCard, VButton, VPopup },
 
   setup() {
-    const popup = ref<ComponentPublicInstance<typeof VPopup>>();
+    const popupOpen = ref(false);
 
     const router = useRouter();
-    watch(router.currentRoute, () => {
-      popup.value?.close();
-    });
+    watch(router.currentRoute, () => (popupOpen.value = false));
 
-    return { popup };
+    return { popupOpen };
   },
 });
 </script>

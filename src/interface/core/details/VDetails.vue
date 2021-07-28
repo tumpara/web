@@ -3,8 +3,9 @@
     ref="container"
     class="details"
     :class="{ 'details--overlay': overlay, 'details--darken': darken }"
+    :open="modelValue ? true : undefined"
     @toggle="handleToggle"
-    @keydown.esc="close"
+    @keydown.esc="$emit('update:modelValue', false)"
   >
     <VDetailsSummaryContainer>
       <slot name="activator"></slot>
@@ -15,7 +16,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent } from 'vue';
 
 import { ButtonElement } from '../buttons/VButton.vue';
 
@@ -40,6 +41,10 @@ export default defineComponent({
   components: { VDetailsSummaryContainer },
 
   props: {
+    modelValue: {
+      type: Boolean,
+      default: false,
+    },
     overlay: {
       type: Boolean,
       default: false,
@@ -51,30 +56,18 @@ export default defineComponent({
   },
 
   emits: {
-    open: null,
+    'update:modelValue': Boolean,
   },
 
   setup(props, { emit }) {
-    const container = ref<HTMLDetailsElement>();
-    const closeButton = ref<HTMLButtonElement>();
-
-    function close() {
-      if (!container.value?.open) {
-        return;
-      }
-      const summaryElement =
-        container.value?.querySelector<HTMLElement>(':scope > summary');
-      summaryElement?.click();
-    }
-
-    function handleToggle() {
-      if (container.value?.open) {
-        closeButton.value?.focus();
-        emit('open');
+    function handleToggle(event: Event) {
+      const detailsElement = event.target as HTMLDetailsElement | null;
+      if (detailsElement !== null) {
+        emit('update:modelValue', detailsElement.open);
       }
     }
 
-    return { container, closeButton, close, handleToggle };
+    return { handleToggle };
   },
 });
 </script>

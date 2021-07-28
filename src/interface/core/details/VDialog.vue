@@ -1,5 +1,5 @@
 <template>
-  <VDetails ref="details" overlay :darken="darken" @open="$emit('open')">
+  <VDetails ref="details" overlay :darken="darken" v-bind="$attrs">
     <template #activator>
       <slot name="activator"></slot>
     </template>
@@ -40,7 +40,7 @@
 
 <script lang="ts">
 import { PhX } from 'phosphor-vue';
-import { ComponentPublicInstance, defineComponent, ref } from 'vue';
+import { defineComponent } from 'vue';
 
 import VCard from '../cards/VCard.vue';
 import VDetails from './VDetails.vue';
@@ -59,22 +59,6 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
-  },
-
-  emits: {
-    open: null,
-  },
-
-  setup() {
-    const details = ref<ComponentPublicInstance<typeof VDetails>>();
-
-    const closeButton = ref<HTMLButtonElement>();
-
-    function close() {
-      details.value?.close();
-    }
-
-    return { details, closeButton, close };
   },
 });
 </script>

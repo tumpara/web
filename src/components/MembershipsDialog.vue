@@ -1,5 +1,5 @@
 <template>
-  <VDialog :title="messages.dialogTitle" darken>
+  <VDialog v-model="dialogOpen" :title="messages.dialogTitle" darken>
     <template #activator>
       <VButton>
         <PhShareNetwork v-if="copyStyle === 'sharing'" />
@@ -43,8 +43,9 @@
           </span>
 
           <VPopup
-            :ref="(ref) => registerChoicePopup(item.id, ref)"
+            :model-value="choicePopupStates.get(item).value"
             direction="sw"
+            @update:modelValue="choicePopupStates.get(item).value = $event"
           >
             <template #activator>
               <VButton small>
@@ -106,12 +107,12 @@
 import { useResult } from '@vue/apollo-composable';
 import { PhCaretDown, PhShareNetwork, PhUserGear } from 'phosphor-vue';
 import {
-  ComponentPublicInstance,
   computed,
   defineComponent,
-  onBeforeUpdate,
   PropType,
+  Ref,
   ref,
+  watchEffect,
 } from 'vue';
 import { useIntl } from 'vue-intl';
 
@@ -124,6 +125,7 @@ import {
   useUserMembershipSearchQuery,
 } from '@/graphql';
 import {
+  useToasts,
   VButton,
   VCard,
   VDialog,
@@ -132,7 +134,6 @@ import {
   VMenuButton,
   VPopup,
 } from '@/interface';
-import { useToasts } from '@/interface/product/app/VApp.vue';
 
 type UserMembershipInfo = UsernamesFragment & {
   isOwner?: boolean;
@@ -169,6 +170,8 @@ export default defineComponent({
   setup(props) {
     const { showNetworkErrorToast } = useToasts();
     const { formatMessage } = useIntl();
+
+    const dialogOpen = ref(false);
 
     const messages = computed(() => {
       switch (props.copyStyle) {
@@ -214,22 +217,6 @@ export default defineComponent({
           return {};
       }
     });
-
-    // Mapping to hold refs of the individual user popups so they can be closed
-    // later when required.
-    let choicePopups: Record<
-      string,
-      ComponentPublicInstance<typeof VPopup>
-    > = {};
-    onBeforeUpdate(() => (choicePopups = {}));
-    function registerChoicePopup(
-      key: string,
-      component: ComponentPublicInstance<typeof VPopup>
-    ) {
-      if (component) {
-        choicePopups[key] = component;
-      }
-    }
 
     const { result: memberUsersResult } = useMemberUsersQuery(() => ({
       hostId: props.hostId,
@@ -280,6 +267,26 @@ export default defineComponent({
       searchQuery.value.length > 0 ? searchUsers.value : memberUsers.value
     );
 
+    // Create a ref for each user (identified by username) to denote whether the
+    // membership type selector is currently open.
+    let choicePopupStates = new WeakMap<UserMembershipInfo, Ref<boolean>>();
+    watchEffect(() => {
+      for (const user of users.value) {
+        if (!choicePopupStates.has(user)) {
+          choicePopupStates.set(user, ref(false));
+        }
+        console.log(user, choicePopupStates.get(user));
+      }
+    });
+    function closeAllChoicePopups() {
+      for (const user of users.value) {
+        const popupOpen = choicePopupStates.get(user);
+        if (popupOpen !== undefined) {
+          popupOpen.value = false;
+        }
+      }
+    }
+
     const setMembershipMutation = useSetMembershipMutation({});
     const removeMembershipMutation = useRemoveMembershipMutation({});
     setMembershipMutation.onDone(clearSearchQuery);
@@ -298,17 +305,18 @@ export default defineComponent({
     removeMembershipMutation.onError(handleMutationError);
 
     function setMembership(subjectId: string, owner: boolean) {
-      choicePopups[subjectId]?.close();
+      closeAllChoicePopups();
       setMembershipMutation.mutate({ hostId: props.hostId, subjectId, owner });
     }
     function removeMembership(subjectId: string) {
-      choicePopups[subjectId]?.close();
+      closeAllChoicePopups();
       removeMembershipMutation.mutate({ hostId: props.hostId, subjectId });
     }
 
     return {
+      dialogOpen,
       messages,
-      registerChoicePopup,
+      choicePopupStates,
       searchQuery,
       users,
       setMembership,
