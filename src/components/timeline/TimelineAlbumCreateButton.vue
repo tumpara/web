@@ -16,8 +16,7 @@ import { defineComponent } from 'vue';
 import { useIntl } from 'vue-intl';
 
 import { useCreateTimelineAlbumMutation } from '@/graphql';
-import { VButton } from '@/interface';
-import { useToasts } from '@/interface/product/app/VApp.vue';
+import { useToasts, VButton } from '@/interface';
 
 export default defineComponent({
   name: 'TimelineAlbumCreateButton',

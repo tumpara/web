@@ -1,4 +1,4 @@
-import { inject, InjectionKey, provide, reactive, UnwrapNestedRefs } from 'vue';
+import { inject, InjectionKey, provide, reactive, UnwrapRef } from 'vue';
 import { useIntl } from 'vue-intl';
 
 interface Toast {
@@ -62,7 +62,7 @@ export function useToasts(): UseToastsReturn {
 }
 
 interface SetupToastsReturn {
-  toasts: UnwrapNestedRefs<RegisteredToast[]>;
+  toasts: UnwrapRef<RegisteredToast[]>;
   unregisterToast: (toast: RegisteredToast) => void;
 }
 
