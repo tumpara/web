@@ -13,7 +13,11 @@ async function run() {
   console.info('Extracting messages from App source...');
 
   const extractionResults = await extract(
-    [...glob.sync(path.join(baseDirectory, 'src', '**', '*.vue'))],
+    [
+      ...glob.sync(path.join(baseDirectory, 'src', '**', '*.{vue,ts}'), {
+        ignore: ['**/*.d.ts'],
+      }),
+    ],
     {
       idInterpolationPattern: '[sha512:contenthash:base64:6]',
     }
