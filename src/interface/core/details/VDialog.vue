@@ -1,5 +1,5 @@
 <template>
-  <VDetails ref="details" overlay :darken="darken" v-bind="$attrs">
+  <VDetails ref="details" overlay :darken="darken">
     <template #activator>
       <slot name="activator"></slot>
     </template>

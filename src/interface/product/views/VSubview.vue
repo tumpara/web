@@ -1,5 +1,5 @@
 <template>
-  <main id="content" class="subview" v-bind="$attrs">
+  <main id="content" class="subview">
     <header class="subview-header">
       <h1>{{ title }}</h1>
       <div class="subview-header-toolbar">
@@ -17,8 +17,6 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'VSubview',
-
-  inheritAttrs: false,
 
   props: {
     title: {

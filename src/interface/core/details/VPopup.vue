@@ -1,5 +1,5 @@
 <template>
-  <VDetails ref="details" overlay v-bind="$attrs">
+  <VDetails ref="details" overlay>
     <template #activator>
       <slot name="activator"></slot>
     </template>
