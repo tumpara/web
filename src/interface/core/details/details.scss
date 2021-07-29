@@ -1,20 +1,12 @@
 @use '../../lib/layout';
 @use '../../lib/motion';
 
-.details > summary.button {
-  width: 100%;
-}
-
 .details--overlay {
   display: inline-block;
   position: relative;
   @include layout.input-margin;
 
   > summary {
-    &.button:not(:last-child) {
-      margin-right: 0;
-    }
-
     &::before {
       content: '';
       display: block;

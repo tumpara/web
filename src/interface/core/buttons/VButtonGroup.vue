@@ -1,5 +1,10 @@
 <template>
-  <div class="button-group" :class="{ 'button-group--stretch': stretch }">
+  <div
+    :class="{
+      [$style['button-group']]: true,
+      [$style['button-group--stretch']]: stretch,
+    }"
+  >
     <slot></slot>
   </div>
 </template>
@@ -19,4 +24,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" src="./group.scss"></style>
+<style lang="scss" src="./buttons.scss" module />

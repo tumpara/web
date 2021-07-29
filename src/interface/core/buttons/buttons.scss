@@ -1,6 +1,9 @@
-@use '../../lib/colors';
 @use '../../lib/layout';
 @use '../../lib/motion';
+
+//
+// Individual buttons
+//
 
 .button {
   display: inline-block;
@@ -76,5 +79,63 @@
   &:focus-visible,
   &:active {
     background-color: var(--widget-bg-color);
+  }
+}
+
+// When using a <details>'s summary as the button, it needs to span the entire
+// width of the parent otherwise it looks funny.
+details > summary.button {
+  width: 100%;
+}
+
+//
+// Button groups
+//
+
+.button-group {
+  display: inline-block;
+  @include layout.input-margin;
+  border-radius: layout.$widget-rounding;
+  box-shadow: layout.$widget-shadow;
+
+  > .button,
+  > details > summary.button {
+    box-shadow: none;
+  }
+
+  > .button:not(:first-child),
+  > details:not(:first-child) > summary.button {
+    margin-left: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  > .button:not(:last-child),
+  > details:not(:last-child) > summary.button {
+    margin-right: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+
+    &:not(.button--selected) {
+      border-right: none;
+    }
+  }
+
+  > .button--selected + .button {
+    border-left: none;
+  }
+}
+
+.button-group--stretch {
+  display: flex;
+
+  > .button,
+  > details {
+    flex: 50% 1;
+  }
+
+  > details > summary.button {
+    width: 100%;
+    text-align: center;
   }
 }

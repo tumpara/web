@@ -20,7 +20,5 @@ $subtle-shadow: 0 0.2rem 0.5rem var(--shadow-color);
 $focus-outline-size: 0.2rem;
 
 @mixin input-margin {
-  &:not(:last-child) {
-    margin-right: $normal-gap;
-  }
+  margin-inline: $tiny-gap;
 }

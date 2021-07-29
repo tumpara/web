@@ -1,4 +1,3 @@
-@use '../../lib/colors';
 @use '../../lib/layout';
 @use '../../lib/typography';
 
@@ -17,27 +16,18 @@
 }
 
 .toolbar-section {
-  > *:not(:last-child) {
-    margin-right: layout.$small-gap;
-  }
+  display: flex;
+  align-items: center;
+  gap: layout.$small-gap;
 
-  > h1 {
-    @include typography.heading;
-  }
-
-  > h1,
-  > h2 {
-    display: inline-block;
+  > * {
     margin: 0;
-    line-height: 3rem;
   }
+}
 
-  > .button,
-  > .button-group,
-  > .details {
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-  }
+.toolbar-heading {
+  @include typography.heading;
+  line-height: 3rem;
 }
 
 .toolbar-status {

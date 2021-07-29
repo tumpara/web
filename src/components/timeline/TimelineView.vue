@@ -5,11 +5,11 @@
     @close-display="displayedIndex = null"
   >
     <template #info>
-      <h1 v-if="title" class="heading">{{ title }}</h1>
+      <h1 v-if="title" class="toolbar-heading">{{ title }}</h1>
       <component
         :is="title ? 'span' : 'h1'"
         v-if="currentTimestamp !== null"
-        :class="{ 'toolbar-status': !!title }"
+        :class="{ 'toolbar-status': !!title, 'toolbar-heading': !title }"
       >
         {{ $formatDate(currentTimestamp, { year: 'numeric', month: 'long' }) }}
       </component>

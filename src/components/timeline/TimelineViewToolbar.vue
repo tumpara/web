@@ -1,7 +1,10 @@
 <template>
   <VToolbar :primary="selectedCount > 0 && displayMode === null">
     <div class="toolbar-section">
-      <h2 v-if="selectedCount > 0 && displayMode === null" class="status">
+      <h2
+        v-if="selectedCount > 0 && displayMode === null"
+        class="toolbar-heading"
+      >
         {{
           $formatMessage(
             {

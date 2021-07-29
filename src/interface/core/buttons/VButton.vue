@@ -1,13 +1,13 @@
 <template>
   <component
     :is="buttonElement"
-    class="button"
     :class="{
-      'button--selected': selected,
-      'button--primary': primary,
-      'button--light': light,
-      'button--small': small,
-      'button--disabled': disabled,
+      [$style.button]: true,
+      [$style['button--selected']]: selected,
+      [$style['button--primary']]: primary,
+      [$style['button--light']]: light,
+      [$style['button--small']]: small,
+      [$style['button--disabled']]: disabled,
     }"
     :type="
       buttonElement === 'input' || buttonElement === 'button'
@@ -71,4 +71,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" src="./button.scss"></style>
+<style lang="scss" src="./buttons.scss" module />
