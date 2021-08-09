@@ -7,7 +7,6 @@
 
 .button {
   display: inline-block;
-  @include layout.input-margin;
   padding: 0 layout.$small-gap;
   height: layout.$widget-height;
   border: 1px solid var(--widget-border-color);
@@ -94,25 +93,23 @@ details > summary.button {
 
 .button-group {
   display: inline-block;
-  @include layout.input-margin;
   border-radius: layout.$widget-rounding;
   box-shadow: layout.$widget-shadow;
 
-  > .button,
+  > *,
+  > details,
   > details > summary.button {
     box-shadow: none;
   }
 
-  > .button:not(:first-child),
+  > *:not(:first-child),
   > details:not(:first-child) > summary.button {
-    margin-left: 0;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
   }
 
-  > .button:not(:last-child),
+  > *:not(:last-child),
   > details:not(:last-child) > summary.button {
-    margin-right: 0;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 

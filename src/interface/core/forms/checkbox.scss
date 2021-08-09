@@ -7,7 +7,6 @@ $gap: layout.$small-gap;
 
 .checkbox-container {
   display: inline-flex;
-  @include layout.input-margin;
 
   .checkbox-mark:hover,
   input:focus + .checkbox-mark {

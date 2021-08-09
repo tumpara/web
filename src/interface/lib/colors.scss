@@ -39,7 +39,7 @@ $palettes: (
 
 @mixin theme-default {
   --main-bg-color: #{list.nth($gray, 1)};
-  --focus-bg-color: #{list.nth($gray, 2)};
+  --focus-bg-color: #{list.nth($gray, 3)};
   --inverse-bg-color: #{list.nth($gray, 11)};
   --inverse-focus-bg-color: #{list.nth($gray, 10)};
 

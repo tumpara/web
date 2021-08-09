@@ -12,7 +12,11 @@
 }
 
 .toolbar--primary {
-  background-color: var(--primary-light-color);
+  background-color: var(--main-bg-color);
+
+  > .toolbar-section > .toolbar-heading {
+    color: var(--primary-fg-color);
+  }
 }
 
 .toolbar-section {

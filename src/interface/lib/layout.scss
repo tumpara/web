@@ -12,13 +12,9 @@ $header-height: 3rem;
 $small-widget-height: 1.6rem;
 $widget-height: 2rem;
 $large-widget-height: 3rem;
-$widget-rounding: 0.4rem;
+$widget-rounding: 0.2rem;
 
 $widget-shadow: 0 0.1rem 0.1rem var(--weak-shadow-color);
 $subtle-shadow: 0 0.2rem 0.5rem var(--shadow-color);
 
 $focus-outline-size: 0.2rem;
-
-@mixin input-margin {
-  margin-inline: $tiny-gap;
-}
