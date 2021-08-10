@@ -15,6 +15,7 @@ module.exports = {
     },
   },
   devServer: {
+    host: '127.0.0.1',
     proxy: {
       '^/(admin|api|static)': {
         target: 'http://localhost:8000',

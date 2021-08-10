@@ -16,19 +16,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, InjectionKey } from 'vue';
 
-import { ButtonElement } from '../buttons/VButton.vue';
+export const DetailsSummaryScope: InjectionKey<boolean> = Symbol();
 
 /* eslint-disable vue/one-component-per-file */
 
-// This container component's only purpose is to provide a default value for
-// button elements. That way when using a button as the activator we still get
-// an aria-compliant <summary> element that is styled like a button.
+// This container component's only purpose is to provide the symbol above. That
+// way when using a button (or other compatible components) as the activator we
+// still get an aria-compliant <summary> element that is styled like a button.
 const VDetailsSummaryContainer = defineComponent({
   name: 'VDetailsSummaryContainer',
   provide: {
-    [ButtonElement as symbol]: 'summary',
+    [DetailsSummaryScope as symbol]: true,
   },
   render() {
     return this.$slots.default?.();

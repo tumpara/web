@@ -1,6 +1,6 @@
 <template>
   <component
-    :is="buttonElement"
+    :is="summaryElement ? 'summary' : 'button'"
     :class="{
       [$style.button]: true,
       [$style['button--selected']]: selected,
@@ -9,11 +9,7 @@
       [$style['button--small']]: small,
       [$style['button--disabled']]: disabled,
     }"
-    :type="
-      buttonElement === 'input' || buttonElement === 'button'
-        ? buttonType
-        : undefined
-    "
+    :type="summaryElement ? (submit ? 'submit' : 'button') : undefined"
     role="button"
     :disabled="disabled"
   >
@@ -22,9 +18,9 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, inject, InjectionKey } from 'vue';
+import { defineComponent, inject } from 'vue';
 
-export const ButtonElement: InjectionKey<string> = Symbol();
+import { DetailsSummaryScope } from '../details/VDetails.vue';
 
 export default defineComponent({
   name: 'VButton',
@@ -56,17 +52,10 @@ export default defineComponent({
     },
   },
 
-  setup(props) {
-    const buttonElement = inject(ButtonElement, 'button');
+  setup() {
+    const summaryElement = inject(DetailsSummaryScope, false);
 
-    const buttonType = computed(() => {
-      if (buttonElement !== 'button') {
-        return undefined;
-      }
-      return props.submit ? 'submit' : 'button';
-    });
-
-    return { buttonElement, buttonType };
+    return { summaryElement };
   },
 });
 </script>

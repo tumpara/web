@@ -7,16 +7,20 @@
   list-style: none;
 
   > li {
-    &:not(:last-child) > .menu-item {
+    > * {
+      width: 100%;
+    }
+
+    &:not(:last-child) > * {
       border-bottom: 1px solid var(--guideline-color);
     }
 
-    &:first-child > .menu-item {
+    &:first-child > * {
       border-top-left-radius: layout.$widget-rounding;
       border-top-right-radius: layout.$widget-rounding;
     }
 
-    &:last-child > .menu-item {
+    &:last-child > * {
       border-bottom-left-radius: layout.$widget-rounding;
       border-bottom-right-radius: layout.$widget-rounding;
     }
@@ -26,7 +30,7 @@
 .menu-item {
   display: block;
   padding: layout.$small-gap layout.$normal-gap;
-  width: 100%;
+  text-align: left;
   color: var(--widget-fg-color);
   background-color: transparent;
 

@@ -38,7 +38,7 @@
 }
 
 .button:active,
-.details[open] > summary.button {
+details[open] > summary.button {
   background-color: var(--widget-press-bg-color);
 }
 

@@ -22,29 +22,35 @@
       <slot v-else name="info"></slot>
     </div>
 
-    <VToolbarDynamicSection>
-      <template #002-stacks>
-        <VButton v-if="selectedCount > 1" @click="stackSelection">
-          <PhStack />
-          {{
-            $formatMessage({
-              description: 'timeline stack button',
-              defaultMessage: 'Stack',
-            })
-          }}
-        </VButton>
-        <VButton v-if="selectedCount === 1" @click="clearSelectionStack">
-          <PhStackSimple />
-          {{
-            $formatMessage({
-              description: 'timeline clear stack button',
-              defaultMessage: 'Clear stack',
-            })
-          }}
-        </VButton>
-      </template>
+    <VToolbarSection>
+      <VToolbarElement
+        v-if="selectedCount > 1"
+        :priority="2"
+        @click="stackSelection"
+      >
+        <PhStack />
+        {{
+          $formatMessage({
+            description: 'timeline stack button',
+            defaultMessage: 'Stack',
+          })
+        }}
+      </VToolbarElement>
+      <VToolbarElement
+        v-if="selectedCount === 1"
+        :priority="2"
+        @click="clearSelectionStack"
+      >
+        <PhStackSimple />
+        {{
+          $formatMessage({
+            description: 'timeline clear stack button',
+            defaultMessage: 'Clear stack',
+          })
+        }}
+      </VToolbarElement>
 
-      <template #010-album-add>
+      <!--template #010-album-add>
         <VDialog
           v-if="selectedCount > 0 && enableAlbumAdding"
           ref="albumAddDialog"
@@ -76,133 +82,150 @@
             />
           </div>
         </VDialog>
-      </template>
+      </template-->
 
-      <template #011-album-remove>
-        <VButton
-          v-if="selectedCount > 0 && removeFromAlbumId !== undefined"
-          @click="removeSelectionFromAlbum"
-        >
-          <PhBackspace />
+      <VToolbarElement
+        v-if="selectedCount > 0 && removeFromAlbumId !== undefined"
+        :priority="11"
+        @click="removeSelectionFromAlbum"
+      >
+        <PhBackspace />
+        {{
+          $formatMessage({
+            description: 'remove from timeline album button',
+            defaultMessage: 'Remove from this album',
+          })
+        }}
+      </VToolbarElement>
+
+      <VToolbarElement
+        v-if="selectedCount > 0"
+        v-model="visibilityPopupOpen"
+        :priority="2"
+        mode="menu"
+      >
+        <template #menu>
+          <PhEye />
           {{
             $formatMessage({
-              description: 'remove from timeline album button',
-              defaultMessage: 'Remove from this album',
+              description: 'set timeline visibility menu',
+              defaultMessage: 'Set visibility',
             })
           }}
-        </VButton>
-      </template>
+        </template>
 
-      <template #001-visibility>
-        <VPopup
-          v-if="selectedCount > 0"
-          v-model="visibilityPopupOpen"
-          direction="sw"
+        <VToolbarElementAction
+          @click="setSelectionVisibility(Visibility.Public)"
         >
-          <template #activator>
-            <VButton>
-              <PhEye />
-              {{
-                $formatMessage({
-                  description: 'set timeline visibility button',
-                  defaultMessage: 'Set visibility',
-                })
-              }}
-            </VButton>
-          </template>
-          <VCard>
-            <VMenu>
-              <VMenuButton @click="setSelectionVisibility(Visibility.Public)">
-                {{
-                  $formatMessage({
-                    description: 'timeline visibility choice - public',
-                    defaultMessage: 'Public',
-                  })
-                }}
-              </VMenuButton>
-              <VMenuButton @click="setSelectionVisibility(Visibility.Internal)">
-                {{
-                  $formatMessage({
-                    description: 'timeline visibility choice - internal',
-                    defaultMessage: 'All logged-in users on this server',
-                  })
-                }}
-              </VMenuButton>
-              <VMenuButton @click="setSelectionVisibility(Visibility.Members)">
-                {{
-                  $formatMessage({
-                    description: 'timeline visibility choice - members',
-                    defaultMessage: "Members of the item's library",
-                  })
-                }}
-              </VMenuButton>
-              <VMenuButton @click="setSelectionVisibility(Visibility.Owners)">
-                {{
-                  $formatMessage({
-                    description: 'timeline visibility choice - owners',
-                    defaultMessage: 'Only owners of the library',
-                  })
-                }}
-              </VMenuButton>
-            </VMenu>
-          </VCard>
-        </VPopup>
-      </template>
-
-      <template #004-archive>
-        <VButton v-if="selectedCount > 0" @click="archive">
-          <PhArchive />
           {{
-            showUnarchiveButton
-              ? $formatMessage({
-                  description: 'unarchive button',
-                  defaultMessage: 'Unarchive',
-                })
-              : $formatMessage({
-                  description: 'archive button',
-                  defaultMessage: 'Archive',
-                })
+            $formatMessage({
+              description: 'timeline visibility choice - public',
+              defaultMessage: 'Public',
+            })
           }}
-        </VButton>
-      </template>
-
-      <template #020-size>
-        <VButtonGroup v-if="displayMode === null && selectedCount === 0">
-          <VButton :selected="gridSize === 150" @click="gridSize = 150">
-            <PhDotsNine />
-            {{
-              $formatMessage({
-                description: 'compact view size button',
-                defaultMessage: 'Compact',
-              })
-            }}
-          </VButton>
-          <VButton :selected="gridSize === 250" @click="gridSize = 250">
-            <PhGridFour />
-            {{
-              $formatMessage({
-                description: 'normal view size button',
-                defaultMessage: 'Normal',
-              })
-            }}
-          </VButton>
-          <VButton :selected="gridSize === 350" @click="gridSize = 350">
-            <PhSquare />
-            {{
-              $formatMessage({
-                description: 'large view size button',
-                defaultMessage: 'Large',
-              })
-            }}
-          </VButton>
-        </VButtonGroup>
-      </template>
-
-      <template #100-navigation>
-        <VButtonGroup
-          v-if="displayMode !== null && displayMode > 0"
-          :class="$style['button-margin']"
+        </VToolbarElementAction>
+        <VToolbarElementAction
+          @click="setSelectionVisibility(Visibility.Internal)"
         >
+          {{
+            $formatMessage({
+              description: 'timeline visibility choice - internal',
+              defaultMessage: 'All logged-in users on this server',
+            })
+          }}
+        </VToolbarElementAction>
+        <VToolbarElementAction
+          @click="setSelectionVisibility(Visibility.Members)"
+        >
+          {{
+            $formatMessage({
+              description: 'timeline visibility choice - members',
+              defaultMessage: "Members of the item's library",
+            })
+          }}
+        </VToolbarElementAction>
+        <VToolbarElementAction
+          @click="setSelectionVisibility(Visibility.Owners)"
+        >
+          {{
+            $formatMessage({
+              description: 'timeline visibility choice - owners',
+              defaultMessage: 'Only owners of the library',
+            })
+          }}
+        </VToolbarElementAction>
+      </VToolbarElement>
+
+      <VToolbarElement v-if="selectedCount > 0" :priority="4" @click="archive">
+        <PhArchive />
+        {{
+          showUnarchiveButton
+            ? $formatMessage({
+                description: 'unarchive button',
+                defaultMessage: 'Unarchive',
+              })
+            : $formatMessage({
+                description: 'archive button',
+                defaultMessage: 'Archive',
+              })
+        }}
+      </VToolbarElement>
+
+      <VToolbarElement
+        v-if="displayMode === null && selectedCount === 0"
+        :priority="20"
+        mode="compound"
+      >
+        <template #menu>
+          <PhFrameCorners />
+          {{
+            $formatMessage({
+              description: 'view size menu',
+              defaultMessage: 'View size',
+            })
+          }}
+        </template>
+
+        <VToolbarElementAction
+          :selected="gridSize === 150"
+          @click="gridSize = 150"
+        >
+          <PhDotsNine />
+          {{
+            $formatMessage({
+              description: 'compact view size button',
+              defaultMessage: 'Compact',
+            })
+          }}
+        </VToolbarElementAction>
+        <VToolbarElementAction
+          :selected="gridSize === 250"
+          @click="gridSize = 250"
+        >
+          <PhGridFour />
+          {{
+            $formatMessage({
+              description: 'normal view size button',
+              defaultMessage: 'Normal',
+            })
+          }}
+        </VToolbarElementAction>
+        <VToolbarElementAction
+          :selected="gridSize === 350"
+          @click="gridSize = 350"
+        >
+          <PhSquare />
+          {{
+            $formatMessage({
+              description: 'large view size button',
+              defaultMessage: 'Large',
+            })
+          }}
+        </VToolbarElementAction>
+      </VToolbarElement>
+
+      <!--template #100-navigation>
+        <VButtonGroup v-if="displayMode !== null && displayMode > 0">
           <VButton v-if="displayMode & 1" @click="$emit('navigateDisplay', -1)">
             <PhArrowLeft />
             {{
@@ -222,54 +245,54 @@
             <PhArrowRight />
           </VButton>
         </VButtonGroup>
-      </template>
+      </template-->
 
-      <template #050-details>
-        <VButton
-          v-if="displayMode !== null"
-          :class="$style['button-margin']"
-          @click="displayDetailsVisible = !displayDetailsVisible"
-        >
-          <PhInfo />
-          {{
-            displayDetailsVisible
-              ? $formatMessage({
-                  description: 'timeline display hide details button',
-                  defaultMessage: 'Hide details',
-                })
-              : $formatMessage({
-                  description: 'timeline display show details button',
-                  defaultMessage: 'Show details',
-                })
-          }}
-        </VButton>
-      </template>
+      <VToolbarElement
+        v-if="displayMode !== null"
+        :priority="50"
+        @click="displayDetailsVisible = !displayDetailsVisible"
+      >
+        <PhInfo />
+        {{
+          displayDetailsVisible
+            ? $formatMessage({
+                description: 'timeline display hide details button',
+                defaultMessage: 'Hide details',
+              })
+            : $formatMessage({
+                description: 'timeline display show details button',
+                defaultMessage: 'Show details',
+              })
+        }}
+      </VToolbarElement>
 
-      <template #101-closing>
-        <VButton v-if="displayMode !== null" @click="$emit('closeDisplay')">
-          <PhX />
-          {{
-            $formatMessage({
-              description: 'timeline view close button',
-              defaultMessage: 'Close',
-            })
-          }}
-        </VButton>
-        <VButton
-          v-else-if="selectedCount > 0"
-          :class="$style['button-margin']"
-          @click="clearSelection"
-        >
-          <PhX />
-          {{
-            $formatMessage({
-              description: 'clear selection button',
-              defaultMessage: 'Clear selection',
-            })
-          }}
-        </VButton>
-      </template>
-    </VToolbarDynamicSection>
+      <VToolbarElement
+        v-if="displayMode !== null"
+        :priority="50"
+        @click="$emit('closeDisplay')"
+      >
+        <PhX />
+        {{
+          $formatMessage({
+            description: 'timeline view close button',
+            defaultMessage: 'Close',
+          })
+        }}
+      </VToolbarElement>
+      <VToolbarElement
+        v-else-if="selectedCount > 0"
+        :priority="101"
+        @click="clearSelection"
+      >
+        <PhX />
+        {{
+          $formatMessage({
+            description: 'clear selection button',
+            defaultMessage: 'Clear selection',
+          })
+        }}
+      </VToolbarElement>
+    </VToolbarSection>
   </VToolbar>
 </template>
 
@@ -277,17 +300,18 @@
 import { useApolloClient } from '@vue/apollo-composable';
 import {
   PhArchive,
-  PhArrowLeft,
-  PhArrowRight,
+  // PhArrowLeft,
+  // PhArrowRight,
   PhBackspace,
   PhDotsNine,
   PhEye,
+  PhFrameCorners,
   PhGridFour,
   PhInfo,
   PhSquare,
   PhStack,
   PhStackSimple,
-  PhTray,
+  // PhTray,
   PhX,
 } from 'phosphor-vue';
 import {
@@ -308,20 +332,22 @@ import {
 } from '@/graphql';
 import {
   useToasts,
-  VButton,
-  VButtonGroup,
-  VCard,
+  // VButton,
+  // VButtonGroup,
+  // VCard,
   VDialog,
-  VMenu,
-  VMenuButton,
-  VPopup,
+  // VMenu,
+  // VMenuButton,
+  // VPopup,
   VToolbar,
-  VToolbarDynamicSection,
+  VToolbarElement,
+  VToolbarElementAction,
+  VToolbarSection,
 } from '@/interface';
 import { useSelection } from '@/utils/selection';
 
 import { GridSize } from './settings';
-import TimelineAlbumList from './TimelineAlbumList.vue';
+// import TimelineAlbumList from './TimelineAlbumList.vue';
 
 /**
  * Top toolbar for the timeline browser.
@@ -336,28 +362,31 @@ export default defineComponent({
 
   components: {
     PhArchive,
-    PhArrowLeft,
-    PhArrowRight,
+    // PhArrowLeft,
+    // PhArrowRight,
     PhBackspace,
     PhDotsNine,
     PhEye,
+    PhFrameCorners,
     PhGridFour,
     PhInfo,
     PhSquare,
     PhStack,
     PhStackSimple,
-    PhTray,
+    // PhTray,
     PhX,
-    VButton,
-    VButtonGroup,
-    VCard,
-    VDialog,
-    VMenu,
-    VMenuButton,
-    VPopup,
+    // VButton,
+    // VButtonGroup,
+    // VCard,
+    // VDialog,
+    // VMenu,
+    // VMenuButton,
+    // VPopup,
     VToolbar,
-    VToolbarDynamicSection,
-    TimelineAlbumList,
+    VToolbarElement,
+    VToolbarElementAction,
+    VToolbarSection,
+    // TimelineAlbumList,
   },
 
   props: {
@@ -547,10 +576,6 @@ export default defineComponent({
 
 <style lang="scss" module>
 @use '../../interface/lib/layout';
-
-.button-margin {
-  margin-left: #{layout.$large-gap - layout.$small-gap};
-}
 
 .album-list-container {
   margin: #{-1 * layout.$normal-gap};
