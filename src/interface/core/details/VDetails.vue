@@ -5,18 +5,26 @@
     :class="{ 'details--overlay': overlay, 'details--darken': darken }"
     :open="modelValue ? true : undefined"
     @toggle="handleToggle"
-    @keydown.esc="$emit('update:modelValue', false)"
+    @keydown.esc="handleEscape"
+    @keydown.tab.exact="handleTabbing(false)"
+    @keydown.shift.tab.exact="handleTabbing(true)"
   >
     <VDetailsSummaryContainer>
       <slot name="activator"></slot>
     </VDetailsSummaryContainer>
 
-    <slot></slot>
+    <slot v-if="!lazy || modelValue"></slot>
   </details>
 </template>
 
 <script lang="ts">
-import { defineComponent, InjectionKey } from 'vue';
+import {
+  defineComponent,
+  InjectionKey,
+  onBeforeUpdate,
+  onUpdated,
+  ref,
+} from 'vue';
 
 export const DetailsSummaryScope: InjectionKey<boolean> = Symbol();
 
@@ -45,6 +53,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    lazy: {
+      type: Boolean,
+      default: false,
+    },
     overlay: {
       type: Boolean,
       default: false,
@@ -60,14 +72,97 @@ export default defineComponent({
   },
 
   setup(props, { emit }) {
-    function handleToggle(event: Event) {
-      const detailsElement = event.target as HTMLDetailsElement | null;
-      if (detailsElement !== null) {
-        emit('update:modelValue', detailsElement.open);
+    const container = ref<HTMLDetailsElement>();
+
+    function handleToggle() {
+      if (container.value === undefined) {
+        return;
       }
+      emit('update:modelValue', container.value.open);
     }
 
-    return { handleToggle };
+    let firstFocusableElement: HTMLElement | undefined = undefined;
+    let lastFocusableElement: HTMLElement | undefined = undefined;
+
+    function handleTabbing(
+      event: KeyboardEvent,
+      backward: boolean,
+      targetElement: HTMLElement | undefined
+    ) {
+      if (event.key !== 'Tab') {
+        return;
+      }
+      if (!props.modelValue || !props.overlay) {
+        return;
+      }
+      if (backward !== event.shiftKey) {
+        return;
+      }
+      event.preventDefault();
+      targetElement?.focus();
+    }
+
+    function handleLastForwardTab(event: KeyboardEvent) {
+      handleTabbing(event, false, firstFocusableElement);
+    }
+
+    function handleFirstBackwardTab(event: KeyboardEvent) {
+      handleTabbing(event, true, lastFocusableElement);
+    }
+
+    onBeforeUpdate(() => {
+      if (firstFocusableElement !== undefined) {
+        firstFocusableElement.removeEventListener(
+          'keydown',
+          handleFirstBackwardTab
+        );
+        firstFocusableElement = undefined;
+      }
+      if (lastFocusableElement !== undefined) {
+        lastFocusableElement.removeEventListener(
+          'keydown',
+          handleLastForwardTab
+        );
+        lastFocusableElement = undefined;
+      }
+    });
+
+    onUpdated(() => {
+      if (container.value === undefined) {
+        return;
+      }
+
+      const focusableElements = container.value?.querySelectorAll<HTMLElement>(
+        [
+          ':any-link:not([tabindex="-1"])',
+          'button:not([tabindex="-1"])',
+          'details:not([tabindex="-1"])',
+          'input:not([tabindex="-1"])',
+          'select:not([tabindex="-1"])',
+          'textarea:not([tabindex="-1"])',
+          '[tabindex]:not([tabindex="-1"])',
+        ].join(', ')
+      );
+
+      if (focusableElements.length === 0) {
+        return;
+      } else {
+        firstFocusableElement = focusableElements[0];
+        firstFocusableElement.addEventListener(
+          'keydown',
+          handleFirstBackwardTab
+        );
+        lastFocusableElement = focusableElements[focusableElements.length - 1];
+        lastFocusableElement.addEventListener('keydown', handleLastForwardTab);
+      }
+    });
+
+    function handleEscape() {
+      emit('update:modelValue', false);
+      container.value?.querySelector('summary')?.focus();
+    }
+
+    return { container, handleToggle, handleTabbing, handleEscape };
   },
 });
 </script>

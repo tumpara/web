@@ -1,5 +1,5 @@
 <template>
-  <VDetails ref="details" overlay :darken="darken">
+  <VDetails ref="details" overlay>
     <template #activator>
       <slot name="activator"></slot>
     </template>
@@ -54,10 +54,6 @@ export default defineComponent({
     title: {
       type: String,
       default: '',
-    },
-    darken: {
-      type: Boolean,
-      default: false,
     },
   },
 });
