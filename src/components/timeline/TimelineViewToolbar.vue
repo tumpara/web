@@ -114,17 +114,15 @@
           }}
         </template>
 
-        <VToolbarElementAction
-          @click="setSelectionVisibility(Visibility.Public)"
-        >
+        <VToolbarElementItem @click="setSelectionVisibility(Visibility.Public)">
           {{
             $formatMessage({
               description: 'timeline visibility choice - public',
               defaultMessage: 'Public',
             })
           }}
-        </VToolbarElementAction>
-        <VToolbarElementAction
+        </VToolbarElementItem>
+        <VToolbarElementItem
           @click="setSelectionVisibility(Visibility.Internal)"
         >
           {{
@@ -133,8 +131,8 @@
               defaultMessage: 'All logged-in users on this server',
             })
           }}
-        </VToolbarElementAction>
-        <VToolbarElementAction
+        </VToolbarElementItem>
+        <VToolbarElementItem
           @click="setSelectionVisibility(Visibility.Members)"
         >
           {{
@@ -143,17 +141,15 @@
               defaultMessage: "Members of the item's library",
             })
           }}
-        </VToolbarElementAction>
-        <VToolbarElementAction
-          @click="setSelectionVisibility(Visibility.Owners)"
-        >
+        </VToolbarElementItem>
+        <VToolbarElementItem @click="setSelectionVisibility(Visibility.Owners)">
           {{
             $formatMessage({
               description: 'timeline visibility choice - owners',
               defaultMessage: 'Only owners of the library',
             })
           }}
-        </VToolbarElementAction>
+        </VToolbarElementItem>
       </VToolbarElement>
 
       <VToolbarElement v-if="selectedCount > 0" :priority="4" @click="archive">
@@ -186,7 +182,7 @@
           }}
         </template>
 
-        <VToolbarElementAction
+        <VToolbarElementItem
           :selected="gridSize === 150"
           @click="gridSize = 150"
         >
@@ -197,8 +193,8 @@
               defaultMessage: 'Compact',
             })
           }}
-        </VToolbarElementAction>
-        <VToolbarElementAction
+        </VToolbarElementItem>
+        <VToolbarElementItem
           :selected="gridSize === 250"
           @click="gridSize = 250"
         >
@@ -209,8 +205,8 @@
               defaultMessage: 'Normal',
             })
           }}
-        </VToolbarElementAction>
-        <VToolbarElementAction
+        </VToolbarElementItem>
+        <VToolbarElementItem
           :selected="gridSize === 350"
           @click="gridSize = 350"
         >
@@ -221,7 +217,7 @@
               defaultMessage: 'Large',
             })
           }}
-        </VToolbarElementAction>
+        </VToolbarElementItem>
       </VToolbarElement>
 
       <!--template #100-navigation>
@@ -341,7 +337,7 @@ import {
   // VPopup,
   VToolbar,
   VToolbarElement,
-  VToolbarElementAction,
+  VToolbarElementItem,
   VToolbarSection,
 } from '@/interface';
 import { useSelection } from '@/utils/selection';
@@ -384,7 +380,7 @@ export default defineComponent({
     // VPopup,
     VToolbar,
     VToolbarElement,
-    VToolbarElementAction,
+    VToolbarElementItem,
     VToolbarSection,
     // TimelineAlbumList,
   },

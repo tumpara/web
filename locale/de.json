@@ -409,6 +409,11 @@
     "description": "timeline display hide details button",
     "originalMessage": "Hide details"
   },
+  "w+OE9x": {
+    "defaultMessage": "View size",
+    "description": "view size menu",
+    "originalMessage": "View size"
+  },
   "wz3TTR": {
     "defaultMessage": "Schließen",
     "description": "timeline view close button",

@@ -15,7 +15,7 @@ import { RenderMode } from './VToolbarSection.vue';
 export const ActionMode: InjectionKey<ReadonlyRef<RenderMode>> = Symbol();
 
 export default defineComponent({
-  name: 'VToolbarElementAction',
+  name: 'VToolbarElementItem',
 
   props: {
     mode: {

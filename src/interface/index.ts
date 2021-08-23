@@ -24,7 +24,7 @@ export { default as VSidebarGroup } from './product/sidebar/VSidebarGroup.vue';
 export { default as VSidebarLink } from './product/sidebar/VSidebarLink.vue';
 export { default as VToolbar } from './product/toolbar/VToolbar.vue';
 export { default as VToolbarElement } from './product/toolbar/VToolbarElement.vue';
-export { default as VToolbarElementAction } from './product/toolbar/VToolbarElementAction.vue';
+export { default as VToolbarElementItem } from './product/toolbar/VToolbarElementItem.vue';
 export { default as VToolbarSection } from './product/toolbar/VToolbarSection.vue';
 export { default as VSubview } from './product/views/VSubview.vue';
 export { default as VView } from './product/views/VView.vue';

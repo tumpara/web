@@ -4,9 +4,9 @@
     :to="scope.element"
     :disabled="scope.element === undefined"
   >
-    <VToolbarElementAction v-if="mode === 'normal'" v-bind="$attrs">
+    <VToolbarElementItem v-if="mode === 'normal'" v-bind="$attrs">
       <slot></slot>
-    </VToolbarElementAction>
+    </VToolbarElementItem>
 
     <VButtonGroup v-else-if="mode === 'compound' && scope.mode === 'button'">
       <slot></slot>
@@ -14,9 +14,9 @@
 
     <VPopup v-else-if="scope.mode === 'button'" direction="sw">
       <template #activator>
-        <VToolbarElementAction v-bind="$attrs" mode="button">
+        <VToolbarElementItem v-bind="$attrs" mode="button">
           <slot name="menu"></slot>
-        </VToolbarElementAction>
+        </VToolbarElementItem>
       </template>
 
       <VCard elevated>
@@ -29,9 +29,9 @@
     <li v-else>
       <VPopup direction="sw">
         <template #activator>
-          <VToolbarElementAction v-bind="$attrs">
+          <VToolbarElementItem v-bind="$attrs">
             <slot name="menu"></slot>
-          </VToolbarElementAction>
+          </VToolbarElementItem>
         </template>
 
         <VCard elevated>
@@ -55,13 +55,13 @@ import {
 } from 'vue';
 
 import { VButtonGroup, VCard, VMenu, VPopup } from '../..';
-import VToolbarElementAction, { ActionMode } from './VToolbarElementAction.vue';
+import VToolbarElementItem, { ActionMode } from './VToolbarElementItem.vue';
 import { UseToolbarRenderScope } from './VToolbarSection.vue';
 
 export default defineComponent({
   name: 'VToolbarElement',
 
-  components: { VButtonGroup, VCard, VMenu, VPopup, VToolbarElementAction },
+  components: { VButtonGroup, VCard, VMenu, VPopup, VToolbarElementItem },
 
   inheritAttrs: false,
 
