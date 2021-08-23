@@ -42,7 +42,7 @@ export default defineComponent({
   },
 
   emits: {
-    'update:modelValue': Boolean,
+    'update:modelValue': (value: unknown) => typeof value === 'boolean',
   },
 
   setup() {

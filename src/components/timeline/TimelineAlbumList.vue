@@ -73,7 +73,7 @@ export default defineComponent({
   },
 
   emits: {
-    click: Object,
+    click: null,
   },
 
   setup(props) {

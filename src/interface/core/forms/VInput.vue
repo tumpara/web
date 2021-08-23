@@ -59,7 +59,7 @@ export default defineComponent({
   },
 
   emits: {
-    'update:modelValue': String,
+    'update:modelValue': (value: unknown) => typeof value === 'string',
   },
 
   setup(props) {

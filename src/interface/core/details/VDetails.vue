@@ -21,6 +21,7 @@
 import {
   defineComponent,
   InjectionKey,
+  onBeforeUnmount,
   onBeforeUpdate,
   onUpdated,
   ref,
@@ -68,7 +69,7 @@ export default defineComponent({
   },
 
   emits: {
-    'update:modelValue': Boolean,
+    'update:modelValue': (value: unknown) => typeof value === 'boolean',
   },
 
   setup(props, { emit }) {
@@ -161,6 +162,10 @@ export default defineComponent({
       emit('update:modelValue', false);
       container.value?.querySelector('summary')?.focus();
     }
+
+    onBeforeUnmount(() => {
+      emit('update:modelValue', false);
+    });
 
     return { container, handleToggle, handleTabbing, handleEscape };
   },

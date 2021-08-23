@@ -92,7 +92,7 @@ export default defineComponent({
     openIndex: (index: unknown) => typeof index === 'number' && isFinite(index),
     // The median timestamp that is currently visible. This is emitted when the
     // view changes.
-    timestamp: (date: unknown) => date instanceof Date,
+    timestamp: (date: unknown) => date === null || date instanceof Date,
   },
 
   setup(props, { emit }) {
