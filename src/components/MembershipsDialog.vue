@@ -275,7 +275,6 @@ export default defineComponent({
         if (!choicePopupStates.has(user)) {
           choicePopupStates.set(user, ref(false));
         }
-        console.log(user, choicePopupStates.get(user));
       }
     });
     function closeAllChoicePopups() {
