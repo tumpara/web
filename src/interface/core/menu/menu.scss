@@ -43,6 +43,10 @@
     position: relative;
     top: 0.1rem;
   }
+
+  &:focus-visible {
+    outline: layout.$focus-outline-size solid var(--focus-color);
+  }
 }
 
 .menu-item--clickable {
