@@ -1,8 +1,10 @@
 <template>
-  <div ref="container" class="toolbar-section">
-    <slot></slot>
+  <div ref="outerContainer" class="toolbar-section">
+    <div ref="container" class="toolbar-section">
+      <slot></slot>
+    </div>
 
-    <VPopup direction="sw" :class="$style.offload">
+    <VPopup v-model="overflowMenuOpen" direction="sw" :class="$style.offload">
       <template #activator>
         <VButton><PhDotsThreeOutlineVertical weight="bold" /></VButton>
       </template>
@@ -80,11 +82,17 @@ export default defineComponent({
   },
 
   setup() {
+    // The reason we need an extra container for the actual buttons is because
+    // otherwise the open overflow menu would trigger reflowing and everything
+    // would collapse into the menu once it's opened the first time.
+    const outerContainer = ref<HTMLDivElement>();
     const container = ref<HTMLDivElement>();
-    const containerParent = computed(
-      () => container.value?.parentElement ?? undefined
+    const toolbarContainer = computed(
+      () => outerContainer.value?.parentElement ?? undefined
     );
     const menuComponent = ref<ComponentPublicInstance<typeof VMenu>>();
+
+    const overflowMenuOpen = ref(false);
 
     // Items with a higher priority than this will be rendered as buttons, the
     // rest as menu items.
@@ -112,11 +120,6 @@ export default defineComponent({
       );
 
       return computed<RenderScope | null>(() => {
-        console.log(
-          priority.value,
-          effectivePriority.value,
-          effectivePriorityCutoff.value
-        );
         if (effectivePriority.value >= effectivePriorityCutoff.value) {
           return {
             mode: 'button',
@@ -140,19 +143,21 @@ export default defineComponent({
     function reflow() {
       if (
         container.value === undefined ||
-        containerParent.value === undefined
+        toolbarContainer.value === undefined
       ) {
         return;
       }
 
-      if (containerParent.value.clientWidth > (lastWidth ?? Infinity)) {
+      if (toolbarContainer.value.clientWidth > (lastWidth ?? Infinity)) {
         // If the container got larger since the last reflow operation, we need
         // to check if we can give the buttons more room again.
         effectivePriorityCutoff.value -= 1;
       } else {
         // If not, we just check if the container is currently overflowing. If
         // so, hide some buttons.
-        if (container.value.scrollHeight > container.value.clientHeight) {
+        if (
+          container.value.scrollHeight > toolbarContainer.value.clientHeight
+        ) {
           effectivePriorityCutoff.value += 1;
         }
       }
@@ -160,18 +165,14 @@ export default defineComponent({
       // We only have effective priorities 0 through
       // (sortedPriorities.length - 1), so we can limit our cutoff value
       // accordingly.
-      effectivePriorityCutoff.value = Math.max(
-        effectivePriorityCutoff.value,
-        0
-      );
       effectivePriorityCutoff.value = Math.min(
-        effectivePriorityCutoff.value,
+        Math.max(effectivePriorityCutoff.value, 0),
         // -1 is intentionally not subtracted from this limit because we have a
         // case where all items are overflown.
         sortedPriorities.value.length
       );
 
-      lastWidth = containerParent.value.clientWidth;
+      lastWidth = toolbarContainer.value.clientWidth;
     }
 
     // Make sure reflowing is performed every time the DOM gets updated (most of
@@ -183,17 +184,23 @@ export default defineComponent({
     // because our container is most likely a flex element that doesn't change
     // size with the browser window.
     watchEffect((onInvalidate) => {
-      if (containerParent.value === undefined) {
+      if (toolbarContainer.value === undefined) {
         return;
       }
 
       const observer = new ResizeObserver(() => reflow());
 
-      observer.observe(containerParent.value);
+      observer.observe(toolbarContainer.value);
       onInvalidate(() => observer.disconnect());
     });
 
-    return { container, menuComponent, priorities };
+    return {
+      outerContainer,
+      container,
+      menuComponent,
+      overflowMenuOpen,
+      priorities,
+    };
   },
 });
 </script>

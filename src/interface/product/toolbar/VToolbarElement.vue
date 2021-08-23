@@ -12,7 +12,11 @@
       <slot></slot>
     </VButtonGroup>
 
-    <VPopup v-else-if="scope.mode === 'button'" direction="sw">
+    <VPopup
+      v-else-if="scope.mode === 'button'"
+      v-model="menuOpen"
+      direction="sw"
+    >
       <template #activator>
         <VToolbarElementItem v-bind="$attrs" mode="button">
           <slot name="menu"></slot>
@@ -27,7 +31,7 @@
     </VPopup>
 
     <li v-else>
-      <VPopup direction="sw">
+      <VPopup v-model="menuOpen" direction="sw">
         <template #activator>
           <VToolbarElementItem v-bind="$attrs">
             <slot name="menu"></slot>
@@ -51,7 +55,9 @@ import {
   inject,
   PropType,
   provide,
+  ref,
   toRef,
+  watch,
 } from 'vue';
 
 import { VButtonGroup, VCard, VMenu, VPopup } from '../..';
@@ -95,7 +101,14 @@ export default defineComponent({
       )
     );
 
-    return { scope };
+    const menuOpen = ref(false);
+    watch(scope, (value, previousValue) => {
+      if (value?.mode !== previousValue?.mode) {
+        menuOpen.value = false;
+      }
+    });
+
+    return { scope, menuOpen };
   },
 });
 </script>
