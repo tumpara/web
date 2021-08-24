@@ -74,6 +74,17 @@ query TimelineAlbums($cursor: String, $includeArchived: Boolean) {
   }
 }
 
+query TimelineAlbumQuickSearch($query: String!) {
+  timelineAlbums(filters: { search: $query }) {
+    edges {
+      node {
+        id
+        name
+      }
+    }
+  }
+}
+
 mutation CreateTimelineAlbum($input: CreateTimelineAlbumInput!) {
   createTimelineAlbum(input: $input) {
     album {

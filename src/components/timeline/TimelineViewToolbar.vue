@@ -64,13 +64,6 @@
         >
           <template #activator>
             <VButton>
-              <PhTray />
-              {{
-                $formatMessage({
-                  description: 'add to timeline album button',
-                  defaultMessage: 'Add to album',
-                })
-              }}
             </VButton>
           </template>
 
@@ -83,6 +76,23 @@
           </div>
         </VDialog>
       </template-->
+      <VToolbarElement
+        v-if="selectedCount > 0 && enableAlbumAdding"
+        :priority="10"
+        mode="menu"
+      >
+        <template #button>
+          <PhTray />
+          {{
+            $formatMessage({
+              description: 'add to timeline album button',
+              defaultMessage: 'Add to album',
+            })
+          }}
+        </template>
+
+        <TimelineAlbumSearchMenuItems @selected="addSelectionToAlbum($event)" />
+      </VToolbarElement>
 
       <VToolbarElement
         v-if="selectedCount > 0 && removeFromAlbumId !== undefined"
@@ -100,11 +110,11 @@
 
       <VToolbarElement
         v-if="selectedCount > 0"
-        v-model="visibilityPopupOpen"
+        ref="visibilityElement"
         :priority="2"
         mode="menu"
       >
-        <template #menu>
+        <template #button>
           <PhEye />
           {{
             $formatMessage({
@@ -172,7 +182,7 @@
         :priority="20"
         mode="compound"
       >
-        <template #menu>
+        <template #button>
           <PhFrameCorners />
           {{
             $formatMessage({
@@ -307,7 +317,7 @@ import {
   PhSquare,
   PhStack,
   PhStackSimple,
-  // PhTray,
+  PhTray,
   PhX,
 } from 'phosphor-vue';
 import {
@@ -343,6 +353,7 @@ import {
 import { useSelection } from '@/utils/selection';
 
 import { GridSize } from './settings';
+import TimelineAlbumSearchMenuItems from './TimelineAlbumSearchMenuItems.vue';
 // import TimelineAlbumList from './TimelineAlbumList.vue';
 
 /**
@@ -369,7 +380,7 @@ export default defineComponent({
     PhSquare,
     PhStack,
     PhStackSimple,
-    // PhTray,
+    PhTray,
     PhX,
     // VButton,
     // VButtonGroup,
@@ -382,6 +393,7 @@ export default defineComponent({
     VToolbarElement,
     VToolbarElementItem,
     VToolbarSection,
+    TimelineAlbumSearchMenuItems,
     // TimelineAlbumList,
   },
 
@@ -525,11 +537,20 @@ export default defineComponent({
     // Visibility
     //
 
-    const visibilityPopupOpen = ref(false);
+    const visibilityElement =
+      ref<ComponentPublicInstance<typeof VToolbarElement>>();
+    function closeVisibilityElementMenu() {
+      if (visibilityElement.value !== undefined) {
+        visibilityElement.value.menuOpen = false;
+      }
+    }
 
     const visibilityMutation = useSetLibraryContentVisiblityMutation({});
-    visibilityMutation.onError(() => showNetworkErrorToast());
-    visibilityMutation.onDone(() => (visibilityPopupOpen.value = false));
+    visibilityMutation.onError(() => {
+      showNetworkErrorToast();
+      closeVisibilityElementMenu();
+    });
+    visibilityMutation.onDone(() => closeVisibilityElementMenu());
 
     function setSelectionVisibility(visibility: LibraryContentVisibility) {
       visibilityMutation.mutate({
@@ -561,7 +582,7 @@ export default defineComponent({
       clearSelectionStack,
       // Visibility
       Visibility: LibraryContentVisibility,
-      visibilityPopupOpen,
+      visibilityElement,
       setSelectionVisibility,
       // Other
       displayDetailsVisible,
