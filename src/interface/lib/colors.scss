@@ -55,6 +55,7 @@ $palettes: (
   --widget-fg-color: #{list.nth($gray, 11)};
 
   --guideline-color: #{list.nth($gray, 5)};
+  --hard-guideline-color: #{list.nth($gray, 8)};
 }
 
 @mixin theme-aside {

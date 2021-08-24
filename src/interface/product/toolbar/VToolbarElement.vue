@@ -16,10 +16,11 @@
       v-else-if="scope.mode === 'button'"
       v-model="menuOpen"
       direction="sw"
+      lazy
     >
       <template #activator>
         <VToolbarElementItem v-bind="$attrs" mode="button">
-          <slot name="menu"></slot>
+          <slot name="button"></slot>
         </VToolbarElementItem>
       </template>
 
@@ -31,10 +32,10 @@
     </VPopup>
 
     <li v-else>
-      <VPopup v-model="menuOpen" direction="sw">
+      <VPopup v-model="menuOpen" direction="sw" lazy>
         <template #activator>
           <VToolbarElementItem v-bind="$attrs">
-            <slot name="menu"></slot>
+            <slot name="button"></slot>
           </VToolbarElementItem>
         </template>
 

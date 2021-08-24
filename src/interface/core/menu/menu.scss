@@ -1,6 +1,7 @@
 @use '../../lib/colors';
 @use '../../lib/layout';
 @use '../../lib/motion';
+@use '../../lib/typography';
 
 .menu {
   margin: 0;
@@ -68,4 +69,17 @@
   &:hover {
     background-color: var(--primary-widget-hover-bg-color);
   }
+}
+
+.menu-item--input {
+  font: inherit;
+  border: none;
+  outline: 1px solid var(--hard-guideline-color);
+}
+
+.menu-item--status {
+  margin: 0;
+  padding: layout.$normal-gap;
+  font-size: typography.$hinted-size;
+  color: var(--hinted-fg-color);
 }
