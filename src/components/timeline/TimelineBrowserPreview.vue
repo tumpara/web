@@ -90,7 +90,7 @@ export default defineComponent({
     const { formatMessage } = useIntl();
 
     const visibilityMessage = computed(() => {
-      switch (props.entry.visibility) {
+      switch (props.entry.effectiveVisibility) {
         case LibraryContentVisibility.Public:
           return formatMessage({
             description: 'library content visibility badge - public',

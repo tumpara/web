@@ -5,7 +5,7 @@ fragment TimelineEntryConnectionEdges on TimelineEntryConnection {
       __typename
       id
       timestamp
-      visibility
+      effectiveVisibility
       stackSize
       ... on ImagePreviewable {
         blurhash

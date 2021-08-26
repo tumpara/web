@@ -17,7 +17,7 @@ mutation SetLibraryContentVisiblity(
   organizeLibraryContent(input: { ids: $ids, visibility: $visibility }) {
     nodes {
       id
-      visibility
+      effectiveVisibility
     }
   }
 }
