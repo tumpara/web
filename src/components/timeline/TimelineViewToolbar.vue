@@ -50,32 +50,6 @@
         }}
       </VToolbarElement>
 
-      <!--template #010-album-add>
-        <VDialog
-          v-if="selectedCount > 0 && enableAlbumAdding"
-          ref="albumAddDialog"
-          :title="
-            $formatMessage({
-              description: 'timeline album add dialog title',
-              defaultMessage: 'Add to an existing album',
-            })
-          "
-          darken
-        >
-          <template #activator>
-            <VButton>
-            </VButton>
-          </template>
-
-          <div :class="$style['album-list-container']">
-            <TimelineAlbumList
-              mode="selection"
-              vertical
-              @click="addSelectionToAlbum($event)"
-            />
-          </div>
-        </VDialog>
-      </template-->
       <VToolbarElement
         v-if="selectedCount > 0 && enableAlbumAdding"
         :priority="10"
@@ -230,28 +204,37 @@
         </VToolbarElementItem>
       </VToolbarElement>
 
-      <!--template #100-navigation>
-        <VButtonGroup v-if="displayMode !== null && displayMode > 0">
-          <VButton v-if="displayMode & 1" @click="$emit('navigateDisplay', -1)">
-            <PhArrowLeft />
-            {{
-              $formatMessage({
-                description: 'timeline view previous button',
-                defaultMessage: 'Previous',
-              })
-            }}
-          </VButton>
-          <VButton v-if="displayMode & 2" @click="$emit('navigateDisplay', 1)">
-            {{
-              $formatMessage({
-                description: 'timeline view next button',
-                defaultMessage: 'Next',
-              })
-            }}
-            <PhArrowRight />
-          </VButton>
-        </VButtonGroup>
-      </template-->
+      <VToolbarElement
+        v-if="displayMode !== null && displayMode > 0"
+        :priority="100"
+        mode="compound"
+      >
+        <VToolbarElementItem
+          :disabled="(displayMode & 1) === 0"
+          @click="$emit('navigateDisplay', -1)"
+        >
+          <PhArrowLeft />
+          {{
+            $formatMessage({
+              description: 'timeline view previous button',
+              defaultMessage: 'Previous',
+            })
+          }}
+        </VToolbarElementItem>
+
+        <VToolbarElementItem
+          :disabled="(displayMode & 2) === 0"
+          @click="$emit('navigateDisplay', 1)"
+        >
+          <PhArrowRight />
+          {{
+            $formatMessage({
+              description: 'timeline view next button',
+              defaultMessage: 'Next',
+            })
+          }}
+        </VToolbarElementItem>
+      </VToolbarElement>
 
       <VToolbarElement
         v-if="displayMode !== null"
@@ -274,7 +257,7 @@
 
       <VToolbarElement
         v-if="displayMode !== null"
-        :priority="50"
+        :priority="70"
         @click="$emit('closeDisplay')"
       >
         <PhX />
@@ -287,7 +270,7 @@
       </VToolbarElement>
       <VToolbarElement
         v-else-if="selectedCount > 0"
-        :priority="101"
+        :priority="70"
         @click="clearSelection"
       >
         <PhX />
@@ -306,8 +289,8 @@
 import { useApolloClient } from '@vue/apollo-composable';
 import {
   PhArchive,
-  // PhArrowLeft,
-  // PhArrowRight,
+  PhArrowLeft,
+  PhArrowRight,
   PhBackspace,
   PhDotsNine,
   PhEye,
@@ -338,13 +321,7 @@ import {
 } from '@/graphql';
 import {
   useToasts,
-  // VButton,
-  // VButtonGroup,
-  // VCard,
   VDialog,
-  // VMenu,
-  // VMenuButton,
-  // VPopup,
   VToolbar,
   VToolbarElement,
   VToolbarElementItem,
@@ -369,8 +346,8 @@ export default defineComponent({
 
   components: {
     PhArchive,
-    // PhArrowLeft,
-    // PhArrowRight,
+    PhArrowLeft,
+    PhArrowRight,
     PhBackspace,
     PhDotsNine,
     PhEye,
@@ -382,19 +359,11 @@ export default defineComponent({
     PhStackSimple,
     PhTray,
     PhX,
-    // VButton,
-    // VButtonGroup,
-    // VCard,
-    // VDialog,
-    // VMenu,
-    // VMenuButton,
-    // VPopup,
     VToolbar,
     VToolbarElement,
     VToolbarElementItem,
     VToolbarSection,
     TimelineAlbumSearchMenuItems,
-    // TimelineAlbumList,
   },
 
   props: {

@@ -99,7 +99,9 @@ export default defineComponent({
     const effectivePriorityCutoff = ref(0);
 
     const priorities = reactive<Record<number, number>>({});
-    const sortedPriorities = computed(() => Object.values(priorities).sort());
+    const sortedPriorities = computed(() =>
+      Object.values(priorities).sort((a, b) => a - b)
+    );
 
     let nextPriorityKey = 0;
     function useToolbarRenderScope(priority: ReadonlyRef<number>) {
@@ -148,18 +150,16 @@ export default defineComponent({
         return;
       }
 
-      if (toolbarContainer.value.clientWidth > (lastWidth ?? Infinity)) {
-        // If the container got larger since the last reflow operation, we need
-        // to check if we can give the buttons more room again.
+      if (container.value.scrollHeight > toolbarContainer.value.clientHeight) {
+        // When the container is currently overflowing, hide some buttons.
+        effectivePriorityCutoff.value += 1;
+      } else if (
+        toolbarContainer.value.clientWidth >
+        (lastWidth ?? Infinity) + 20
+      ) {
+        // If the container got larger since the last reflow operation, there is
+        // potentially more room for new buttons again.
         effectivePriorityCutoff.value -= 1;
-      } else {
-        // If not, we just check if the container is currently overflowing. If
-        // so, hide some buttons.
-        if (
-          container.value.scrollHeight > toolbarContainer.value.clientHeight
-        ) {
-          effectivePriorityCutoff.value += 1;
-        }
       }
 
       // We only have effective priorities 0 through

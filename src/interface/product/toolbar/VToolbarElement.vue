@@ -31,7 +31,7 @@
       </VCard>
     </VPopup>
 
-    <li v-else>
+    <li v-else-if="buttonSlotPresent">
       <VPopup v-model="menuOpen" direction="sw" lazy>
         <template #activator>
           <VToolbarElementItem v-bind="$attrs">
@@ -46,6 +46,8 @@
         </VCard>
       </VPopup>
     </li>
+
+    <slot v-else></slot>
   </teleport>
 </template>
 
@@ -54,6 +56,7 @@ import {
   computed,
   defineComponent,
   inject,
+  onUpdated,
   PropType,
   provide,
   ref,
@@ -85,13 +88,18 @@ export default defineComponent({
     },
   },
 
-  setup(props) {
+  setup(props, { slots }) {
     const useToolbarRenderScope = inject(UseToolbarRenderScope);
     if (useToolbarRenderScope === undefined) {
       throw Error(
         'VToolbarAction components must be used inside a VToolbarSection component.'
       );
     }
+
+    const buttonSlotPresent = ref(!!slots.button);
+    onUpdated(() => {
+      buttonSlotPresent.value = !!slots.button;
+    });
 
     const scope = useToolbarRenderScope(toRef(props, 'priority'));
 
@@ -109,7 +117,7 @@ export default defineComponent({
       }
     });
 
-    return { scope, menuOpen };
+    return { buttonSlotPresent, scope, menuOpen };
   },
 });
 </script>
