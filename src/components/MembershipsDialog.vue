@@ -27,7 +27,7 @@
         spread
       />
 
-      <VMenu ref="listContainer">
+      <VMenu ref="listContainer" :class="$style['user-menu']">
         <li
           v-for="item in users"
           :key="item.id"
@@ -334,5 +334,9 @@ export default defineComponent({
   > span {
     text-overflow: ellipsis;
   }
+}
+
+.user-menu > li > * {
+  width: unset;
 }
 </style>

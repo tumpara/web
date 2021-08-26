@@ -53,15 +53,19 @@ details[open] > summary.button {
 
 .button--light {
   margin: layout.$small-gap layout.$normal-gap;
-  padding: 0;
   border: none;
-  line-height: 0;
   font-size: inherit;
   background: none;
   color: inherit;
+  box-shadow: none;
 
   &:focus-visible {
+    color: var(--widget-fg-color);
     outline: layout.$focus-outline-size solid var(--focus-color);
+  }
+
+  &:hover {
+    color: var(--widget-fg-color);
   }
 }
 
