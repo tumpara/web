@@ -1,5 +1,9 @@
 <template>
-  <VDetails ref="details" overlay>
+  <VDetails
+    :model-value="modelValue"
+    overlay
+    @update:modelValue="$emit('update:modelValue', $event)"
+  >
     <template #activator>
       <slot name="activator"></slot>
     </template>
@@ -15,19 +19,19 @@
         <h2>{{ title }}</h2>
         <div>
           <slot name="header"></slot>
-          <button
-            ref="closeButton"
-            class="button--light"
+
+          <VButton
+            light
             :aria-label="
               $formatMessage({
                 description: 'close dialog button aria label',
                 defaultMessage: 'Close this dialog',
               })
             "
-            @click="close"
+            @click="$emit('update:modelValue', false)"
           >
             <PhX />
-          </button>
+          </VButton>
         </div>
       </header>
 
@@ -42,19 +46,28 @@
 import { PhX } from 'phosphor-vue';
 import { defineComponent } from 'vue';
 
+import VButton from '../buttons/VButton.vue';
 import VCard from '../cards/VCard.vue';
 import VDetails from './VDetails.vue';
 
 export default defineComponent({
   name: 'VDialog',
 
-  components: { PhX, VCard, VDetails },
+  components: { PhX, VButton, VCard, VDetails },
 
   props: {
+    modelValue: {
+      type: Boolean,
+      default: false,
+    },
     title: {
       type: String,
       default: '',
     },
+  },
+
+  emits: {
+    'update:modelValue': (value: unknown) => typeof value === 'boolean',
   },
 });
 </script>

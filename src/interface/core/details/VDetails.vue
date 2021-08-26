@@ -75,20 +75,13 @@ export default defineComponent({
   setup(props, { emit }) {
     const container = ref<HTMLDetailsElement>();
 
-    function handleToggle() {
-      if (container.value === undefined) {
-        return;
-      }
-      emit('update:modelValue', container.value.open);
-    }
-
     let firstFocusableElement: HTMLElement | undefined = undefined;
     let lastFocusableElement: HTMLElement | undefined = undefined;
 
     function handleTabbing(
       event: KeyboardEvent,
       backward: boolean,
-      targetElement: HTMLElement | undefined
+      destinationElement: HTMLElement | undefined
     ) {
       if (event.key !== 'Tab') {
         return;
@@ -100,7 +93,7 @@ export default defineComponent({
         return;
       }
       event.preventDefault();
-      targetElement?.focus();
+      destinationElement?.focus();
     }
 
     function handleLastForwardTab(event: KeyboardEvent) {
@@ -111,7 +104,7 @@ export default defineComponent({
       handleTabbing(event, true, lastFocusableElement);
     }
 
-    onBeforeUpdate(() => {
+    function removeTabbingHandlers() {
       if (firstFocusableElement !== undefined) {
         firstFocusableElement.removeEventListener(
           'keydown',
@@ -126,9 +119,9 @@ export default defineComponent({
         );
         lastFocusableElement = undefined;
       }
-    });
+    }
 
-    onUpdated(() => {
+    function registerTabbingHandlers() {
       if (container.value === undefined) {
         return;
       }
@@ -137,7 +130,7 @@ export default defineComponent({
         [
           ':any-link:not([tabindex="-1"])',
           'button:not([tabindex="-1"])',
-          'details:not([tabindex="-1"])',
+          'details:not([tabindex="-1"]) > summary:not([tabindex="-1"])',
           'input:not([tabindex="-1"])',
           'select:not([tabindex="-1"])',
           'textarea:not([tabindex="-1"])',
@@ -145,18 +138,57 @@ export default defineComponent({
         ].join(', ')
       );
 
-      if (focusableElements.length === 0) {
+      const applicableElements = Array.from(focusableElements)
+        // Filter out any currently invisible elements from the focus list. This
+        // is adapted from the jQuery source:
+        // https://github.com/jquery/jquery/blob/2f8f39e457c32c454c50545b0fdaa1d7a4a2f8bd/src/css/hiddenVisibleSelectors.js#L9
+        .filter(
+          (element) =>
+            element.offsetWidth > 0 ||
+            element.offsetHeight > 0 ||
+            element.getClientRects().length > 0
+        )
+        // Make sure we exclude the <summary> element matching this details.
+        .filter(
+          (element) =>
+            element.tagName.toUpperCase() !== 'SUMMARY' ||
+            element.parentElement !== container.value
+        );
+
+      if (applicableElements.length === 0) {
         return;
       } else {
-        firstFocusableElement = focusableElements[0];
+        firstFocusableElement = applicableElements[0];
         firstFocusableElement.addEventListener(
           'keydown',
           handleFirstBackwardTab
         );
-        lastFocusableElement = focusableElements[focusableElements.length - 1];
+        lastFocusableElement =
+          applicableElements[applicableElements.length - 1];
         lastFocusableElement.addEventListener('keydown', handleLastForwardTab);
       }
-    });
+
+      if (
+        document.activeElement !== null &&
+        !applicableElements.includes(document.activeElement as HTMLElement)
+      ) {
+        firstFocusableElement.focus();
+      }
+    }
+
+    onBeforeUpdate(() => removeTabbingHandlers());
+    onUpdated(() => registerTabbingHandlers());
+
+    function handleToggle() {
+      if (container.value === undefined) {
+        return;
+      }
+      removeTabbingHandlers();
+      if (container.value.open) {
+        registerTabbingHandlers();
+      }
+      emit('update:modelValue', container.value.open);
+    }
 
     function handleEscape() {
       emit('update:modelValue', false);
