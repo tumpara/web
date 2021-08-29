@@ -8,16 +8,14 @@
     "
   >
     <template #header-extra>
-      <VCheckbox
-        v-model="showArchived"
-        name="showArchived"
-        :label="
+      <VCheckbox v-model="showArchived" name="showArchived">
+        {{
           $formatMessage({
             description: 'show archived timeline albums toggle',
             defaultMessage: 'Show archived',
           })
-        "
-      />
+        }}
+      </VCheckbox>
       <TimelineAlbumCreateButton @album-id="navigateToAlbum" />
     </template>
 

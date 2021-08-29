@@ -1,6 +1,6 @@
 <template>
   <component
-    :is="summaryElement ? 'summary' : 'button'"
+    :is="elementName"
     :class="{
       [$style.button]: true,
       [$style['button--selected']]: selected,
@@ -9,7 +9,9 @@
       [$style['button--small']]: small,
       [$style['button--disabled']]: disabled,
     }"
-    :type="summaryElement ? (submit ? 'submit' : 'button') : undefined"
+    :type="
+      elementName === 'button' ? (submit ? 'submit' : 'button') : undefined
+    "
     role="button"
     :disabled="disabled"
   >
@@ -18,9 +20,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, inject } from 'vue';
+import { computed, defineComponent, inject } from 'vue';
 
 import { DetailsSummaryScope } from '../details/VDetails.vue';
+import { RadioGroupScope } from '../forms/VRadioGroup.vue';
 
 export default defineComponent({
   name: 'VButton',
@@ -53,9 +56,20 @@ export default defineComponent({
   },
 
   setup() {
-    const summaryElement = inject(DetailsSummaryScope, false);
+    const detailsSummary = inject(DetailsSummaryScope, false);
+    const radioGroup = inject(RadioGroupScope);
 
-    return { summaryElement };
+    const elementName = computed(() => {
+      if (radioGroup?.buttons.value) {
+        return 'label';
+      } else if (detailsSummary) {
+        return 'summary';
+      } else {
+        return 'button';
+      }
+    });
+
+    return { elementName };
   },
 });
 </script>

@@ -7,6 +7,8 @@ export { default as VPopup } from './core/details/VPopup.vue';
 export { default as VCheckbox } from './core/forms/VCheckbox.vue';
 export { default as VForm } from './core/forms/VForm.vue';
 export { default as VInput } from './core/forms/VInput.vue';
+export { default as VRadio } from './core/forms/VRadio.vue';
+export { default as VRadioGroup } from './core/forms/VRadioGroup.vue';
 export { default as VListing } from './core/listing/VListing.vue';
 export { default as VListingCard } from './core/listing/VListingCard.vue';
 export { default as VMenu } from './core/menu/VMenu.vue';

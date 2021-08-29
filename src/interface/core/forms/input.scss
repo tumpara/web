@@ -20,6 +20,12 @@
   }
 }
 
+.input-subgrid {
+  display: flex;
+  flex-direction: column;
+  gap: layout.$normal-gap;
+}
+
 .input-control {
   padding: 0 layout.$small-gap;
   height: layout.$widget-height;

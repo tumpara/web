@@ -3,6 +3,7 @@
     :class="{
       [$style['button-group']]: true,
       [$style['button-group--stretch']]: stretch,
+      [$style['button-group--radio']]: radio,
     }"
   >
     <slot></slot>
@@ -17,6 +18,11 @@ export default defineComponent({
 
   props: {
     stretch: {
+      type: Boolean,
+      default: false,
+    },
+
+    radio: {
       type: Boolean,
       default: false,
     },

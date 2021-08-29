@@ -10,7 +10,9 @@
       @change="$emit('update:modelValue', $event.target.checked)"
     />
     <span class="checkbox-mark" aria-hidden="true"><PhCheck /></span>
-    <span class="checkbox-label">{{ label }}</span>
+    <span class="checkbox-label">
+      <slot></slot>
+    </span>
   </label>
 </template>
 
@@ -31,11 +33,6 @@ export default defineComponent({
     modelValue: { type: Boolean },
 
     name: {
-      type: String,
-      required: true,
-    },
-
-    label: {
       type: String,
       required: true,
     },

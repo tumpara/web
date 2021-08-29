@@ -139,4 +139,30 @@ details > summary.button {
     width: 100%;
     text-align: center;
   }
+
+  > .button {
+    display: inline-block;
+    text-align: center;
+  }
+}
+
+.button-group--radio {
+  > .button:not(.button--selected),
+  > details > summary.button:not(.button--selected) {
+    background: radial-gradient(var(--guideline-color) 1%, transparent 15%) 0 0,
+      radial-gradient(var(--guideline-color) 1%, transparent 15%) 0.25rem
+        0.25rem;
+    background-size: 0.5rem 0.5rem;
+    background-color: transparent;
+
+    &:hover,
+    &:focus-visible {
+      background-color: var(--widget-hover-bg-color);
+    }
+  }
+
+  > .button:active,
+  > details[open] > summary.button {
+    background-color: var(--widget-press-bg-color);
+  }
 }

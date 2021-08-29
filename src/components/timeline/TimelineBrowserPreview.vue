@@ -25,9 +25,11 @@
       }"
     ></div>
 
-    <ul v-if="selected" :class="$style.badges">
-      <li :title="visibilityTooltip">{{ visibilityMessage }}</li>
-    </ul>
+    <!-- TODO Display some actual metadata here -->
+    <!--ul v-if="selected" :class="$style.badges">
+      <li>50mm</li>
+      <li>1/400s</li>
+    </ul-->
 
     <button
       :class="$style['select-button']"

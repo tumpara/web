@@ -8,7 +8,10 @@
       <slot></slot>
     </VToolbarElementItem>
 
-    <VButtonGroup v-else-if="mode === 'compound' && scope.mode === 'button'">
+    <VButtonGroup
+      v-else-if="mode === 'compound' && scope.mode === 'button'"
+      v-bind="$attrs"
+    >
       <slot></slot>
     </VButtonGroup>
 

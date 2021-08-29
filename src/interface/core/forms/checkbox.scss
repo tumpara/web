@@ -35,6 +35,10 @@ $gap: layout.$small-gap;
   color: transparent;
   transition: border-color motion.$subtle, background-color motion.$subtle,
     color motion.$subtle;
+
+  &.checkbox-mark--radio {
+    border-radius: 100%;
+  }
 }
 
 .checkbox-label {
