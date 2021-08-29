@@ -46,7 +46,7 @@
             type="text"
             placeholder="Enter some more stuff..."
           />
-          <VCheckbox name="input3" label="A checkbox" />
+          <VCheckbox name="input3">A checkbox</VCheckbox>
         </VForm>
       </VCard>
 
@@ -58,7 +58,7 @@
             type="text"
             placeholder="Enter some more stuff..."
           />
-          <VCheckbox name="input5" label="A checkbox" />
+          <VCheckbox name="input5">A checkbox</VCheckbox>
         </VForm>
       </VCard>
 

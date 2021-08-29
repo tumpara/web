@@ -134,6 +134,14 @@
             })
           }}
         </VToolbarElementItem>
+        <VToolbarElementItem @click="setSelectionVisibility(null)">
+          {{
+            $formatMessage({
+              description: 'timeline visibility choice - infer',
+              defaultMessage: 'Default value for the library',
+            })
+          }}
+        </VToolbarElementItem>
       </VToolbarElement>
 
       <VToolbarElement v-if="selectedCount > 0" :priority="4" @click="archive">
@@ -155,6 +163,7 @@
         v-if="displayMode === null && selectedCount === 0"
         :priority="20"
         mode="compound"
+        radio
       >
         <template #button>
           <PhFrameCorners />
@@ -521,7 +530,9 @@ export default defineComponent({
     });
     visibilityMutation.onDone(() => closeVisibilityElementMenu());
 
-    function setSelectionVisibility(visibility: LibraryContentVisibility) {
+    function setSelectionVisibility(
+      visibility: LibraryContentVisibility | null
+    ) {
       visibilityMutation.mutate({
         ids: selectedIds.value as string[],
         visibility,

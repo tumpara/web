@@ -39,7 +39,7 @@
             </VSidebarLink>
           </router-link>
 
-          <!--router-link
+          <router-link
             v-slot="{ href, navigate, isActive }"
             :to="{ name: 'TimelineSearch' }"
             custom
@@ -53,7 +53,7 @@
                 })
               }}
             </VSidebarLink>
-          </router-link-->
+          </router-link>
         </VSidebarGroup>
 
         <VSidebarGroup
@@ -112,7 +112,7 @@ import {
   PhCompass,
   PhDotsThree,
   PhFolderNotch,
-  // PhMagnifyingGlass,
+  PhMagnifyingGlass,
 } from 'phosphor-vue';
 import { computed, defineComponent } from 'vue';
 import { useRoute } from 'vue-router';
@@ -136,7 +136,7 @@ export default defineComponent({
     PhDotsThree,
     PhCompass,
     PhFolderNotch,
-    // PhMagnifyingGlass,
+    PhMagnifyingGlass,
     VView,
     VSidebar,
     VSidebarGroup,

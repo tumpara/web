@@ -47,12 +47,8 @@ import { decode as decodeBlurhash } from 'blurhash';
 import * as CSS from 'csstype';
 import { PhCheckCircle } from 'phosphor-vue';
 import { computed, defineComponent, PropType, ref, watchEffect } from 'vue';
-import { useIntl } from 'vue-intl';
 
-import {
-  LibraryContentVisibility,
-  TimelineEntryConnectionEdgesFragment,
-} from '@/graphql';
+import { TimelineEntryConnectionEdgesFragment } from '@/graphql';
 import { ExtractArrayMaybe } from '@/utils';
 import { useItemSelection, useSelection } from '@/utils/selection';
 
@@ -89,40 +85,6 @@ export default defineComponent({
   },
 
   setup(props, { emit }) {
-    const { formatMessage } = useIntl();
-
-    const visibilityMessage = computed(() => {
-      switch (props.entry.effectiveVisibility) {
-        case LibraryContentVisibility.Public:
-          return formatMessage({
-            description: 'library content visibility badge - public',
-            defaultMessage: 'Public',
-          });
-        case LibraryContentVisibility.Internal:
-          return formatMessage({
-            description: 'library content visibility badge - internal',
-            defaultMessage: 'Logged-in users',
-          });
-        case LibraryContentVisibility.Members:
-          return formatMessage({
-            description: 'library content visibility badge - members',
-            defaultMessage: 'Members',
-          });
-        case LibraryContentVisibility.Owners:
-          return formatMessage({
-            description: 'library content visibility badge - owners',
-            defaultMessage: 'Owners',
-          });
-        default:
-          return undefined;
-      }
-    });
-    const visibilityTooltip = formatMessage({
-      description: 'library content visibility tooltip',
-      defaultMessage:
-        'This shows who can see the item, depending on whether they have an account on this server and if they are a member in the library the item is contained in.',
-    });
-
     const { count: selectedCount } = useSelection();
     const { selected, toggleSelection: toggleItemSelection } = useItemSelection(
       props.entry.id
@@ -185,8 +147,6 @@ export default defineComponent({
     }
 
     return {
-      visibilityMessage,
-      visibilityTooltip,
       selectedCount,
       selected,
       toggleSelection,
@@ -301,7 +261,7 @@ export default defineComponent({
 
 .badges {
   display: inline-flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   gap: layout.$tiny-gap;
   position: absolute;

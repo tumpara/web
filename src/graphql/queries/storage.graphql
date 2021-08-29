@@ -12,7 +12,7 @@ query Libraries {
 
 mutation SetLibraryContentVisiblity(
   $ids: [ID!]!
-  $visibility: LibraryContentVisibility!
+  $visibility: LibraryContentVisibility
 ) {
   organizeLibraryContent(input: { ids: $ids, visibility: $visibility }) {
     nodes {

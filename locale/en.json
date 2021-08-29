@@ -19,6 +19,11 @@
     "description": "timeline sidebar albums heading",
     "originalMessage": "Albums"
   },
+  "0b/vOe": {
+    "defaultMessage": "Default value for the library",
+    "description": "timeline visibility choice - infer",
+    "originalMessage": "Default value for the library"
+  },
   "1ejvpW": {
     "defaultMessage": "For now, please use the <link>Django admin interface</link> for managing users, as this functionality is not implemented yet.",
     "description": "settings django link text",
@@ -69,6 +74,11 @@
     "description": "timeline album update error",
     "originalMessage": "Something went wrong while updating the album."
   },
+  "AFZZOI": {
+    "defaultMessage": "Only",
+    "description": "timeline search archive option - only",
+    "originalMessage": "Only"
+  },
   "BN8jE1": {
     "defaultMessage": "Show more…",
     "description": "timeline album manager navigation",
@@ -89,20 +99,15 @@
     "description": "membership status label for members",
     "originalMessage": "Read only"
   },
-  "IgV3t6": {
-    "defaultMessage": "Add to an existing album",
-    "description": "timeline album add dialog title",
-    "originalMessage": "Add to an existing album"
+  "GIcKd9": {
+    "defaultMessage": "Library owners",
+    "description": "timeline search visibility option - members",
+    "originalMessage": "Library owners"
   },
-  "IrY/YR": {
+  "JlcbR0": {
     "defaultMessage": "Set visibility",
-    "description": "set timeline visibility button",
+    "description": "set timeline visibility menu",
     "originalMessage": "Set visibility"
-  },
-  "Jk4s82": {
-    "defaultMessage": "Public",
-    "description": "library content visibility badge - public",
-    "originalMessage": "Public"
   },
   "JrKK8x": {
     "defaultMessage": "Successfully updated information on the album.",
@@ -138,6 +143,11 @@
     "defaultMessage": "User profile settings",
     "description": "profile title",
     "originalMessage": "User profile settings"
+  },
+  "On3+gy": {
+    "defaultMessage": "Library members",
+    "description": "timeline search visibility option - members",
+    "originalMessage": "Library members"
   },
   "P5WhL1": {
     "defaultMessage": "Location",
@@ -189,15 +199,30 @@
     "description": "viewer sidebar timeline header",
     "originalMessage": "Timeline"
   },
+  "W//hEm": {
+    "defaultMessage": "Users on this server",
+    "description": "timeline search visibility option - internal",
+    "originalMessage": "Users on this server"
+  },
   "Xkj2Bt": {
     "defaultMessage": "Cannot display this item because this client does not support it's type. Probably the server has a non-default plugin installed. Contact your administrator for details.",
     "description": "unknown timeline entry type fallback message",
     "originalMessage": "Cannot display this item because this client does not support it's type. Probably the server has a non-default plugin installed. Contact your administrator for details."
   },
+  "Xl33Yb": {
+    "defaultMessage": "Public",
+    "description": "timeline search visibility option - public",
+    "originalMessage": "Public"
+  },
   "ZkXnzh": {
     "defaultMessage": "Public",
     "description": "timeline visibility choice - public",
     "originalMessage": "Public"
+  },
+  "a2oO96": {
+    "defaultMessage": "Show",
+    "description": "timeline search archive option - show",
+    "originalMessage": "Show"
   },
   "bFnyAv": {
     "defaultMessage": "File",
@@ -214,20 +239,15 @@
     "description": "membership management dialog title",
     "originalMessage": "Membership settings"
   },
-  "bdTMNG": {
-    "defaultMessage": "Logged-in users",
-    "description": "library content visibility badge - internal",
-    "originalMessage": "Logged-in users"
-  },
   "bjcihk": {
     "defaultMessage": "Settings",
     "description": "settings navigator item",
     "originalMessage": "Settings"
   },
-  "cAY9RT": {
-    "defaultMessage": "Members",
-    "description": "library content visibility badge - members",
-    "originalMessage": "Members"
+  "c2Exwn": {
+    "defaultMessage": "Archived items:",
+    "description": "timeline search archive label",
+    "originalMessage": "Archived items:"
   },
   "cdlx/P": {
     "defaultMessage": "Only owners of the library",
@@ -289,6 +309,11 @@
     "description": "timeline visibility choice - internal",
     "originalMessage": "All logged-in users on this server"
   },
+  "jPVj2v": {
+    "defaultMessage": "Visibility:",
+    "description": "timeline search visibility label",
+    "originalMessage": "Visibility:"
+  },
   "jQofy7": {
     "defaultMessage": "Photo",
     "description": "viewer sidebar photo header",
@@ -298,11 +323,6 @@
     "defaultMessage": "An album cannot have an empty name.",
     "description": "empty timeline album name error",
     "originalMessage": "An album cannot have an empty name."
-  },
-  "kSJLpT": {
-    "defaultMessage": "Owners",
-    "description": "library content visibility badge - owners",
-    "originalMessage": "Owners"
   },
   "lCIAVo": {
     "defaultMessage": "Tumpara logo",
@@ -349,11 +369,6 @@
     "description": "membership remove button",
     "originalMessage": "Remove"
   },
-  "qBShdh": {
-    "defaultMessage": "This shows who can see the item, depending on whether they have an account on this server and if they are a member in the library the item is contained in.",
-    "description": "library content visibility tooltip",
-    "originalMessage": "This shows who can see the item, depending on whether they have an account on this server and if they are a member in the library the item is contained in."
-  },
   "qX3j+J": {
     "defaultMessage": "ID: { unmaskedId }",
     "description": "viewer sidebar id",
@@ -383,6 +398,11 @@
     "defaultMessage": "{totalCount, plural, =0 {No items found} one {Showing one item} other {Showing about {totalCount, number, ::KK} items} }",
     "description": "timeline total count",
     "originalMessage": "{totalCount, plural, =0 {No items found} one {Showing one item} other {Showing about {totalCount, number, ::KK} items} }"
+  },
+  "tl3PwP": {
+    "defaultMessage": "Search",
+    "description": "timeline search navigation",
+    "originalMessage": "Search"
   },
   "tqnza4": {
     "defaultMessage": "Manage Libraries",
@@ -418,6 +438,11 @@
     "defaultMessage": "Close",
     "description": "timeline view close button",
     "originalMessage": "Close"
+  },
+  "yhGQgT": {
+    "defaultMessage": "Hide",
+    "description": "timeline search archive option - hide",
+    "originalMessage": "Hide"
   },
   "yzHVF4": {
     "defaultMessage": "Home",
