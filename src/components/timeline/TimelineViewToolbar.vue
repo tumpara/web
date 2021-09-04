@@ -528,7 +528,10 @@ export default defineComponent({
       showNetworkErrorToast();
       closeVisibilityElementMenu();
     });
-    visibilityMutation.onDone(() => closeVisibilityElementMenu());
+    visibilityMutation.onDone(() => {
+      closeVisibilityElementMenu();
+      clearSelectionAndApolloCache();
+    });
 
     function setSelectionVisibility(
       visibility: LibraryContentVisibility | null
